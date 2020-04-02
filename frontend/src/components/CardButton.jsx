@@ -1,40 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "../../App.css";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import AddIcon from '@material-ui/icons/Add';
 
-import styles from './frontpage.module.css';
-import CardButton from '../../components/CardButton';
+import styles from './cardButton.module.css';
 
-const Frontpage = ({ handleChange }) => {
+const CardButton = ({ handleClick, label, icon }) => {
   return (
-    <div className="App">
-      Streamity
       <div>
       <Card classes={{root: styles.card}}>
-        <CardActionArea classes={{root: styles.card}}>
+        <CardActionArea classes={{root: styles.card}} handleClick={handleClick}>
           <CardContent>
-            <AddIcon classes={{root: styles.icon}}/>
+            {icon}
             <Typography color="textPrimary" gutterBottom>
-              Create a Party
+              {label}
             </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
       </div>
-    </div>
   );
 };
 
-Frontpage.defaultProps = {
+CardButton.defaultProps = {
   handleChange: () => {},
 };
 
-Frontpage.propTypes = {
+CardButton.propTypes = {
   handleChange: PropTypes.func,
 };
 
-export default Frontpage;
+export default CardButton;
