@@ -1,8 +1,10 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import PropTypes from "prop-types";
+import logo from "../../logo.svg";
+import "../../App.css";
 
-function App() {
+const Frontpage = ({ handleChange }) => {
+  console.log(handleChange);
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +23,14 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
-export default App;
+Frontpage.defaultProps = {
+  handleChange: () => {},
+};
+
+Frontpage.propTypes = {
+  handleChange: PropTypes.func,
+};
+
+export default Frontpage;
