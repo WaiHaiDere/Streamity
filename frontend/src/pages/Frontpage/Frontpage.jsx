@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import { Container } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 
 import styles from "./frontpage.module.css";
 import CardButton from "../../components/CardButton";
@@ -10,7 +10,14 @@ import CardButton from "../../components/CardButton";
 const Frontpage = ({ handleClick }) => {
   return (
     <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
-      Streamity
+      <div className={styles.textBox}>
+        <Typography variant="h2">
+          Streamity
+        </Typography>
+        <Typography variant="h6">
+          Create. Join. Stream.
+        </Typography>
+      </div>
       <div className={styles.buttonBox}>
         <CardButton
           handleClick={handleClick}
