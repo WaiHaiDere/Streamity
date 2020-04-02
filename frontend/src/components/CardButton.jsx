@@ -1,36 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "../../App.css";
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import CardActionArea from '@material-ui/core/CardActionArea';
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardActionArea,
+} from "@material-ui/core";
 
-import styles from './cardButton.module.css';
+import styles from "./cardButton.module.css";
 
 const CardButton = ({ handleClick, label, icon }) => {
   return (
-      <div>
-      <Card classes={{root: styles.card}}>
-        <CardActionArea classes={{root: styles.card}} handleClick={handleClick}>
-          <CardContent>
-            {icon}
-            <Typography color="textPrimary" gutterBottom>
-              {label}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      </div>
+    <Card classes={{ root: styles.card }}>
+      <CardActionArea classes={{ root: styles.card }} handleClick={handleClick}>
+        <CardContent classes={{ root: styles.cardContent }}>
+          {icon}
+          <Typography color="textPrimary" gutterBottom>
+            {label}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 };
 
 CardButton.defaultProps = {
-  handleChange: () => {},
+  handleClick: () => {},
+  label: "",
+  icon: null,
 };
 
 CardButton.propTypes = {
-  handleChange: PropTypes.func,
+  handleClick: PropTypes.func,
+  label: PropTypes.string,
+  icon: PropTypes.element,
 };
 
 export default CardButton;

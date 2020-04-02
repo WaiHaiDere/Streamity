@@ -1,9 +1,13 @@
-.card{
-    width: 275px;
-    height: 275px;
-}
-
 .icon{
     width: 150px !important;
     height:150px !important;
+}
+
+.buttonBox {
+    display: flex;
+}
+
+.pageContainer {
+    max-width: 1200px !important;
+    width: 50% !important; 
 }

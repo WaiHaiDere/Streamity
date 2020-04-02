@@ -1,40 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
+import { Container } from "@material-ui/core";
 
-import styles from './frontpage.module.css';
-import CardButton from '../../components/CardButton';
+import styles from "./frontpage.module.css";
+import CardButton from "../../components/CardButton";
 
-const Frontpage = ({ handleChange }) => {
+const Frontpage = ({ handleClick }) => {
   return (
-    <div className="App">
+    <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
       Streamity
-      <div>
-      <Card classes={{root: styles.card}}>
-        <CardActionArea classes={{root: styles.card}}>
-          <CardContent>
-            <AddIcon classes={{root: styles.icon}}/>
-            <Typography color="textPrimary" gutterBottom>
-              Create a Party
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <div className={styles.buttonBox}>
+        <CardButton
+          handleClick={handleClick}
+          label="Create a party"
+          icon={<AddIcon classes={{ root: styles.icon }} />}
+        />
+        <CardButton
+          handleClick={handleClick}
+          label="Create a party"
+          icon={<AddIcon classes={{ root: styles.icon }} />}
+        />
       </div>
-    </div>
+    </Container>
   );
 };
 
 Frontpage.defaultProps = {
-  handleChange: () => {},
+  handleClick: () => {},
 };
 
 Frontpage.propTypes = {
-  handleChange: PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 export default Frontpage;
