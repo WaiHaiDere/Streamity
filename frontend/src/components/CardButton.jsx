@@ -12,7 +12,7 @@ import styles from "./cardButton.module.css";
 const CardButton = ({ handleClick, label, icon }) => {
   return (
     <Card classes={{ root: styles.card }}>
-      <CardActionArea classes={{ root: styles.card }} handleClick={handleClick}>
+      <CardActionArea classes={{ root: styles.card }} onClick={handleClick}>
         <CardContent classes={{ root: styles.cardContent }}>
           {icon}
           <Typography color="textPrimary" gutterBottom>
