@@ -7,3 +7,8 @@
 .cardContent {
     text-align: center;
 }
+
+.buttonText {
+    font-size: 28px !important;
+    color: #E379EE;
+}

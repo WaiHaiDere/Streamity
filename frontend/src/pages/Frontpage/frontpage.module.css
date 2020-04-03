@@ -17,3 +17,22 @@
     width: 50% !important;
     margin-top: 10%; 
 }
+
+.backgroundContainer {
+    position: fixed;
+    top: 0;
+    width: 101%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../../background/Background-1.png);
+    left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
+}
+
+.title {
+    color: white;
+}
+
+.slogan {
+    color: #5F39FF;
+}

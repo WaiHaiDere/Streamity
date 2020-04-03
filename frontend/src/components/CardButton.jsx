@@ -15,7 +15,7 @@ const CardButton = ({ handleClick, label, icon }) => {
       <CardActionArea classes={{ root: styles.card }} onClick={handleClick}>
         <CardContent classes={{ root: styles.cardContent }}>
           {icon}
-          <Typography color="textPrimary" gutterBottom>
+          <Typography gutterBottom classes={{ root: styles.buttonText }}>
             {label}
           </Typography>
         </CardContent>

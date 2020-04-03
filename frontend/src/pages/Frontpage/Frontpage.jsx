@@ -9,12 +9,13 @@ import CardButton from "../../components/CardButton";
 
 const Frontpage = ({ handleClick }) => {
   return (
-    <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
+    <div className={styles.backgroundContainer}>
+      <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
       <div className={styles.textBox}>
-        <Typography variant="h2">
+        <Typography variant="h1" classes={{ root: styles.title }}>
           Streamity
         </Typography>
-        <Typography variant="h6">
+        <Typography variant="h4" classes={{ root: styles.slogan }}>
           Create. Join. Stream.
         </Typography>
       </div>
@@ -29,8 +30,9 @@ const Frontpage = ({ handleClick }) => {
           label="Join a party"
           icon={<PeopleAltIcon classes={{ root: styles.icon }} />}
         />
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </div>
   );
 };
 
