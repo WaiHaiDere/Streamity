@@ -3,19 +3,25 @@ import React, { useState } from "react";
 const JoinPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
-  const [pin, setPin] = useState("");
+  const [details, setDetails] = useState({
+    pin: "",
+    userName: "",
+  });
 
-  const handleChange = (value) => {
-    setPin(value);
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    const newDetails = { ...details };
+    newDetails[name] = value;
+    setDetails(newDetails);
   };
 
   const handleClick = () => {
-    if (pin.length === 6) {
-      console.log(pin);
+    if (details.pin.length === 6) {
+      console.log(details);
     }
   };
 
-  const newProps = { handleChange, handleClick, pin };
+  const newProps = { handleChange, handleClick, details };
 
   return React.cloneElement(children, { ...newProps });
 };

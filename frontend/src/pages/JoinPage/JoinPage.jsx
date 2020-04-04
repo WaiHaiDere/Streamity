@@ -5,12 +5,12 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { isAllowedNumericInput } from "../../common/helpers";
 import styles from "./JoinPage.module.css";
 
-const JoinPage = ({ handleChange, handleClick, pin }) => {
+const JoinPage = ({ handleChange, handleClick, details }) => {
   const checkIsNumber = (event) => {
     const val = event.target.value;
 
     if (isAllowedNumericInput(val)) {
-      handleChange(val);
+      handleChange(event);
     }
   };
 
@@ -28,6 +28,7 @@ const JoinPage = ({ handleChange, handleClick, pin }) => {
 
           <div className={styles.textFieldBox}>
             <TextField
+              name="pin"
               onChange={checkIsNumber}
               placeholder="Party PIN"
               classes={{ root: styles.textField }}
@@ -39,7 +40,7 @@ const JoinPage = ({ handleChange, handleClick, pin }) => {
                   underline: styles.inputUnderline,
                 },
               }}
-              value={pin}
+              value={details.pin}
               maxLength="6"
               // eslint-disable-next-line react/jsx-no-duplicate-props
               inputProps={{ maxLength: 6 }}
@@ -64,13 +65,13 @@ const JoinPage = ({ handleChange, handleClick, pin }) => {
 JoinPage.defaultProps = {
   handleChange: () => {},
   handleClick: () => {},
-  pin: "",
+  details: { pin: "" },
 };
 
 JoinPage.propTypes = {
   handleChange: PropTypes.func,
   handleClick: PropTypes.func,
-  pin: PropTypes.string,
+  details: PropTypes.objectOf(PropTypes.string),
 };
 
 export default JoinPage;
