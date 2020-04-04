@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import YouTubeIcon from '@material-ui/icons/YouTube';
-import { SpotifyIcon } from "../../icons/icons8-spotify.svg"
+import { ReactComponent as SpotifyIcon } from "../../icons/icons8-spotify.svg"
 import { Container, Typography } from "@material-ui/core";
 
 import styles from "./mediaselectionpage.module.css";
@@ -12,18 +12,15 @@ const MediaSelectionPage = ({ handleClick }) => {
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
       <div className={styles.textBox}>
-        <Typography variant="h1" classes={{ root: styles.title }}>
-          Streamity
-        </Typography>
-        <Typography variant="h4" classes={{ root: styles.slogan }}>
-          Create. Join. Stream.
+        <Typography variant="h2" classes={{ root: styles.title }}>
+          Choose a music player
         </Typography>
       </div>
       <div className={styles.buttonBox}>
         <CardButton
           handleClick={handleClick}
           label="Spotify"
-          icon={<SpotifyIcon classes={{ root: styles.icon }} />}
+          icon={<SpotifyIcon className={styles.icon} />}
         />
         <CardButton
           handleClick={handleClick}

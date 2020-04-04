@@ -7,7 +7,7 @@ import MediaSelectionPage from "../pages/MediaSelectionPage";
 // This component allows for easy additions for additional pages
 const paths = {
   FRONTPAGE: "/",
-  MEDIASELECTIONPAGE: "/mediaSelection"
+  MEDIASELECTIONPAGE: "/media"
 };
 
 const routes = (
