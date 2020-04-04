@@ -2,9 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 
+import { isAllowedNumericInput } from "../../common/helpers";
 import styles from "./JoinPage.module.css";
 
-const JoinPage = ({ handleChange, handleClick }) => {
+const JoinPage = ({ handleChange, handleClick, pin }) => {
+  const checkIsNumber = (event) => {
+    const val = event.target.value;
+
+    if (isAllowedNumericInput(val)) {
+      handleChange(val);
+    }
+  };
+
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
@@ -19,7 +28,7 @@ const JoinPage = ({ handleChange, handleClick }) => {
 
           <div className={styles.textFieldBox}>
             <TextField
-              onChange={handleChange}
+              onChange={checkIsNumber}
               placeholder="Party PIN"
               classes={{ root: styles.textField }}
               InputProps={{
@@ -30,9 +39,22 @@ const JoinPage = ({ handleChange, handleClick }) => {
                   underline: styles.inputUnderline,
                 },
               }}
+              value={pin}
+              maxLength="6"
+              // eslint-disable-next-line react/jsx-no-duplicate-props
+              inputProps={{ maxLength: 6 }}
             />
           </div>
-          <Button onClick={handleClick} />
+          <Button
+            variant="contained"
+            onClick={handleClick}
+            classes={{
+              root: styles.nextButton,
+              label: styles.buttonLabel,
+            }}
+          >
+            NEXT
+          </Button>
         </div>
       </Container>
     </div>
@@ -42,11 +64,13 @@ const JoinPage = ({ handleChange, handleClick }) => {
 JoinPage.defaultProps = {
   handleChange: () => {},
   handleClick: () => {},
+  pin: "",
 };
 
 JoinPage.propTypes = {
   handleChange: PropTypes.func,
   handleClick: PropTypes.func,
+  pin: PropTypes.string,
 };
 
 export default JoinPage;

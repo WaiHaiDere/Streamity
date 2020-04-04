@@ -18,6 +18,18 @@
   margin-top: 10%; 
 }
 
+.nextButton {
+  background-color: #E379EE !important;
+  margin-top: 2em !important;
+  width: 50%;
+  border-radius: 0px !important;
+  /* height: 7em; */
+}
+
+.buttonLabel {
+  font-size: 36px;
+  color: #ffffff;
+}
 .textField {
   /* background-color: #ffffff; */
   /* margin-top: 5em !important; */
