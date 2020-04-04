@@ -1,0 +1,64 @@
+.icon{
+  width: 150px !important;
+  height:150px !important;
+}
+
+.buttonBox {
+  display: flex;
+  margin-top: 30px;
+}
+
+.textBox {
+  text-align: center;
+}
+
+.pageContainer {
+  max-width: 1200px !important;
+  width: 50% !important;
+  margin-top: 10%; 
+}
+
+.textField {
+  /* background-color: #ffffff; */
+  /* margin-top: 5em !important; */
+  width: 80%;
+}
+
+.textFieldBox {
+  width: 50%;
+  margin: auto;
+  background-color: #ffffff;
+  margin-top: 5em !important;
+  padding-bottom: 1.5em;
+  padding-top: 1em;
+}
+
+.inputRoot {
+  border-bottom: #129D90 solid 2px;
+  font-size: 48px;
+}
+
+.inputText {
+  text-align: center;
+  font-size: 48px !important;
+
+}
+
+.backgroundContainer {
+  position: fixed;
+  top: 0;
+  width: 101%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../../background/Background-1.png);
+  left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
+}
+
+.title {
+  color: white;
+}
+
+.slogan {
+  color: #5F39FF;
+}

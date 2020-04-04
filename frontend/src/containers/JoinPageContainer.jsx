@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 const JoinPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
+  const [pin, setPin] = useState("");
 
-  const handleChange = () => {
-    console.log("handleChange");
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setPin(value);
+    console.log(value);
   };
 
-  const newProps = { handleChange };
+  const handleClick = () => {
+    console.log(pin);
+  };
 
-  return React.cloneElement(children[page], { ...newProps });
+  const newProps = { handleChange, handleClick };
+
+  return React.cloneElement(children, { ...newProps });
 };
 
 export default JoinPageContainer;

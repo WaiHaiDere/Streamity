@@ -1,35 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AddIcon from "@material-ui/icons/Add";
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import { Container, Typography } from "@material-ui/core";
+import { Container, Typography, TextField, Button } from "@material-ui/core";
 
-import styles from "./frontpage.module.css";
-import CardButton from "../../components/CardButton";
+import styles from "./JoinPage.module.css";
 
-const JoinPage = ({ handleClick }) => {
+const JoinPage = ({ handleChange, handleClick }) => {
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
-      <div className={styles.textBox}>
-        <Typography variant="h1" classes={{ root: styles.title }}>
-          Streamity
-        </Typography>
-        <Typography variant="h4" classes={{ root: styles.slogan }}>
-          Create. Join. Stream.
-        </Typography>
-      </div>
-      <div className={styles.buttonBox}>
-        <CardButton
-          handleClick={handleClick}
-          label="Create a party"
-          icon={<AddIcon classes={{ root: styles.icon }} />}
-        />
-        <CardButton
-          handleClick={handleClick}
-          label="Join a party"
-          icon={<PeopleAltIcon classes={{ root: styles.icon }} />}
-        />
+        <div className={styles.textBox}>
+          <Typography variant="h1" classes={{ root: styles.title }}>
+            Streamity
+          </Typography>
+
+          <Typography variant="h4" classes={{ root: styles.slogan }}>
+            Looking to join a party?
+          </Typography>
+
+          <div className={styles.textFieldBox}>
+            <TextField
+              onChange={handleChange}
+              placeholder="Party PIN"
+              classes={{ root: styles.textField }}
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  root: styles.inputRoot,
+                  input: styles.inputText,
+                  underline: styles.inputUnderline,
+                },
+              }}
+            />
+          </div>
+          <Button onClick={handleClick} />
         </div>
       </Container>
     </div>
@@ -37,10 +40,12 @@ const JoinPage = ({ handleClick }) => {
 };
 
 JoinPage.defaultProps = {
+  handleChange: () => {},
   handleClick: () => {},
 };
 
 JoinPage.propTypes = {
+  handleChange: PropTypes.func,
   handleClick: PropTypes.func,
 };
 
