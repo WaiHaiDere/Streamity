@@ -2,18 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 
-import { isAllowedNumericInput } from "../../common/helpers";
 import styles from "./JoinPage.module.css";
 
 const JoinPage = ({ handleChange, handleClick, details }) => {
-  const checkIsNumber = (event) => {
-    const val = event.target.value;
-
-    if (isAllowedNumericInput(val)) {
-      handleChange(event);
-    }
-  };
-
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
@@ -23,14 +14,14 @@ const JoinPage = ({ handleChange, handleClick, details }) => {
           </Typography>
 
           <Typography variant="h4" classes={{ root: styles.slogan }}>
-            Looking to join a party?
+            What is your name?
           </Typography>
 
           <div className={styles.textFieldBox}>
             <TextField
-              name="pin"
-              onChange={checkIsNumber}
-              placeholder="Party PIN"
+              name="username"
+              onChange={handleChange}
+              placeholder="Username"
               classes={{ root: styles.textField }}
               InputProps={{
                 disableUnderline: true,
@@ -40,9 +31,9 @@ const JoinPage = ({ handleChange, handleClick, details }) => {
                   underline: styles.inputUnderline,
                 },
               }}
-              value={details.pin}
+              value={details.username}
               // eslint-disable-next-line react/jsx-no-duplicate-props
-              inputProps={{ maxLength: 6 }}
+              inputProps={{ maxLength: 12 }}
             />
           </div>
           <Button
@@ -53,7 +44,7 @@ const JoinPage = ({ handleChange, handleClick, details }) => {
               label: styles.buttonLabel,
             }}
           >
-            NEXT
+            JOIN THE PARTY
           </Button>
         </div>
       </Container>
@@ -64,7 +55,7 @@ const JoinPage = ({ handleChange, handleClick, details }) => {
 JoinPage.defaultProps = {
   handleChange: () => {},
   handleClick: () => {},
-  details: { pin: "" },
+  details: { username: "" },
 };
 
 JoinPage.propTypes = {
