@@ -26,6 +26,10 @@
   /* height: 7em; */
 }
 
+.disabled {
+  background-color: #858585 !important;
+}
+
 .buttonLabel {
   font-size: 36px;
   color: #ffffff;

@@ -5,7 +5,7 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { isAllowedNumericInput } from "../../common/helpers";
 import styles from "./JoinPage.module.css";
 
-const JoinPage = ({ handleChange, handleClick, details }) => {
+const JoinPage = ({ handleChange, handleClick, details, disable }) => {
   const checkIsNumber = (event) => {
     const val = event.target.value;
 
@@ -47,10 +47,12 @@ const JoinPage = ({ handleChange, handleClick, details }) => {
           </div>
           <Button
             variant="contained"
+            disabled={disable.pin}
             onClick={handleClick}
             classes={{
               root: styles.nextButton,
               label: styles.buttonLabel,
+              disabled: styles.disabled,
             }}
           >
             NEXT
@@ -65,12 +67,16 @@ JoinPage.defaultProps = {
   handleChange: () => {},
   handleClick: () => {},
   details: { pin: "" },
+  disable: { pin: true },
 };
 
 JoinPage.propTypes = {
   handleChange: PropTypes.func,
   handleClick: PropTypes.func,
   details: PropTypes.objectOf(PropTypes.string),
+  disable: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
+  ),
 };
 
 export default JoinPage;
