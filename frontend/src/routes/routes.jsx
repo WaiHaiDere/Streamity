@@ -9,7 +9,7 @@ import MediaSelectionPage from "../pages/MediaSelectionPage";
 const paths = {
   FRONTPAGE: "/",
   JOIN: "/join",
-  MEDIASELECTION: "/media",
+  MEDIASELECTION: "/create",
 };
 
 const routes = (
