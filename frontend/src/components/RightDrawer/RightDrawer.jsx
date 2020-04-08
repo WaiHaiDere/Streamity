@@ -7,9 +7,12 @@ import {
     ListItemIcon,
     ListItemText,
     Typography,
+    TextField,
+    IconButton
 } from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import SendIcon from '@material-ui/icons/Send';
 
 import PropTypes from 'prop-types';
 import styles from '../RightDrawer/rightdrawer.module.css';
@@ -48,6 +51,14 @@ const RightDrawer = ({handlclick, pin}) => {
             </ListItem>
           ))}
         </List>
+        <div className={styles.ChatBox}>
+          <TextField 
+          label="Type your message here" 
+            />
+            <IconButton>
+            <SendIcon/>
+            </IconButton>
+        </div>
       </Drawer>
     </div>
   );

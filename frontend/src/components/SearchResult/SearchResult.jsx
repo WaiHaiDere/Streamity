@@ -4,7 +4,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Avatar,
+  Avatar
 } from "@material-ui/core";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
