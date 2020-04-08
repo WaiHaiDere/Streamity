@@ -72,13 +72,15 @@ const LeftDrawer = ({ open, handleDrawerClose, handleDrawerOpen, handleClick, li
 LeftDrawer.defaultProps = {
     open: false,
     handleDrawerClose: () => {},
-    handleDrawerOpen: () => {}
+    handleDrawerOpen: () => {},
+    handleClick: () => {},
 };
 
 LeftDrawer.propTypes = {
   open: PropTypes.bool,
   handleDrawerClose: PropTypes.func,
   handleDrawerOpen: PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 export default LeftDrawer;

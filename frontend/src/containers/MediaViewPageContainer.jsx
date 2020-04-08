@@ -7,15 +7,17 @@ const MediaViewPageContainer = ({ children }) => {
   const [listOfSearchResults, setListofSearchResults] = useState( // hardcoding this for now
     [
       {
-      label: "Ryan",
-      imageLabel: ""
-    },
-    {
-      label: "YEET",
-      imageLabel: ""
-    },
+        label: "Ryan",
+        imageLabel: ""
+      },
+      {
+        label: "YEET",
+        imageLabel: ""
+      },
     ]
   )
+  const [pin, setPin] = useState( "123456") //Hardcoded for now.
+
 
   const handleClick = () => {
     console.log("handleChange");
@@ -29,7 +31,7 @@ const MediaViewPageContainer = ({ children }) => {
     setOpen(false);
   };
 
-  const newProps = { handleClick, handleDrawerOpen, handleDrawerClose, open, listOfSearchResults };
+  const newProps = { pin, handleClick, handleDrawerOpen, handleDrawerClose, open, listOfSearchResults };
 
   return React.cloneElement(children, { ...newProps });
 };
