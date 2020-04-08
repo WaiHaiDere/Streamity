@@ -5,7 +5,7 @@ import { Container, Typography } from "@material-ui/core";
 import { ReactComponent as SpotifyIcon } from "../../icons/icons8-spotify.svg";
 
 import styles from "./mediaselectionpage.module.css";
-import CardButton from "../../components/CardButton";
+import CardButton from "../../components/CardButton/CardButton";
 
 const MediaSelectionPage = ({ handleClick }) => {
   return (

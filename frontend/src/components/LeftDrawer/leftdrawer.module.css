@@ -1,0 +1,9 @@
+.Drawer {
+    width: 260px !important;
+};
+
+.SearchBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
