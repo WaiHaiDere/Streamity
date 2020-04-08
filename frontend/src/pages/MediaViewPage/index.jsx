@@ -6,7 +6,7 @@ import MediaViewPage from './MediaViewPage'
 export default () => {
     return (
      <MediaViewPageContainer>
-         <MediaViewPage />
+        <MediaViewPage />
      </MediaViewPageContainer>
     );
   };

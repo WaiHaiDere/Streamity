@@ -12,10 +12,13 @@ import PropTypes from "prop-types";
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import SearchIcon from '@material-ui/icons/Search';
+import AddIcon from '@material-ui/icons/Add';
+
+import SearchResult from '../../components/SearchResult/SearchResult';
 
 import styles from "./leftdrawer.module.css";
 
-const LeftDrawer = ({ open, handleDrawerClose, handleDrawerOpen, handleClick }) => {
+const LeftDrawer = ({ open, handleDrawerClose, handleDrawerOpen, handleClick, listOfSearchResults }) => {
   return (
     <div>
         <Toolbar>
@@ -50,14 +53,17 @@ const LeftDrawer = ({ open, handleDrawerClose, handleDrawerOpen, handleClick }) 
           }} />
         </div>
         <List>
-          <Typography>
-              YEET
-          </Typography>
+          {listOfSearchResults.map(searchResult => {
+            return (
+              <div className={ styles.SearchResultContainer }>
+                <SearchResult label={searchResult.label} classes={{ root: styles.SearchResult}}/>
+                <IconButton>
+                  <AddIcon />
+                </IconButton>
+              </div>
+            )
+          })}
         </List>
-        <Divider />
-        <Typography>
-              YEET BUT 2
-          </Typography>
       </Drawer>
     </div>
   );
