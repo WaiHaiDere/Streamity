@@ -41,7 +41,7 @@
 }
 
 .cardActions {
-    justify-content: right;
+    justify-content: flex-end;
 }
 
 .copyButton {
