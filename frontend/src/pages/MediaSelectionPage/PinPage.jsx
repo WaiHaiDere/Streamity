@@ -12,7 +12,7 @@ import {
 
 import styles from "./mediaselectionpage.module.css";
 
-const PinPage = ({ handleClick }) => {
+const PinPage = ({ handleClick, pin }) => {
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
@@ -34,7 +34,7 @@ const PinPage = ({ handleClick }) => {
             <Card classes={{ root: styles.pinCard }}>
               <CardContent>
                 <Typography variant="h2" classes={{ root: styles.title }}>
-                  PIN: #007
+                  PIN: {pin}
                 </Typography>
               </CardContent>
               <CardActions classes={{ root: styles.cardActions }}>
@@ -69,10 +69,12 @@ const PinPage = ({ handleClick }) => {
 
 PinPage.defaultProps = {
   handleClick: () => {},
+  pin: "",
 };
 
 PinPage.propTypes = {
   handleClick: PropTypes.func,
+  pin: PropTypes.string,
 };
 
 export default PinPage;
