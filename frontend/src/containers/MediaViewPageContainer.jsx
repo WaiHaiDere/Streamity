@@ -23,15 +23,7 @@ const MediaViewPageContainer = ({ children }) => {
     console.log("handleChange");
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const newProps = { pin, handleClick, handleDrawerOpen, handleDrawerClose, open, listOfSearchResults };
+  const newProps = { pin, handleClick, listOfSearchResults };
 
   return React.cloneElement(children, { ...newProps });
 };

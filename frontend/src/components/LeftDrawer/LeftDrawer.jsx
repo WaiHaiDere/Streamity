@@ -18,33 +18,14 @@ import SearchResult from '../../components/SearchResult/SearchResult';
 
 import styles from "./leftdrawer.module.css";
 
-const LeftDrawer = ({ open, handleDrawerClose, handleDrawerOpen, handleClick, listOfSearchResults }) => {
+const LeftDrawer = ({ handleClick, listOfSearchResults }) => {
   return (
     <div>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            onClick={handleDrawerOpen}
-            edge="start"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Streamity
-          </Typography>
-        </Toolbar>
       <Drawer
-        variant="persistent"
+        variant="permanent"
         anchor="left"
-        open={open}
         classes={{ paper: styles.Drawer }} //Need to use Paper here instead of root for the drawer.
       >
-        <div>
-          <IconButton onClick={handleDrawerClose} disableRipple={true} edge="end">
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
         <div className={styles.SearchBox}>
           <TextField 
           label="Search" 
@@ -70,16 +51,10 @@ const LeftDrawer = ({ open, handleDrawerClose, handleDrawerOpen, handleClick, li
 };
 
 LeftDrawer.defaultProps = {
-    open: false,
-    handleDrawerClose: () => {},
-    handleDrawerOpen: () => {},
     handleClick: () => {},
 };
 
 LeftDrawer.propTypes = {
-  open: PropTypes.bool,
-  handleDrawerClose: PropTypes.func,
-  handleDrawerOpen: PropTypes.func,
   handleClick: PropTypes.func,
 };
 
