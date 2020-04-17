@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -9,16 +10,18 @@ import {
 
 import styles from "./cardButton.module.css";
 
-const CardButton = ({ handleClick, label, icon }) => {
+const CardButton = ({ handleClick, label, icon, linkTo }) => {
   return (
     <Card classes={{ root: styles.card }}>
       <CardActionArea classes={{ root: styles.card }} onClick={handleClick}>
-        <CardContent classes={{ root: styles.cardContent }}>
-          {icon}
-          <Typography gutterBottom classes={{ root: styles.buttonText }}>
-            {label}
-          </Typography>
-        </CardContent>
+        <Link to={linkTo} style={{ textDecoration: "none", color: "none" }}>
+          <CardContent classes={{ root: styles.cardContent }}>
+            {icon}
+            <Typography gutterBottom classes={{ root: styles.buttonText }}>
+              {label}
+            </Typography>
+          </CardContent>
+        </Link>
       </CardActionArea>
     </Card>
   );
@@ -34,6 +37,7 @@ CardButton.propTypes = {
   handleClick: PropTypes.func,
   label: PropTypes.string,
   icon: PropTypes.element,
+  linkTo: PropTypes.string.isRequired,
 };
 
 export default CardButton;

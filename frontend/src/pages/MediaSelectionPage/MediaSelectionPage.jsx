@@ -20,11 +20,13 @@ const MediaSelectionPage = ({ handleClick }) => {
           <CardButton
             handleClick={handleClick}
             label="Spotify"
+            linkTo="/create"
             icon={<SpotifyIcon className={styles.icon} />}
           />
           <CardButton
             handleClick={handleClick}
             label="Youtube"
+            linkTo="/create"
             icon={<YouTubeIcon classes={{ root: styles.icon }} />}
           />
         </div>

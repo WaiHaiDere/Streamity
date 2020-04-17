@@ -4,6 +4,14 @@
     margin: auto;
 }
 
+.card:visited{
+    text-decoration: none;
+}
+
+.test:visited {
+    text-decoration: none;
+}
+
 .cardContent {
     text-align: center;
 }

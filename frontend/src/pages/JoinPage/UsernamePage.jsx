@@ -4,7 +4,7 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 
 import styles from "./JoinPage.module.css";
 
-const JoinPage = ({ handleChange, handleClick, details }) => {
+const JoinPage = ({ handleChange, handleClick, details, disable }) => {
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
@@ -39,9 +39,11 @@ const JoinPage = ({ handleChange, handleClick, details }) => {
           <Button
             variant="contained"
             onClick={handleClick}
+            disabled={disable.username}
             classes={{
               root: styles.nextButton,
               label: styles.buttonLabel,
+              disabled: styles.disabled,
             }}
           >
             JOIN THE PARTY
@@ -56,12 +58,16 @@ JoinPage.defaultProps = {
   handleChange: () => {},
   handleClick: () => {},
   details: { username: "" },
+  disable: { username: true },
 };
 
 JoinPage.propTypes = {
   handleChange: PropTypes.func,
   handleClick: PropTypes.func,
   details: PropTypes.objectOf(PropTypes.string),
+  disable: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
+  ),
 };
 
 export default JoinPage;

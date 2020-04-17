@@ -23,11 +23,13 @@ const Frontpage = ({ handleClick }) => {
           <CardButton
             handleClick={handleClick}
             label="Create a party"
+            linkTo="/create"
             icon={<AddIcon classes={{ root: styles.icon }} />}
           />
           <CardButton
             handleClick={handleClick}
             label="Join a party"
+            linkTo="/join"
             icon={<PeopleAltIcon classes={{ root: styles.icon }} />}
           />
         </div>
