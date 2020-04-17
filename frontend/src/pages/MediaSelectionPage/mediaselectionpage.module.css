@@ -19,6 +19,45 @@
     margin-top: 10%; 
 }
 
+.nextButton {
+    background-color: #E379EE !important;
+    margin-top: 2em !important;
+    width: 50%;
+    border-radius: 0px !important;
+    /* height: 7em; */
+  }
+
+  .pinCard {
+    background-color: #E379EE !important;
+    margin-top: 2em !important;
+    width: 50%;
+    border-radius: 0px !important;
+    align-content: center;
+    justify-content: center;
+  }
+
+.cardLabel {
+    font-size: 36px;
+    color: #ffffff;
+}
+
+.cardActions {
+    justify-content: flex-end;
+}
+
+.copyButton {
+    color: white;
+}
+
+.copyButtonAlign {
+    align-content: flex-end;
+}
+
+.buttonLabel {
+    font-size: 36px;
+    color: #ffffff;
+}
+
 .backgroundContainer {
     position: fixed;
     top: 0;
