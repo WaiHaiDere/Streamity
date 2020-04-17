@@ -1,6 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Typography, Button, Card, CardContent, CardActions, Grid } from "@material-ui/core";
+import {
+  Container,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Grid,
+} from "@material-ui/core";
 
 import styles from "./mediaselectionpage.module.css";
 
@@ -16,24 +24,32 @@ const PinPage = ({ handleClick }) => {
           <Typography variant="h4" classes={{ root: styles.slogan }}>
             Share your pin with friends to start the party!
           </Typography>
-        <Grid container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justify="center">
-          <Card classes = { {root: styles.pinCard}}>
-             <CardContent>
-             <Typography variant="h2" classes={{ root: styles.title }}>
-            PIN: #007
-          </Typography>
-        </CardContent>
-        <CardActions classes = { {root: styles.cardActions}}>
-        <Button size="small" onClick={handleClick} classes={{
-              root: styles.copyButtonAlign,
-              label: styles.copyButton,
-            }}>Copy</Button>
-      </CardActions>
-          </Card>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+          >
+            <Card classes={{ root: styles.pinCard }}>
+              <CardContent>
+                <Typography variant="h2" classes={{ root: styles.title }}>
+                  PIN: #007
+                </Typography>
+              </CardContent>
+              <CardActions classes={{ root: styles.cardActions }}>
+                <Button
+                  size="small"
+                  onClick={handleClick}
+                  classes={{
+                    root: styles.copyButtonAlign,
+                    label: styles.copyButton,
+                  }}
+                >
+                  Copy
+                </Button>
+              </CardActions>
+            </Card>
           </Grid>
           <Button
             variant="contained"
