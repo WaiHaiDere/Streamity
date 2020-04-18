@@ -5,7 +5,7 @@ import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import { Container, Typography } from "@material-ui/core";
 
 import styles from "./frontpage.module.css";
-import CardButton from "../../components/CardButton";
+import CardButton from "../../components/CardButton/CardButton";
 
 const Frontpage = ({ handleClick }) => {
   return (
