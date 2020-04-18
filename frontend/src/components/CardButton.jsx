@@ -31,13 +31,14 @@ CardButton.defaultProps = {
   handleClick: () => {},
   label: "",
   icon: null,
+  linkTo: "",
 };
 
 CardButton.propTypes = {
   handleClick: PropTypes.func,
   label: PropTypes.string,
   icon: PropTypes.element,
-  linkTo: PropTypes.string.isRequired,
+  linkTo: PropTypes.string,
 };
 
 export default CardButton;
