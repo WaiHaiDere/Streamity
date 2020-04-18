@@ -1,4 +1,4 @@
-export const getCall = async () => {
+export const getPin = async () => {
   const res = await fetch("http://localhost:8000/api/pin").then((response) =>
     response.json()
   );
@@ -6,4 +6,4 @@ export const getCall = async () => {
   return res;
 };
 
-export default getCall;
+export default getPin;

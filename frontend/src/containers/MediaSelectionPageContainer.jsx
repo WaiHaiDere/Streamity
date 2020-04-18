@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { getPin } from "../services/mediaSelectionService";
+import { getPin } from "../services/creationService";
 
 const MediaselectionpageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
@@ -12,7 +12,7 @@ const MediaselectionpageContainer = ({ children }) => {
   const handleClick = async () => {
     if (page < children.length - 1) {
       const response = await getPin();
-      setPin(response.body.pin);
+      setPin(response.pin);
       setPage(page + 1);
     }
   };
