@@ -1,0 +1,23 @@
+.Drawer {
+    width: 260px !important;
+}
+
+.DrawerHeader {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    
+}
+
+.ChatBox {
+    display: flex !important;
+    justify-content: center !important;
+    align-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    margin-left: 20px
+}
