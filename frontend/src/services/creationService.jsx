@@ -1,5 +1,5 @@
 export const getCall = async () => {
-  const res = await fetch("http://localhost:8000/").then((response) =>
+  const res = await fetch("http://localhost:8000/api/pin").then((response) =>
     response.json()
   );
 
