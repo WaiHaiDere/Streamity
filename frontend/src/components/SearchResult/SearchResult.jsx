@@ -4,35 +4,34 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Avatar
+  Avatar,
 } from "@material-ui/core";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import styles from "./searchresult.module.css";
+// import styles from "./searchresult.module.css";
 
-const SearchResult = ({ label, imageLabel }) => {
+const SearchResult = ({ title, artist }) => {
   return (
     <ListItem>
-        <ListItemAvatar>
-            <Avatar>
-            <AccountCircleIcon />
-            </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary={label}/>
+      <ListItemAvatar>
+        <Avatar>
+          <AccountCircleIcon />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText primary={title} />
+      <ListItemText primary={artist} />
     </ListItem>
   );
 };
 
 SearchResult.defaultProps = {
-  handleClick: () => {},
-  label: "",
-  imageLabel: "",
+  title: "",
+  artist: "",
 };
 
 SearchResult.propTypes = {
-  handleClick: PropTypes.func,
-  label: PropTypes.string,
-  imageLabel: PropTypes.string,
+  title: PropTypes.string,
+  artist: "",
 };
 
 export default SearchResult;

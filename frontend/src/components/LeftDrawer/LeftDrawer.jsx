@@ -1,48 +1,44 @@
-import React from 'react';
-import { 
-  TextField, 
-  Drawer, 
-  Toolbar, 
-  List, 
-  Typography, 
-  Divider, 
-  IconButton } from '@material-ui/core'
+import React from "react";
+import { TextField, Drawer, List, IconButton } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import SearchIcon from '@material-ui/icons/Search';
-import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from "@material-ui/icons/Search";
+import AddIcon from "@material-ui/icons/Add";
 
-import SearchResult from '../../components/SearchResult/SearchResult';
+import SearchResult from "../SearchResult/SearchResult";
 
 import styles from "./leftdrawer.module.css";
 
-const LeftDrawer = ({ handleClick, listOfSearchResults }) => {
+const LeftDrawer = ({ listOfSearchResults }) => {
   return (
     <div>
       <Drawer
         variant="permanent"
         anchor="left"
-        classes={{ paper: styles.Drawer }} //Need to use Paper here instead of root for the drawer.
+        classes={{ paper: styles.Drawer }} // Need to use Paper here instead of root for the drawer.
       >
         <div className={styles.SearchBox}>
-          <TextField 
-          label="Search" 
-          InputProps={{
-            endAdornment: <SearchIcon/>
-          }} />
+          <TextField
+            label="Search"
+            InputProps={{
+              endAdornment: <SearchIcon />,
+            }}
+          />
         </div>
         <List>
-          {listOfSearchResults.map(searchResult => {
+          {listOfSearchResults.map((searchResult) => {
             return (
-              <div className={ styles.SearchResultContainer }>
-                <SearchResult label={searchResult.label} classes={{ root: styles.SearchResult}}/>
+              <div className={styles.SearchResultContainer}>
+                <SearchResult
+                  title={searchResult.title}
+                  artist={searchResult.artist}
+                  classes={{ root: styles.SearchResult }}
+                />
                 <IconButton>
                   <AddIcon />
                 </IconButton>
               </div>
-            )
+            );
           })}
         </List>
       </Drawer>
@@ -51,11 +47,11 @@ const LeftDrawer = ({ handleClick, listOfSearchResults }) => {
 };
 
 LeftDrawer.defaultProps = {
-    handleClick: () => {},
+  listOfSearchResults: {},
 };
 
 LeftDrawer.propTypes = {
-  handleClick: PropTypes.func,
+  listOfSearchResults: PropTypes.objectOf(PropTypes.string),
 };
 
 export default LeftDrawer;
