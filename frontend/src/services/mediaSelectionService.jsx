@@ -1,11 +1,13 @@
-export const getPin = async () => {
-  return {
-    status: 200,
-    error: false,
-    body: {
-      pin: "123456",
-    },
-  };
+import { getRoomRoute } from "./apiRoutes";
+
+export const getRoom = async (pin) => {
+  const response = await fetch(getRoomRoute(pin)).then((res) => res.json());
+  // console.log(response);
+
+  if (response.message) {
+    return { error: "Invalid PIN" };
+  }
+  return response;
 };
 
-export default getPin;
+export default getRoom;

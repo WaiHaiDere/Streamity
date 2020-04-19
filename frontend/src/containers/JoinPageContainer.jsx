@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { getRoom } from "../services/mediaSelectionService";
+
 const JoinPageContainer = ({ children }) => {
   const [page, setPage] = useState(0);
   const [disable, setDisable] = useState({ pin: true, username: true });
@@ -38,12 +40,13 @@ const JoinPageContainer = ({ children }) => {
     buttonDisable(newDetails, name);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (page < children.length - 1) {
       if (page === 0) {
         if (details.pin.length !== 6) {
           return;
         }
+        console.log(await getRoom(details.pin));
       }
       setPage(page + 1);
     }

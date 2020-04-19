@@ -16,8 +16,8 @@ const pinRouter = require("./src/api-routes/pin");
 app.use("/api/pin", pinRouter);
 
 db.connect().then(() => {
-  app.listen(8000, () => {
-    console.log("Listening on port 8000")
+  app.listen(5002, () => {
+    console.log("Listening on port 5002")
   });
 })
 

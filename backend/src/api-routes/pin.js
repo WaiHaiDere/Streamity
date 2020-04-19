@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const Room = require("../db/models/room");
 
 const router = express.Router();
@@ -8,6 +9,7 @@ router.post("/", async (req, res) => {
   const max = 999999;
   const min = 100000;
   const pin = (Math.floor(Math.random() * (max - min + 1)) + min).toString();
+  console.log(pin);
   
   const newPin = new Room({
     pin: pin
