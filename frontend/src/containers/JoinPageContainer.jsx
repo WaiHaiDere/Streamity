@@ -9,6 +9,10 @@ const JoinPageContainer = ({ children }) => {
     pin: "",
     username: "",
   });
+  const [error, setError] = useState({
+    pin: "",
+    username: "",
+  });
 
   const buttonDisable = (newDetails, name) => {
     const newDisable = { ...disable };
@@ -35,6 +39,7 @@ const JoinPageContainer = ({ children }) => {
     const { value, name } = event.target;
     const newDetails = { ...details };
     newDetails[name] = value;
+    delete error[name];
     setDetails(newDetails);
 
     buttonDisable(newDetails, name);
@@ -43,17 +48,18 @@ const JoinPageContainer = ({ children }) => {
   const handleClick = async () => {
     if (page < children.length - 1) {
       if (page === 0) {
-        if (details.pin.length !== 6) {
+        const response = await getRoom(details.pin);
+        if (response.error) {
+          setError({ ...error, pin: response.error });
           return;
         }
-        console.log(await getRoom(details.pin));
       }
       setPage(page + 1);
     }
     console.log(details);
   };
 
-  const newProps = { handleChange, handleClick, details, disable };
+  const newProps = { handleChange, handleClick, details, disable, error };
 
   return React.cloneElement(children[page], { ...newProps });
 };

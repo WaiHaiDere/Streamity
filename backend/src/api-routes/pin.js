@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
   const max = 999999;
   const min = 100000;
   const pin = (Math.floor(Math.random() * (max - min + 1)) + min).toString();
-  console.log(pin);
+  console.log(pin);m
   
   const newPin = new Room({
     pin: pin
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
     if(foundRoom !== null) {
       res.status(201).send(foundRoom);
     } else {
-      res.status(404).json({error: "Room not found"});
+      res.status(404).json({error: "Room not found. Please double check your PIN."});
     }
   } catch (err) {
     res.status(404).json({message: err.message});

@@ -5,7 +5,7 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 import { isAllowedNumericInput } from "../../common/helpers";
 import styles from "./JoinPage.module.css";
 
-const JoinPage = ({ handleChange, handleClick, details, disable }) => {
+const JoinPage = ({ handleChange, handleClick, details, disable, error }) => {
   const checkIsNumber = (event) => {
     const val = event.target.value;
 
@@ -29,6 +29,8 @@ const JoinPage = ({ handleChange, handleClick, details, disable }) => {
           <div className={styles.textFieldBox}>
             <TextField
               name="pin"
+              error={!!error.pin}
+              helperText={error.pin}
               onChange={checkIsNumber}
               placeholder="Party PIN"
               classes={{ root: styles.textField }}
@@ -68,6 +70,9 @@ JoinPage.defaultProps = {
   handleClick: () => {},
   details: { pin: "" },
   disable: { pin: true },
+  error: {
+    pin: "",
+  },
 };
 
 JoinPage.propTypes = {
@@ -76,6 +81,9 @@ JoinPage.propTypes = {
   details: PropTypes.objectOf(PropTypes.string),
   disable: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
+  ),
+  error: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
   ),
 };
 
