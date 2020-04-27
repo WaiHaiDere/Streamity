@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 
-import styles from "./JoinPage.module.css";
+import styles from "../../pages/JoinPage/JoinPage.module.css";
 
-const JoinPage = ({ handleChange, handleClick, details, disable }) => {
+const UsernamePage = ({ handleChange, handleClick, details, disable }) => {
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
@@ -54,14 +54,14 @@ const JoinPage = ({ handleChange, handleClick, details, disable }) => {
   );
 };
 
-JoinPage.defaultProps = {
+UsernamePage.defaultProps = {
   handleChange: () => {},
   handleClick: () => {},
   details: { username: "" },
   disable: { username: true },
 };
 
-JoinPage.propTypes = {
+UsernamePage.propTypes = {
   handleChange: PropTypes.func,
   handleClick: PropTypes.func,
   details: PropTypes.objectOf(PropTypes.string),
@@ -70,4 +70,4 @@ JoinPage.propTypes = {
   ),
 };
 
-export default JoinPage;
+export default UsernamePage;
