@@ -1,7 +1,20 @@
-export const getPin = async () => {
-  const res = await fetch("http://localhost:8000/api/pin").then((response) =>
-    response.json()
-  );
+import { createRoomRoute } from "./apiRoutes";
+
+export const getPin = async (username) => {
+  const newParams = {
+    username,
+  };
+
+  const reqBody = JSON.stringify(newParams);
+
+  const res = await fetch(createRoomRoute, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "POST",
+    body: reqBody,
+  }).then((response) => response.json());
 
   return res;
 };
