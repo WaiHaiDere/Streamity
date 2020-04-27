@@ -4,14 +4,9 @@ const mongoose = require("mongoose");
 const app = express();
 const db = require("./src/db");
 
+app.use(express.json());
 
 const pinRouter = require("./src/api-routes/pin");
-
-// app.get("/", (req,res) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   console.log("recieved");
-//   res.json({test: "Hello World!"});
-// });
 
 app.use("/api/pin", pinRouter);
 

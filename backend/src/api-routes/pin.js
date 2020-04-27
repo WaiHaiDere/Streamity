@@ -9,14 +9,17 @@ router.post("/", async (req, res) => {
   const max = 999999;
   const min = 100000;
   const pin = (Math.floor(Math.random() * (max - min + 1)) + min).toString();
+
+  // console.log(req.body.username);
   
-  const newPin = new Room({
-    pin: pin
+  const newRoom = new Room({
+    pin: pin,
+    admin: req.body.username
   })
 
   try{
-    const newPinReq = await newPin.save();
-    res.status(201).json(newPinReq);
+    const newRoomReq = await newRoom.save();
+    res.status(201).json(newRoomReq);
   } catch (err) {
     res.status(400).json({ message: err.message});
   }
