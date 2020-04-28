@@ -8,7 +8,8 @@ const roomSchema = new mongoose.Schema(
     },
     admin: {
       type: String,
-      required: true
+      required: true, 
+      spotifyCodeAuth: String,
     }
   }
 );

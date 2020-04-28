@@ -9,6 +9,7 @@ import {
   CardActions,
   Grid,
 } from "@material-ui/core";
+import { spotifyLoginRoute } from "../../services/apiRoutes";
 
 import styles from "./mediaselectionpage.module.css";
 
@@ -51,16 +52,17 @@ const PinPage = ({ handleClick, pin }) => {
               </CardActions>
             </Card>
           </Grid>
-          <Button
-            variant="contained"
-            onClick={handleClick}
-            classes={{
-              root: styles.nextButton,
-              label: styles.buttonLabel,
-            }}
-          >
-            JOIN THE PARTY
-          </Button>
+            <Button
+              variant="contained"
+              onClick={handleClick}
+              classes={{
+                root: styles.nextButton,
+                label: styles.buttonLabel,
+              }}
+              href= {spotifyLoginRoute} 
+            >
+              JOIN THE PARTY
+            </Button>
         </div>
       </Container>
     </div>

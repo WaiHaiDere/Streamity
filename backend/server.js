@@ -7,7 +7,9 @@ const db = require("./src/db");
 app.use(express.json());
 
 const pinRouter = require("./src/api-routes/pin");
+const spotifyRouter = require("./src/api-routes/spotify");
 
+app.use("/api/spotify", spotifyRouter);
 app.use("/api/pin", pinRouter);
 
 db.connect().then(() => {
