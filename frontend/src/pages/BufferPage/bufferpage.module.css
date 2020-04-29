@@ -1,0 +1,31 @@
+.backgroundContainer {
+    position: fixed;
+    top: 0;
+    width: 101%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../../background/Background-1.png);
+    left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
+}
+
+.circularProgress {
+    width: 50px;
+    height: 50px;
+}
+
+.circleProgressContainer {
+    position: fixed;
+    z-index: 1031;
+    top: 50%;
+    left: 50%;
+}
+
+.title {
+    color: white;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center
+}

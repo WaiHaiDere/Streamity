@@ -5,7 +5,7 @@ const router = express.Router();
 
 const SPOTIFY_AUTH_END_POINT = "https://accounts.spotify.com/authorize";
 const CLIENT_ID = "84075fd82c074e5aac8e8f5b8c05d5fc";
-const REDIRECT_URI = "http://localhost:3000/media"; 
+const REDIRECT_URI = "http://localhost:3000/buffer"; 
 
 router.get("/login", async (request, response) => {
     response.redirect(SPOTIFY_AUTH_END_POINT+"?"+

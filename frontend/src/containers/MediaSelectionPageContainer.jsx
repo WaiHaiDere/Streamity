@@ -25,7 +25,7 @@ const MediaselectionpageContainer = ({ children }) => {
   };
 
   const handleClick = async () => {
-    if (page < children.length) {
+    if (page < children.length - 1) {
       if (page === 1) {
         const response = await getPin(details.username);
         console.log(details.username);
