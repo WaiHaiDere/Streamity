@@ -4,7 +4,6 @@ import MediaSelectionPageContainer from "../../containers/MediaSelectionPageCont
 import MediaSelectionPage from "./MediaSelectionPage";
 import PinPage from "./PinPage";
 import UsernamePage from "../../components/UsernamePage/UsernamePage";
-import BufferPage from "../BufferPage/BufferPage"
 
 export default () => {
   return (
@@ -12,7 +11,6 @@ export default () => {
       <MediaSelectionPage />
       <UsernamePage />
       <PinPage />
-      <BufferPage />
     </MediaSelectionPageContainer>
   );
 };
