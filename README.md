@@ -8,8 +8,6 @@ Streamity is a web application that enables a group of users to listen to a play
 To get the project running, follow these steps:
 
 ### Prerequisites
-- Visual Studio (for editing C# code) [or the equivalent `dotnet` command line tools, or JetBrains Rider]
-- Make sure you've installed the `ASP.NET and Web Development Tools package` in Visual Studio
 - Visual Studio Code [or equivalent frontend tooling]
 - NPM/NodeJS (for running the frontend)
 
