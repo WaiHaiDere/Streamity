@@ -12,7 +12,7 @@ const BufferPage = ({ isLoading, setLoading }) => {
       <FadeIn>
         <div className="styles.centreContainer">
           <div className={styles.loadingContainer}>
-            <h1 className={styles.title}>Setting up</h1>
+            <h1 className={styles.title}>Redirecting</h1>
             <div className={styles.loadingGap}></div>
             <Lottie options={defaultOptions} height={240} width={240} />
           </div>
