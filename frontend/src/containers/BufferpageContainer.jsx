@@ -13,9 +13,10 @@ const BufferpageContainer = ({ children }) => {
     putGlobalState,
   } = useGlobalState();
 
-  useEffect(() => {
+  useEffect(async () => {
     const spotifyCode = getParameterByName("code");
-    const spotifyToken = getAuthenticationToken(spotifyCode);
+    const spotifyToken = await getAuthenticationToken(spotifyCode);
+    console.log(spotifyToken);
 
     putGlobalState({
       key: keys.SPOTIFY_AUTH_TOKEN,
@@ -27,9 +28,9 @@ const BufferpageContainer = ({ children }) => {
     setIsLoading((isLoading) => !isLoading);
   };
 
-  const getAuthenticationToken = (code) => {
-    const resp = getSpotifyToken(code);
-    console.log(resp);
+  const getAuthenticationToken = async (code) => {
+    const resp = await getSpotifyToken(code);
+    // console.log(resp);
     return resp.access_token;
   };
 

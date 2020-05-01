@@ -24,23 +24,22 @@ router.get("/login", async (request, response) => {
   );
 });
 
-router.get("/authorise", async (request, response) => {
-  //   response.header("Access-Control-Allow-Origin", "*");
-  //   const res = await fetch(SPOTIFY_AUTH_TOKEN_END_POINT, {
-  //     method: "post",
-  //     body: queryString.stringify({
-  //       grant_type: AUTH_GRANT_TYPE,
-  //       code: request.body.authCode,
-  //       redirect_uri: REDIRECT_URI,
-  //       client_id: CLIENT_ID,
-  //       client_secret: CLIENT_SECRET,
-  //     }),
-  //   }).then((response) => response.json());
-  const res = await fetch(
-    "https://jsonplaceholder.typicode.com/todos/1%27"
-      .then((response) => response.json())
-      .then((json) => console.log(json))
-  );
+router.post("/authorise", async (request, response) => {
+  response.header("Access-Control-Allow-Origin", "*");
+  const res = await fetch(SPOTIFY_AUTH_TOKEN_END_POINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: queryString.stringify({
+      grant_type: AUTH_GRANT_TYPE,
+      code: request.body.authCode,
+      redirect_uri: REDIRECT_URI,
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+    }),
+  }).then((response) => response.json());
+  console.log(res);
   response.send(res);
 });
 

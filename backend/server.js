@@ -8,7 +8,7 @@ const db = require("./src/db");
 const cors = require("cors");
 
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 
 const pinRouter = require("./src/api-routes/pin");
 const spotifyRouter = require("./src/api-routes/spotify");
