@@ -45,16 +45,23 @@ router.post("/authorise", async (request, response) => {
 });
 
 router.get("/search", async (request, response) => {
+  console.log(request);
   response.header("Access-Control-Allow-Origin", "*");
   // https://api.spotify.com/v1/search?q=let it go&type=track&limit=10
-  const res = await fetch(SPOTIFY_TRACK_SEARCH_END_POINT + "?q=" + request.header.title + "&type=track&limit=10", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": "Bearer " + request.header.token,
-    },
-  }).then((response) => response.json());
+  const res = await fetch(
+    SPOTIFY_TRACK_SEARCH_END_POINT +
+      "?q=" +
+      request.headers.title +
+      "&type=track&limit=10",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + request.headers.token,
+      },
+    }
+  ).then((response) => response.json());
   console.log(res);
   response.send(res);
 });

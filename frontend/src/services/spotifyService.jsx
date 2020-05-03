@@ -1,4 +1,4 @@
-import { spotifyTokenRoute } from "./apiRoutes";
+import { spotifyTokenRoute, spotifySearchRoute } from "./apiRoutes";
 
 export const getSpotifyToken = async (authCode) => {
   const newParams = {
@@ -19,4 +19,18 @@ export const getSpotifyToken = async (authCode) => {
   return res;
 };
 
-export default getSpotifyToken;
+export const getSpotifySearches = async (searchTitle, authToken) => {
+  const res = await fetch(spotifySearchRoute, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      title: searchTitle,
+      token: authToken,
+    },
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export default { getSpotifyToken, getSpotifySearches };
