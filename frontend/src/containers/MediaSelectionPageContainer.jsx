@@ -30,7 +30,7 @@ const MediaselectionpageContainer = ({ children }) => {
         const response = await getPin(details.username);
         console.log(details.username);
         setPin(response.pin);
-      }
+      } 
       setPage(page + 1);
     }
   };

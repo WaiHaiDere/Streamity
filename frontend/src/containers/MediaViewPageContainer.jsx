@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
-  const [listOfSearchResults] = useState(
+  const [listOfSearchResults, setlistOfSearchResults] = useState(
     // hardcoding this for now
     [
       {
@@ -16,7 +16,7 @@ const MediaViewPageContainer = ({ children }) => {
       },
     ]
   );
-  const [pin] = useState("123456"); // Hardcoded for now.
+  const [pin, setPin] = useState("123456"); // Hardcoded for now.
 
   const handleClick = () => {
     console.log("handleChange");
