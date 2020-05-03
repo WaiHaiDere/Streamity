@@ -6,6 +6,7 @@ const router = express.Router();
 
 const SPOTIFY_AUTH_END_POINT = "https://accounts.spotify.com/authorize";
 const SPOTIFY_AUTH_TOKEN_END_POINT = "https://accounts.spotify.com/api/token";
+const SPOTIFY_TRACK_SEARCH_END_POINT = "https://api.spotify.com/v1/search";
 const CLIENT_ID = "84075fd82c074e5aac8e8f5b8c05d5fc";
 const CLIENT_SECRET = "e1d779aa26db4997af564836003e476b";
 const REDIRECT_URI = "http://localhost:3000/buffer";
@@ -38,6 +39,21 @@ router.post("/authorise", async (request, response) => {
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
     }),
+  }).then((response) => response.json());
+  console.log(res);
+  response.send(res);
+});
+
+router.get("/search", async (request, response) => {
+  response.header("Access-Control-Allow-Origin", "*");
+  // https://api.spotify.com/v1/search?q=let it go&type=track&limit=10
+  const res = await fetch(SPOTIFY_TRACK_SEARCH_END_POINT + "?q=" + request.header.title + "&type=track&limit=10", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer " + request.header.token,
+    },
   }).then((response) => response.json());
   console.log(res);
   response.send(res);
