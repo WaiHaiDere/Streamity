@@ -1,6 +1,6 @@
 const express = require("express");
 //const cors = require("cors");
-const Room = require("../db/models/room");
+const Room = require("../db/models/roomSchema");
 
 const router = express.Router();
 
@@ -9,8 +9,6 @@ router.post("/", async (req, res) => {
   const max = 999999;
   const min = 100000;
   const pin = (Math.floor(Math.random() * (max - min + 1)) + min).toString();
-
-  // console.log(req.body.username);
   
   const newRoom = new Room({
     pin: pin,
@@ -37,5 +35,23 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     res.status(404).json({message: err.message});
   }
+})
+
+router.put("/:id/auth", async (req, res) => {
+
+  try{
+    const foundRoom = await Room.findOne({pin: req.params.id});
+    if(foundRoom !== null) {
+      foundRoom.spotifyAuth = req.body.authToken;
+      const saveReq = await foundRoom.save();
+      res.status(200).json(saveReq);
+    } else {
+      res.status(404).json({error: "Room not found. Please double check your PIN."});
+    }
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  }
+
+
 })
 module.exports = router;

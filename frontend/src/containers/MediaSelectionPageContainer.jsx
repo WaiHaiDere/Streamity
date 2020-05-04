@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 
 import { getPin } from "../services/creationService";
+import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
+import keys from "../hooks/GlobalState/keys";
+import { setPersistentItem } from "../common/persistenceStore";
 
 const MediaselectionpageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
+
+  const { existsInGlobalState, getGlobalState } = useGlobalState();
 
   const [details, setDetails] = useState({ username: "" });
   const [page, setPage] = useState(0);
@@ -30,7 +35,21 @@ const MediaselectionpageContainer = ({ children }) => {
         const response = await getPin(details.username);
         console.log(details.username);
         setPin(response.pin);
-      } 
+
+        let session = {
+          pin: response.pin,
+          username: details.username,
+        };
+
+        if (existsInGlobalState(keys.SESSION)) {
+          session = getGlobalState(keys.SESSION);
+          session.pin = response.pin;
+          session.username = details.username;
+        }
+
+        // putGlobalState({ key: keys.SESSION, value: session });
+        setPersistentItem(keys.SESSION, session);
+      }
       setPage(page + 1);
     }
   };

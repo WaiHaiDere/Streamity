@@ -10,11 +10,11 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-const pinRouter = require("./src/api-routes/pin");
+const pinRouter = require("./src/api-routes/room");
 const spotifyRouter = require("./src/api-routes/spotify");
 
 app.use("/api/spotify", spotifyRouter);
-app.use("/api/pin", pinRouter);
+app.use("/api/room", pinRouter);
 
 db.connect().then(() => {
   app.listen(5002, () => {
