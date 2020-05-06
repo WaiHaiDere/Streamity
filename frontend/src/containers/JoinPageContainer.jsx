@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { getRoom } from "../services/mediaSelectionService";
+import { joinRoom } from "../services/joinService";
 
 const JoinPageContainer = ({ children }) => {
   const [page, setPage] = useState(0);
@@ -46,17 +47,22 @@ const JoinPageContainer = ({ children }) => {
   };
 
   const handleClick = async () => {
-    if (page < children.length - 1) {
-      if (page === 0) {
-        const response = await getRoom(details.pin);
-        if (response.error) {
-          setError({ ...error, pin: response.error });
-          return;
-        }
+    if (page === 0) {
+      const response = await getRoom(details.pin);
+      if (response.error) {
+        setError({ ...error, pin: response.error });
+        return;
       }
+    }
+    if (page === 1) {
+      await joinRoom({
+        pin: details.pin,
+        username: details.username,
+      });
+    }
+    if (page < children.length - 1) {
       setPage(page + 1);
     }
-    console.log(details);
   };
 
   const newProps = { handleChange, handleClick, details, disable, error };
