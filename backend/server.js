@@ -14,7 +14,7 @@ const pinRouter = require("./src/api-routes/room");
 const spotifyRouter = require("./src/api-routes/spotify");
 
 app.use("/api/spotify", spotifyRouter);
-app.use("/api/pin", pinRouter);
+app.use("/api/room", pinRouter);
 
 // db.drop();
 db.connect().then(() => {
