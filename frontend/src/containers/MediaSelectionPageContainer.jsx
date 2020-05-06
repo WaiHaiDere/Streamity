@@ -33,7 +33,6 @@ const MediaselectionpageContainer = ({ children }) => {
     if (page < children.length - 1) {
       if (page === 1) {
         const response = await getPin(details.username);
-        console.log(details.username);
         setPin(response.pin);
 
         let session = {
@@ -47,7 +46,6 @@ const MediaselectionpageContainer = ({ children }) => {
           session.username = details.username;
         }
 
-        // putGlobalState({ key: keys.SESSION, value: session });
         setPersistentItem(keys.SESSION, session);
       }
       setPage(page + 1);

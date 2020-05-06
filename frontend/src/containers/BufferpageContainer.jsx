@@ -38,20 +38,22 @@ const BufferpageContainer = ({ children }) => {
 
       if (getPersistentItem(keys.SESSION)) {
         const session = getPersistentItem(keys.SESSION);
-        console.log(session);
-
-        const res = await updateSpotifyToken({
+        await updateSpotifyToken({
           token: spotifyToken,
           id: session.pin,
         });
 
-        console.log(res);
+        const saveSession = {
+          pin: session.pin,
+          username: session.username,
+        };
+
+        putGlobalState({
+          key: keys.SESSION,
+          value: saveSession,
+        });
       }
 
-      putGlobalState({
-        key: keys.SPOTIFY_AUTH_TOKEN,
-        value: { spotifyAuthToken: spotifyToken },
-      });
       setRedirect(true);
     }
     getAuthToken();

@@ -31,7 +31,7 @@ export const updateSpotifyToken = async ({ token, id }) => {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    method: "POST",
+    method: "PUT",
     body: reqBody,
   }).then((response) => response.json());
 

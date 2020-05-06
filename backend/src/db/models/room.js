@@ -7,20 +7,9 @@ const roomSchema = new mongoose.Schema(
       required: true,
     },
     admin: {
-      username: {
-        type: String,
-      },
-      id: {
-        type: String,
-      },
-    },
-    spotifyAuth: {
       type: String,
-      default: "",
-    },
-    member_list: {
-      type: Array,
-      default: []
+      required: true, 
+      spotifyCodeAuth: String,
     }
   }
 );

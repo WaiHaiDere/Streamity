@@ -1,4 +1,5 @@
 const express = require("express");
+const crypto = require("crypto");
 //const cors = require("cors");
 const Room = require("../db/models/roomSchema");
 
@@ -10,9 +11,16 @@ router.post("/", async (req, res) => {
   const min = 100000;
   const pin = (Math.floor(Math.random() * (max - min + 1)) + min).toString();
   
+  const newAdmin = {
+    username: req.body.username,
+    id: crypto.randomBytes(16).toString("hex"),
+  }
+
+  const member_list = [newAdmin];
   const newRoom = new Room({
     pin: pin,
-    admin: req.body.username
+    admin: newAdmin,
+    member_list,
   })
 
   try{
@@ -54,4 +62,25 @@ router.put("/:id/auth", async (req, res) => {
 
 
 })
+router.put("/:id", async (req, res) => {
+  try{
+    console.log
+    const foundRoom = await Room.findOne({pin: req.params.id});
+    if(foundRoom !== null) {
+
+      const newMember = {
+        username: req.body.username,
+        id: crypto.randomBytes(16).toString("hex"),
+      }
+      foundRoom.member_list.push(newMember);
+      const saveReq = await foundRoom.save();
+      res.status(200).json(saveReq);
+    } else {
+      res.status(404).json({error: "Room not found. Please double check your PIN."});
+    }
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  }
+})
+
 module.exports = router;
