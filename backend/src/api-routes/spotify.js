@@ -11,6 +11,7 @@ const CLIENT_ID = "84075fd82c074e5aac8e8f5b8c05d5fc";
 const CLIENT_SECRET = "e1d779aa26db4997af564836003e476b";
 const REDIRECT_URI = "http://localhost:3000/buffer";
 const AUTH_GRANT_TYPE = "authorization_code";
+const SCOPE = "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state"; 
 
 router.get("/login", async (request, response) => {
   response.redirect(
@@ -20,7 +21,7 @@ router.get("/login", async (request, response) => {
         response_type: "code",
         client_id: CLIENT_ID,
         redirect_uri: REDIRECT_URI,
-        scope: "streaming",
+        scope: SCOPE,
       })
   );
 });

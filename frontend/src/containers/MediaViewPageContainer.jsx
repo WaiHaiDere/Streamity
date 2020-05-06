@@ -44,7 +44,7 @@ const MediaViewPageContainer = ({ children }) => {
   const getSpotifySearchResults = async (title) => {
     // const token = getGlobalState(keys.SPOTIFY_AUTH_TOKEN);
     const token =
-      "BQAsnRcIxnhM8Tmbqh_gemxbnokCugb2ZtOBei1O0w8CBVEgoJTsTKoo6VYBdwNZZ1ktc15Z1ZbxYs195e0QZ7fQw3xZ01a-CLWq_SJnUj5UbkzDkSc1hlZghyTEn00oLo15qkBezyXMW1bsryAN72fMVA";
+      "BQAisni_WX9PwhnNuvwuy30RLw8BOCmLhitaklrr8C1tw6D7Apw5s8Ab3H4n_sQz6Gu9AlONCgjaqvrWD5X6XjDuaoc-HZ4s4yxSstkISHSO8pzkyy7iwy2gXera0bk_hZewacK2BlRDJ0WELjurIVwdkmqKRlP8MpTzJ6SX5jj4";
     const results = await getSpotifySearches(title, token);
     console.log(token);
     return results;
