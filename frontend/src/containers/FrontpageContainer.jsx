@@ -1,30 +1,8 @@
-import React, { useEffect } from "react";
-import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
-import keys from "../hooks/GlobalState/keys";
+import React from "react";
 
 const FrontpageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
-
-  const {
-    getGlobalState,
-    existsInGlobalState,
-    putGlobalState,
-  } = useGlobalState();
-
-  const test = {
-    hi: "there",
-    this: "istest",
-  };
-
-  useEffect(() => {
-    if (existsInGlobalState(keys.SESSION)) {
-      console.log(getGlobalState(keys.SESSION));
-    } else {
-      putGlobalState({ key: keys.SESSION, value: test });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleClick = async () => {
     console.log("handleChange");

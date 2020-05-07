@@ -1,5 +1,6 @@
 const express = require("express");
 const crypto = require("crypto");
+//const cors = require("cors");
 const Room = require("../db/models/roomSchema");
 
 const router = express.Router();
@@ -58,12 +59,12 @@ router.put("/:id/auth", async (req, res) => {
   } catch (err) {
     res.status(404).json({message: err.message});
   }
+
+
 })
-
-
 router.put("/:id", async (req, res) => {
-
   try{
+    console.log
     const foundRoom = await Room.findOne({pin: req.params.id});
     if(foundRoom !== null) {
 

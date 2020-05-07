@@ -16,7 +16,6 @@ const spotifyRouter = require("./src/api-routes/spotify");
 app.use("/api/spotify", spotifyRouter);
 app.use("/api/room", pinRouter);
 
-// db.drop();
 db.connect().then(() => {
   app.listen(5002, () => {
     console.log("Listening on port 5002");

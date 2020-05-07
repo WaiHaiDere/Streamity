@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 import { getRoom } from "../services/mediaSelectionService";
 import { joinRoom } from "../services/joinService";
 
 const JoinPageContainer = ({ children }) => {
   const [page, setPage] = useState(0);
+  const [redirect, setRedirect] = useState(false);
   const [disable, setDisable] = useState({ pin: true, username: true });
   const [details, setDetails] = useState({
     pin: "",
@@ -55,10 +57,13 @@ const JoinPageContainer = ({ children }) => {
       }
     }
     if (page === 1) {
-      await joinRoom({
+      const res = await joinRoom({
         pin: details.pin,
         username: details.username,
       });
+      if (!res.error) {
+        setRedirect(true);
+      }
     }
     if (page < children.length - 1) {
       setPage(page + 1);
@@ -67,7 +72,15 @@ const JoinPageContainer = ({ children }) => {
 
   const newProps = { handleChange, handleClick, details, disable, error };
 
-  return React.cloneElement(children[page], { ...newProps });
+  return (
+    <>
+      {redirect && <Redirect to="/media" />}
+      {React.cloneElement(children[page], { ...newProps })}
+    </>
+  );
 };
 
+JoinPageContainer.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+};
 export default JoinPageContainer;
