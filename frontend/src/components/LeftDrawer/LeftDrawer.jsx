@@ -1,12 +1,16 @@
 import React from "react";
-import { TextField, Drawer, List, IconButton } from "@material-ui/core";
+import {
+  TextField,
+  Drawer,
+  List,
+  IconButton,
+  Divider,
+} from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
-
 import SearchResult from "../SearchResult/SearchResult";
-
 import styles from "./leftdrawer.module.css";
 
 const LeftDrawer = ({ listOfSearchResults }) => {
@@ -22,6 +26,14 @@ const LeftDrawer = ({ listOfSearchResults }) => {
             label="Search"
             InputProps={{
               endAdornment: <SearchIcon />,
+              classes: {
+                root: styles.searchColour,
+              },
+            }}
+            InputLabelProps={{
+              classes: {
+                root: styles.searchColour,
+              },
             }}
           />
         </div>
