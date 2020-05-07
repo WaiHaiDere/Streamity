@@ -1,12 +1,12 @@
 import React from "react";
-import MediaViewPageContainer from '../../containers/MediaViewPageContainer';
+import MediaViewPageContainer from "../../containers/MediaViewPageContainer";
 
-import MediaViewPage from './MediaViewPage'
+import MediaViewPage from "./MediaViewPage";
 
 export default () => {
-    return (
-     <MediaViewPageContainer>
-        <MediaViewPage />
-     </MediaViewPageContainer>
-    );
-  };
+  return (
+    <MediaViewPageContainer>
+      <MediaViewPage />
+    </MediaViewPageContainer>
+  );
+};

@@ -5,7 +5,7 @@ import Frontpage from "../pages/Frontpage";
 import JoinPage from "../pages/JoinPage";
 import MediaSelectionPage from "../pages/Creation";
 import MediaViewPage from "../pages/MediaViewPage";
-import BufferPage from "../pages/BufferPage"
+import BufferPage from "../pages/BufferPage";
 
 // This component allows for easy additions for additional pages
 const paths = {

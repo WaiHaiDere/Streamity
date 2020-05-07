@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  getSpotifySearches,
-  getSpotifyToken,
-} from "../services/spotifyService";
+import { getSpotifySearches } from "../services/spotifyService";
+import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 
 import keys from "../hooks/GlobalState/keys";
@@ -24,25 +22,18 @@ const MediaViewPageContainer = ({ children }) => {
     ]
   );
 
-  const [pin, setPin] = useState("123456"); // Hardcoded for now.
+  const [details, setDetails] = useState({
+    username: "",
+    pin: "",
+  });
 
-  const {
-    getGlobalState,
-    existsInGlobalState,
-    putGlobalState,
-  } = useGlobalState();
+  const { getGlobalState, existsInGlobalState } = useGlobalState();
 
   const handleClick = () => {
     console.log("handleChange");
   };
 
-  useEffect(async () => {
-    const results = await getSpotifySearchResults("tadow");
-    console.log(results);
-  }, []);
-
   const getSpotifySearchResults = async (title) => {
-    // const token = getGlobalState(keys.SPOTIFY_AUTH_TOKEN);
     const token =
       "BQAisni_WX9PwhnNuvwuy30RLw8BOCmLhitaklrr8C1tw6D7Apw5s8Ab3H4n_sQz6Gu9AlONCgjaqvrWD5X6XjDuaoc-HZ4s4yxSstkISHSO8pzkyy7iwy2gXera0bk_hZewacK2BlRDJ0WELjurIVwdkmqKRlP8MpTzJ6SX5jj4";
     const results = await getSpotifySearches(title, token);
@@ -50,7 +41,24 @@ const MediaViewPageContainer = ({ children }) => {
     return results;
   };
 
-  const newProps = { pin, handleClick, listOfSearchResults };
+  useEffect(() => {
+    async function getInfo() {
+      if (existsInGlobalState(keys.SESSION)) {
+        const detailsFromContext = getGlobalState(keys.SESSION);
+        setDetails(detailsFromContext);
+
+        const room = getRoom(detailsFromContext.pin);
+        console.log(room);
+      }
+
+      const results = await getSpotifySearchResults("tadow");
+      console.log(results);
+    }
+
+    getInfo();
+  }, []);
+
+  const newProps = { details, handleClick, listOfSearchResults };
   return React.cloneElement(children, { ...newProps });
 };
 
