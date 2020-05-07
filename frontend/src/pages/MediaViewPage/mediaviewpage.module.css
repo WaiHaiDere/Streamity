@@ -1,0 +1,19 @@
+.backgroundContainer {
+    position: fixed;
+    top: 0;
+    width: 101%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../../background/Background-1.png);
+    left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
+  }
+
+  .centrePanel {
+    margin-top: 3%;
+    text-align: center;
+  }
+
+  .title {
+    color: white;
+  }
