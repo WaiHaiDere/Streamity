@@ -55,6 +55,7 @@ const JoinPageContainer = ({ children }) => {
   const handleClick = async () => {
     if (page === 0) {
       const response = await getRoom(details.pin);
+
       if (response.error) {
         setError({ ...error, pin: response.error });
         return;
@@ -65,9 +66,7 @@ const JoinPageContainer = ({ children }) => {
         pin: details.pin,
         username: details.username,
       };
-      const res = await joinRoom({
-        sessionDetails,
-      });
+      const res = await joinRoom(sessionDetails);
 
       putGlobalState({ key: keys.SESSION, value: sessionDetails });
 

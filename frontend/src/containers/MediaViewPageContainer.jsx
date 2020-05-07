@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { getSpotifySearches } from "../services/spotifyService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
@@ -8,7 +9,7 @@ import keys from "../hooks/GlobalState/keys";
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
-  const [listOfSearchResults, setlistOfSearchResults] = useState(
+  const [listOfSearchResults] = useState(
     // hardcoding this for now
     [
       {
@@ -21,23 +22,21 @@ const MediaViewPageContainer = ({ children }) => {
       },
     ]
   );
-
+  const history = useHistory();
   const [details, setDetails] = useState({
     username: "",
     pin: "",
   });
-
+  const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
+  const [token, setToken] = useState("");
 
   const handleClick = () => {
     console.log("handleChange");
   };
 
   const getSpotifySearchResults = async (title) => {
-    const token =
-      "BQAisni_WX9PwhnNuvwuy30RLw8BOCmLhitaklrr8C1tw6D7Apw5s8Ab3H4n_sQz6Gu9AlONCgjaqvrWD5X6XjDuaoc-HZ4s4yxSstkISHSO8pzkyy7iwy2gXera0bk_hZewacK2BlRDJ0WELjurIVwdkmqKRlP8MpTzJ6SX5jj4";
     const results = await getSpotifySearches(title, token);
-    console.log(token);
     return results;
   };
 
@@ -47,18 +46,30 @@ const MediaViewPageContainer = ({ children }) => {
         const detailsFromContext = getGlobalState(keys.SESSION);
         setDetails(detailsFromContext);
 
-        const room = getRoom(detailsFromContext.pin);
-        console.log(room);
+        const room = await getRoom(detailsFromContext.pin);
+        if (room.error) {
+          history.push("/join");
+        }
+        setMemberList(room.member_list);
+        setToken(room.spotifyAuth);
+      } else {
+        history.push("/join");
       }
 
-      const results = await getSpotifySearchResults("tadow");
-      console.log(results);
+      await getSpotifySearchResults("tadow");
+      // setlistOfSearchResults(results);
     }
 
     getInfo();
   }, []);
 
-  const newProps = { details, handleClick, listOfSearchResults };
+  const newProps = {
+    details,
+    handleClick,
+    listOfSearchResults,
+    memberList,
+    token,
+  };
   return React.cloneElement(children, { ...newProps });
 };
 
