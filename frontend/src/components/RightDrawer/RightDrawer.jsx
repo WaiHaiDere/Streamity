@@ -36,10 +36,20 @@ const RightDrawer = ({ handlclick, pin }) => {
         </div>
         <div />
         <div className={styles.ChatBox}>
-          <TextField label="Type your message here" />
-          <IconButton>
-            <SendIcon />
-          </IconButton>
+          <TextField
+            label="Type your message"
+            InputProps={{
+              endAdornment: <SendIcon />,
+              classes: {
+                root: styles.chatColour,
+              },
+            }}
+            InputLabelProps={{
+              classes: {
+                root: styles.chatColour,
+              },
+            }}
+          />
         </div>
       </Drawer>
     </div>

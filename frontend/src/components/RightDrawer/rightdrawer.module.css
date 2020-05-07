@@ -1,28 +1,38 @@
 .Drawer {
-    width: 280px !important;
+  width: 280px !important;
 }
 
 .DrawerHeader {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    width: auto;
-    height: 78px; /*This is to match the left drawer header height*/
-    background-color: #527cec;
-    color:white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: auto;
+  height: 78px; /*This is to match the left drawer header height*/
+  background-color: #527cec;
+  color: white;
 }
 
 .ChatBox {
-    display: flex !important;
-    justify-content: center !important;
-    align-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 10px;
-    margin-left: 20px;
+  display: flex !important;
+  justify-content: center !important;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0px;
+  height: 58px;
+  width: inherit;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #527cec;
 }
 
 .avatar {
-    margin-left: 30px;
+  margin-left: 30px;
 }
+
+.chatColour {
+    color: white;
+    font-weight: normal;
+  }
+  
