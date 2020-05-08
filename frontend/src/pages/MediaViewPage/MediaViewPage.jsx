@@ -5,7 +5,7 @@ import styles from "./mediaviewpage.module.css";
 import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
 
-const MediaViewPage = ({ handleClick, listOfSearchResults, pin }) => {
+const MediaViewPage = ({ handleClick, listOfSearchResults, chatMessages, pin }) => {
   return (
     <div className={styles.backgroundContainer}>
       <LeftDrawer 
@@ -21,7 +21,7 @@ const MediaViewPage = ({ handleClick, listOfSearchResults, pin }) => {
           </Typography>
           <Divider classes={{ root: styles.nowPlaying }}/>
     </main>
-      <RightDrawer handleClick={handleClick} pin={pin}/>
+      <RightDrawer handleClick={handleClick} chatMessages={chatMessages} pin={pin}/>
     </div>
   );
 };
@@ -29,12 +29,14 @@ const MediaViewPage = ({ handleClick, listOfSearchResults, pin }) => {
 MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [],
+  chatMessages:[],
   pin: "",
 };
 
 MediaViewPage.propTypes = {
   handleClick: PropTypes.func,
   listOfSearchResults: PropTypes.arrayOf(PropTypes.string),
+  chatMessages: PropTypes.arrayOf(PropTypes.string),
   pin: PropTypes.string,
 };
 
