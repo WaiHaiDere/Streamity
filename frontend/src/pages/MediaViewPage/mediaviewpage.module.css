@@ -1,19 +1,31 @@
 .backgroundContainer {
-    position: fixed;
-    top: 0;
-    width: 101%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-image: url(../../background/Background-1.png);
-    left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
-  }
+  position: fixed;
+  top: 0;
+  width: 101%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../../background/Background-1.png);
+  left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
+  display:flex;
+}
 
-  .centrePanel {
-    margin-top: 3%;
-    text-align: center;
-  }
+.centrePanel {
+  margin-top: 3%;
+  flex-grow: 1;
+  float: left;
+  width: 50%
+}
 
-  .title {
-    color: white;
-  }
+.title {
+  color: white;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.nowPlaying {
+  margin-left: 290px;
+  margin-bottom: 10px;
+  margin-right: 310px;
+  color: white;
+}

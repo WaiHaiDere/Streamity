@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Typography } from "@material-ui/core";
+import {Typography, Divider } from "@material-ui/core";
 import styles from "./mediaviewpage.module.css";
 import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
@@ -8,18 +8,20 @@ import RightDrawer from "../../components/RightDrawer/RightDrawer";
 const MediaViewPage = ({ handleClick, listOfSearchResults, pin }) => {
   return (
     <div className={styles.backgroundContainer}>
-      <div className={styles.centrePanel}>
-          <Typography variant="h1" classes={{ root: styles.title }}>
-            Streamity
-          </Typography>
-    </div>
-    <div>
-      <LeftDrawer
+      <LeftDrawer 
         handleClick={handleClick}
         listOfSearchResults={listOfSearchResults}
       />
-      <RightDrawer handleClick={handleClick} pin={pin} />
-    </div>
+      <main className={styles.centrePanel}>
+          <Typography variant="h1" classes={{ root: styles.title }}>
+            Streamity
+          </Typography>
+          <Typography variant="h4" classes={{ root: styles.nowPlaying }}>
+            Now Playing
+          </Typography>
+          <Divider classes={{ root: styles.nowPlaying }}/>
+    </main>
+      <RightDrawer handleClick={handleClick} pin={pin}/>
     </div>
   );
 };
