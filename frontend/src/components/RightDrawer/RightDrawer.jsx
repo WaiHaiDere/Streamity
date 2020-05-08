@@ -20,6 +20,7 @@ const RightDrawer = ({ chatMessages, pin }) => {
         <div className={styles.DrawerHeader}>
           <Typography variant="h5">PIN #{pin}</Typography>
           <Avatar className={styles.avatar}>M</Avatar>
+          {/*TODO: Change avatar to signed in user*/}
         </div>
         <List className={styles.chatMessageList}>
           {chatMessages.map((chatMessage) => {
