@@ -11,13 +11,13 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 
 const ChatMessage = ({ user, message }) => {
   return (
-    <ListItem> 
+    <ListItem alignItems="flex-start"> 
       <ListItemAvatar>
         <Avatar>
+          {user.charAt(0)}
         </Avatar>
       </ListItemAvatar>
-      <ListItemText primary={user} />
-      <ListItemText primary={message} />
+      <ListItemText primary={user} secondary={message} />
     </ListItem>
   );
 };

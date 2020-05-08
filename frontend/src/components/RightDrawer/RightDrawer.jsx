@@ -21,14 +21,13 @@ const RightDrawer = ({ chatMessages, pin }) => {
           <Typography variant="h5">PIN #{pin}</Typography>
           <Avatar className={styles.avatar}>M</Avatar>
         </div>
-        <List>
+        <List className={styles.chatMessageList}>
           {chatMessages.map((chatMessage) => {
             return (
-              <div className={styles.SearchResultContainer}>
+              <div className={styles.ChatMessagesContainer}>
                 <ChatMessage
                   user={chatMessage.user}
                   message={chatMessage.message}
-                  classes={{ root: styles.SearchResult }}
                 />
               </div>
             );
