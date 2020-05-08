@@ -11,10 +11,10 @@
 }
 
 .centrePanel {
-  margin-top: 3%;
   flex-grow: 1;
-  float: left;
-  width: 50%
+  padding-top: 3%;
+  padding-left: 290px;
+  padding-right: 310px;
 }
 
 .title {
@@ -24,8 +24,12 @@
 }
 
 .nowPlaying {
-  margin-left: 290px;
   margin-bottom: 10px;
-  margin-right: 310px;
   color: white;
+}
+
+.albumArt {
+  display: flex;
+  align-items: center;
+  align-content: center;
 }

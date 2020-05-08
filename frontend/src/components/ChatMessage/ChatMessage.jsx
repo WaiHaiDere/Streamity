@@ -6,7 +6,6 @@ import {
   ListItemText,
   Avatar,
 } from "@material-ui/core";
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
 // import styles from "./chatmessage.module.css";
 
 const ChatMessage = ({ user, message }) => {
