@@ -1,26 +1,13 @@
 import React from "react";
-import {
-  Drawer,
-  List,
-  Divider,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  TextField,
-  IconButton,
-} from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { Drawer, List, Typography, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 
 import PropTypes from "prop-types";
 import styles from "../RightDrawer/rightdrawer.module.css";
-
 import { Avatar } from "@material-ui/core";
-import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import ChatMessage from "../ChatMessage/ChatMessage";
 
-const RightDrawer = ({ handlclick, pin }) => {
+const RightDrawer = ({ chatMessages, pin }) => {
   return (
     <div>
       <Drawer
@@ -34,7 +21,19 @@ const RightDrawer = ({ handlclick, pin }) => {
           <Typography variant="h5">PIN #{pin}</Typography>
           <Avatar className={styles.avatar}>M</Avatar>
         </div>
-        <div />
+        <List>
+          {chatMessages.map((chatMessage) => {
+            return (
+              <div className={styles.SearchResultContainer}>
+                <ChatMessage
+                  user={chatMessage.user}
+                  message={chatMessage.message}
+                  classes={{ root: styles.SearchResult }}
+                />
+              </div>
+            );
+          })}
+        </List>
         <div className={styles.ChatBox}>
           <TextField
             label="Type your message"
@@ -57,11 +56,11 @@ const RightDrawer = ({ handlclick, pin }) => {
 };
 
 RightDrawer.defaultProps = {
-  handleClick: () => {},
+  chatMessages: {},
 };
 
 RightDrawer.propTypes = {
-  handleClick: PropTypes.func,
+  chatMessages: PropTypes.objectOf(PropTypes.string),
 };
 
 export default RightDrawer;
