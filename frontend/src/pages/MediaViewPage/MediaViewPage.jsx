@@ -34,28 +34,30 @@ const MediaViewPage = ({
           <Divider classes={{ root: styles.nowPlaying }} />
           <div className={styles.albumArt}>
             <img src={albumArt} style={{ height: 300 }} />
-            Lover Taylor Swift
-          </div>
-          <div>
-          <IconButton>
-            <ShuffleIcon />
-          </IconButton>
-          <IconButton>
-            <SkipPreviousIcon />
-          </IconButton>
-          <IconButton>
-            <PlayCircleFilledIcon />
-          </IconButton>
-          <IconButton>
-            <SkipNextIcon />
-          </IconButton>
-          <IconButton>
-            <RepeatIcon />
-          </IconButton>
+            <Typography>Lover</Typography>
+            <Typography>Taylor Swift</Typography>
+            <div>
+              <IconButton>
+                <ShuffleIcon />
+              </IconButton>
+              <IconButton>
+                <SkipPreviousIcon />
+              </IconButton>
+              <IconButton>
+                <PlayCircleFilledIcon />
+              </IconButton>
+              <IconButton>
+                <SkipNextIcon />
+              </IconButton>
+              <IconButton>
+                <RepeatIcon />
+              </IconButton>
+            </div>
           </div>
         </div>
+
         <div>
-        <Typography variant="h4" classes={{ root: styles.nowPlaying }}>
+          <Typography variant="h4" classes={{ root: styles.nowPlaying }}>
             Next Up
           </Typography>
           <Divider classes={{ root: styles.nowPlaying }} />
