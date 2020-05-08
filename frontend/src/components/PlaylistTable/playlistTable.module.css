@@ -1,0 +1,12 @@
+.root {
+  width: 100%;
+  background-color: transparent;
+}
+
+.stickyHeader {
+  background-color: transparent;
+}
+
+/* .container {
+  maxHeight: 250,
+} */

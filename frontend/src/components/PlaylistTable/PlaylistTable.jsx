@@ -8,6 +8,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
+import styles from "./playlistTable.module.css";
+
 const columns = [
   { id: "title", label: "Title", minWidth: 170 },
   { id: "artist", label: "Artist", minWidth: 170 },
@@ -24,9 +26,9 @@ const columns = [
   },
 ];
 
-function createData(title, artist, album, length) {
+const createData = (title, artist, album, length) => {
   return { title, artist, album, length };
-}
+};
 
 const rows = [
   createData("I Forgot That You Existed", "Taylor Swift", "Lover", "2:51"),
@@ -46,20 +48,30 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PlaylistTable() {
+const PlaylistTable = () => {
   const classes = useStyles();
 
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead className={classes.root}>
+        <Table
+          stickyHeader
+          aria-label="sticky table"
+          classes={{
+            stickyHeader: styles.stickyHeader,
+            root: styles.root,
+          }}
+        >
+          <TableHead className={styles.root}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
+                  classes={{
+                    stickyHeader: styles.stickyHeader,
+                  }}
                 >
                   {column.label}
                 </TableCell>
@@ -88,4 +100,6 @@ export default function PlaylistTable() {
       </TableContainer>
     </Paper>
   );
-}
+};
+
+export default PlaylistTable;
