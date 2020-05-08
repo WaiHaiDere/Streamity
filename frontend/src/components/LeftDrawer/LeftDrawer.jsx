@@ -4,7 +4,6 @@ import {
   Drawer,
   List,
   IconButton,
-  Divider,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
