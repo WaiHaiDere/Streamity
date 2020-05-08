@@ -3,10 +3,6 @@
   background-color: transparent;
 }
 
-.stickyHeader {
-  background-color: transparent;
+.container {
+  max-height: 250px;
 }
-
-/* .container {
-  maxHeight: 250,
-} */

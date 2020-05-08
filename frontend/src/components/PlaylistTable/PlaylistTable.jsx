@@ -38,22 +38,10 @@ const rows = [
   createData("I Think He Knows", "Taylor Swift", "Lover", "2:53"),
 ];
 
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    background: "none",
-  },
-  container: {
-    maxHeight: 250,
-  },
-});
-
 const PlaylistTable = () => {
-  const classes = useStyles();
-
   return (
-    <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
+    <Paper classes={{ root: styles.root }}>
+      <TableContainer classes={{ root: styles.container }}>
         <Table
           stickyHeader
           aria-label="sticky table"
@@ -62,7 +50,7 @@ const PlaylistTable = () => {
             root: styles.root,
           }}
         >
-          <TableHead className={styles.root}>
+          <TableHead classes={{ root: styles.root }}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
