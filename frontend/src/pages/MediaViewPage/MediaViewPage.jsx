@@ -4,6 +4,7 @@ import { Typography, Divider, IconButton } from "@material-ui/core";
 import styles from "./mediaviewpage.module.css";
 import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
+import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
 import albumArt from "./tempAlbumArt.jpg";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
@@ -55,12 +56,12 @@ const MediaViewPage = ({
             </div>
           </div>
         </div>
-
         <div>
           <Typography variant="h4" classes={{ root: styles.nowPlaying }}>
             Next Up
           </Typography>
           <Divider classes={{ root: styles.nowPlaying }} />
+          <PlaylistTable/>
         </div>
       </main>
       <RightDrawer
