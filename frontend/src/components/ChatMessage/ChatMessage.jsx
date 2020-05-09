@@ -6,11 +6,11 @@ import {
   ListItemText,
   Avatar,
 } from "@material-ui/core";
-// import styles from "./chatmessage.module.css";
+import styles from "./chatmessage.module.css";
 
 const ChatMessage = ({ user, message }) => {
   return (
-    <ListItem alignItems="flex-start"> 
+    <ListItem classes={{root: styles.alignItems}}> 
       <ListItemAvatar>
         <Avatar>
           {user.charAt(0)}
