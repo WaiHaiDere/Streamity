@@ -7,6 +7,8 @@ const router = express.Router();
 const SPOTIFY_AUTH_END_POINT = "https://accounts.spotify.com/authorize";
 const SPOTIFY_AUTH_TOKEN_END_POINT = "https://accounts.spotify.com/api/token";
 const SPOTIFY_TRACK_SEARCH_END_POINT = "https://api.spotify.com/v1/search";
+const SPOTIFY_PLAYER_PLAY = "https://api.spotify.com/v1/me/player/play";
+const SPOTIFY_PLAYER_PAUSE = "https://api.spotify.com/v1/me/player/pause";
 const CLIENT_ID = "84075fd82c074e5aac8e8f5b8c05d5fc";
 const CLIENT_SECRET = "e1d779aa26db4997af564836003e476b";
 const REDIRECT_URI = "http://localhost:3000/buffer";
@@ -66,5 +68,47 @@ router.get("/search", async (request, response) => {
   console.log(res);
   response.send(res);
 });
+
+router.post("/play", async (request, response) => {
+  console.log(request);
+  response.header("Access-Control-Allow-Origin", "*");
+  const res = await fetch(
+    SPOTIFY_PLAYER_PLAY +
+      "?device_id=" +
+      request.headers.deviceId, //should be called deviceId
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + request.headers.token,
+      },
+    }
+  ).then((response) => response.json());
+  console.log(res);
+  response.send(res);
+});
+
+router.post("/pause", async (request, response) => {
+  console.log(request);
+  response.header("Access-Control-Allow-Origin", "*");
+  const res = await fetch(
+    SPOTIFY_PLAYER_PAUSE +
+      "?device_id=" +
+      request.headers.deviceId, //should be called deviceId
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + request.headers.token,
+      },
+    }
+  ).then((response) => response.json());
+  console.log(res);
+  response.send(res);
+});
+
+
 
 module.exports = router;
