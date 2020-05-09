@@ -6,6 +6,11 @@ import PropTypes from "prop-types";
 import styles from "../RightDrawer/rightdrawer.module.css";
 import { Avatar } from "@material-ui/core";
 import ChatMessage from "../ChatMessage/ChatMessage";
+import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
 
 const RightDrawer = ({ chatMessages, pin, details }) => {
   return (
@@ -39,20 +44,31 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
           })}
         </List>
         <div className={styles.ChatBox}>
-          <TextField
-            label="Type your message"
-            InputProps={{
-              endAdornment: <SendIcon />,
-              classes: {
+          <FormControl>
+            <InputLabel
+              htmlFor="chat-message"
+              classes={{
                 root: styles.chatColour,
-              },
-            }}
-            InputLabelProps={{
-              classes: {
-                root: styles.chatColour,
-              },
-            }}
-          />
+              }}
+            >
+              Type your message
+            </InputLabel>
+            <Input
+              id="chat-message"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="send chat message"
+                    classes={{
+                      root: styles.chatColour,
+                    }}
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
         </div>
       </Drawer>
     </div>
