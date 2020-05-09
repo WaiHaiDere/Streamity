@@ -7,7 +7,7 @@ import styles from "../RightDrawer/rightdrawer.module.css";
 import { Avatar } from "@material-ui/core";
 import ChatMessage from "../ChatMessage/ChatMessage";
 
-const RightDrawer = ({ chatMessages, pin }) => {
+const RightDrawer = ({ chatMessages, pin, details }) => {
   return (
     <div>
       <Drawer
@@ -18,11 +18,15 @@ const RightDrawer = ({ chatMessages, pin }) => {
         anchor="right"
       >
         <div className={styles.DrawerHeader}>
-          <Typography variant="h5">PIN #{pin}</Typography>
-          <Avatar className={styles.avatar}>M</Avatar>
-          {/*TODO: Change avatar to signed in user*/}
+          <div className={styles.headerText}>
+            <Typography variant="overline">{details.username}</Typography>
+            <Typography variant="h5">PIN #{pin}</Typography>
+          </div>
+          <Avatar classes={{ root: styles.avatar }}>
+            {details.username.charAt(0)}
+          </Avatar>
         </div>
-        <List className={styles.chatMessageList}>
+        <List classes={{ root: styles.chatMessageList }}>
           {chatMessages.map((chatMessage) => {
             return (
               <div className={styles.ChatMessagesContainer}>
@@ -57,10 +61,12 @@ const RightDrawer = ({ chatMessages, pin }) => {
 
 RightDrawer.defaultProps = {
   chatMessages: {},
+  details: { username: "" },
 };
 
 RightDrawer.propTypes = {
   chatMessages: PropTypes.objectOf(PropTypes.string),
+  details: PropTypes.objectOf(PropTypes.string),
 };
 
 export default RightDrawer;
