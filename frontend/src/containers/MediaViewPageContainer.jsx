@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { getSpotifySearches } from "../services/spotifyService";
+import { getSpotifySearches, postPlay } from "../services/spotifyService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 
@@ -37,6 +37,16 @@ const MediaViewPageContainer = ({ children }) => {
 
   const getSpotifySearchResults = async (title) => {
     const results = await getSpotifySearches(title, token);
+    return results;
+  };
+
+  const handlePlay = async (deviceId) => {
+    const results = await postPlay(token, deviceId);
+    return results;
+  };
+
+  const handlePause = async (deviceId) => {
+    const results = await postPause(token, deviceId);
     return results;
   };
 
