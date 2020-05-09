@@ -8,63 +8,71 @@ import Script from "react-load-script";
 import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
 
-const handleScriptError = () => {
-  console.log("ERROR LOADING SCRIPT");
-};
-
-const handleScriptLoad = () => {
-  window.onSpotifyWebPlaybackSDKReady = () => {
-    const token =
-      "BQClaGRve1tKm9sohcLrI7U2G4Qu5m1QYWuIyBYMBUIH-qkC-ZvfvgEK-hx_3OsaAQpWiUjUWRmOP5kAtruv8NiMmU4bQ0oZRR54EBU0yIi18yK3EZGEjPAXG7lvbaS0qHM4UzvgrrI6PBP_XQcgei86UG7U1DtmNgnueKFUOhYD";
-    const player = new window.Spotify.Player({
-      name: "Streamity",
-      getOAuthToken: (cb) => {
-        cb(token);
-      },
-    });
-
-    // Error handling
-    player.addListener("initialization_error", ({ message }) => {
-      console.error(message);
-    });
-    player.addListener("authentication_error", ({ message }) => {
-      console.error(message);
-    });
-    player.addListener("account_error", ({ message }) => {
-      console.error(message);
-    });
-    player.addListener("playback_error", ({ message }) => {
-      console.error(message);
-    });
-
-    // Playback status updates
-    player.addListener("player_state_changed", (state) => {
-      console.log(state);
-    });
-
-    // Ready
-    player.addListener("ready", ({ device_id }) => {
-      console.log("Ready with Device ID", device_id);
-    });
-
-    // Not Ready
-    player.addListener("not_ready", ({ device_id }) => {
-      console.log("Device ID has gone offline", device_id);
-    });
-
-    // Connect to the player!
-    player.connect();
+const MediaViewPage = ({
+  handleClick,
+  listOfSearchResults,
+  details,
+  memberList,
+  token,
+}) => {
+  const handleScriptError = () => {
+    console.log("ERROR LOADING SCRIPT");
   };
-};
 
-const MediaViewPage = ({ handleClick, listOfSearchResults, details }) => {
+  const handleScriptLoad = () => {
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const player = new window.Spotify.Player({
+        name: "Streamity",
+        getOAuthToken: (cb) => {
+          cb(token);
+        },
+      });
+
+      // Error handling
+      player.addListener("initialization_error", ({ message }) => {
+        console.error(message);
+      });
+      player.addListener("authentication_error", ({ message }) => {
+        console.error(message);
+      });
+      player.addListener("account_error", ({ message }) => {
+        console.error(message);
+      });
+      player.addListener("playback_error", ({ message }) => {
+        console.error(message);
+      });
+
+      // Playback status updates
+      player.addListener("player_state_changed", (state) => {
+        console.log(state);
+      });
+
+      // Ready
+      player.addListener("ready", ({ device_id }) => {
+        console.log("Ready with Device ID", device_id);
+      });
+
+      // Not Ready
+      player.addListener("not_ready", ({ device_id }) => {
+        console.log("Device ID has gone offline", device_id);
+      });
+
+      // Connect to the player!
+      player.connect();
+    };
+  };
+
+  console.log(memberList);
   return (
     <div>
-      <Script
-        url="https://sdk.scdn.co/spotify-player.js"
-        onLoad={handleScriptLoad()}
-        onError={handleScriptError()}
-      />
+      {token ? (
+        <Script
+          url="https://sdk.scdn.co/spotify-player.js"
+          onLoad={handleScriptLoad()}
+          onError={handleScriptError()}
+        />
+      ) : null}
+
       <LeftDrawer
         handleClick={handleClick}
         listOfSearchResults={listOfSearchResults}
@@ -81,6 +89,8 @@ const MediaViewPage = ({ handleClick, listOfSearchResults, details }) => {
 MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [],
+  memberList: [{}],
+  token: "",
 };
 
 MediaViewPage.propTypes = {
@@ -90,6 +100,8 @@ MediaViewPage.propTypes = {
     pin: PropTypes.string,
     username: PropTypes.string,
   }).isRequired,
+  memberList: PropTypes.arrayOf(PropTypes.object),
+  token: PropTypes.string,
 };
 
 export default MediaViewPage;
