@@ -4,10 +4,10 @@ import {
   getSpotifySearches,
   postPlay,
   postPause,
+  addDeviceID as addDeviceIDRequest,
 } from "../services/spotifyService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
-
 import keys from "../hooks/GlobalState/keys";
 
 const MediaViewPageContainer = ({ children }) => {
@@ -35,20 +35,9 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
+  const [deviceID, setDeviceID] = useState("");
 
-  const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
-
-  const handleClickPlayPause = async () => {
-    if (!isPlay) {
-      console.log(isPlay);
-      setPlayStatus((isPlay) => !isPlay);
-      await handlePlay(deviceID);
-    } else {
-      console.log(isPlay);
-      setPlayStatus((isPlay) => !isPlay);
-      await handlePause(deviceID);
-    }
-  };
+  // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
 
   const handleClick = () => {
     console.log("glick");
@@ -67,6 +56,23 @@ const MediaViewPageContainer = ({ children }) => {
   const handlePause = async (deviceId) => {
     const results = await postPause({ token, deviceId });
     return results;
+  };
+
+  const addDeviceID = async (device) => {
+    await addDeviceIDRequest({ pin: details.pin, deviceID: device });
+    setDeviceID(device);
+  };
+
+  const handleClickPlayPause = async () => {
+    if (!isPlay) {
+      console.log(isPlay);
+      setPlayStatus(!isPlay);
+      await handlePlay(deviceID);
+    } else {
+      console.log(isPlay);
+      setPlayStatus(!isPlay);
+      await handlePause(deviceID);
+    }
   };
 
   const [chatMessages, setChatMessages] = useState([
@@ -121,6 +127,7 @@ const MediaViewPageContainer = ({ children }) => {
     token,
     chatMessages,
     isPlay,
+    addDeviceID,
   };
 
   return React.cloneElement(children, { ...newProps });

@@ -1,14 +1,14 @@
 import React from "react";
-import { TextField, Drawer, List, IconButton } from "@material-ui/core";
+import { Drawer, List, IconButton } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
-import SearchResult from "../SearchResult/SearchResult";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
+import SearchResult from "../SearchResult/SearchResult";
 import styles from "./leftdrawer.module.css";
 
 const LeftDrawer = ({ listOfSearchResults }) => {
@@ -49,7 +49,10 @@ const LeftDrawer = ({ listOfSearchResults }) => {
         <List>
           {listOfSearchResults.map((searchResult) => {
             return (
-              <div className={styles.SearchResultContainer}>
+              <div
+                className={styles.SearchResultContainer}
+                key={`${searchResult.title}-key`}
+              >
                 <SearchResult
                   title={searchResult.title}
                   artist={searchResult.artist}
@@ -68,11 +71,11 @@ const LeftDrawer = ({ listOfSearchResults }) => {
 };
 
 LeftDrawer.defaultProps = {
-  listOfSearchResults: {},
+  listOfSearchResults: [],
 };
 
 LeftDrawer.propTypes = {
-  listOfSearchResults: PropTypes.objectOf(PropTypes.string),
+  listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default LeftDrawer;

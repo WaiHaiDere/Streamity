@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -67,9 +66,10 @@ const PlaylistTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
+            {rows.map((row, i) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                // eslint-disable-next-line react/no-array-index-key
+                <TableRow hover role="checkbox" tabIndex={-1} key={`${i}-key`}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (

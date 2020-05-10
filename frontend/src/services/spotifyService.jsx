@@ -63,7 +63,7 @@ export const postPlay = async ({ token, deviceId }) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      token: token,
+      token,
       deviceid: deviceId,
     },
     method: "POST",
@@ -77,7 +77,7 @@ export const postPause = async ({ token, deviceId }) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      token: token,
+      token,
       deviceid: deviceId,
     },
     method: "POST",

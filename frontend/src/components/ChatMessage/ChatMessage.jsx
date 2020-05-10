@@ -10,11 +10,9 @@ import styles from "./chatmessage.module.css";
 
 const ChatMessage = ({ user, message }) => {
   return (
-    <ListItem classes={{root: styles.alignItems}}> 
+    <ListItem classes={{ root: styles.alignItems }}>
       <ListItemAvatar>
-        <Avatar>
-          {user.charAt(0)}
-        </Avatar>
+        <Avatar>{user.charAt(0)}</Avatar>
       </ListItemAvatar>
       <ListItemText primary={user} secondary={message} />
     </ListItem>
@@ -28,7 +26,7 @@ ChatMessage.defaultProps = {
 
 ChatMessage.propTypes = {
   user: PropTypes.string,
-  message: "",
+  message: PropTypes.string,
 };
 
 export default ChatMessage;
