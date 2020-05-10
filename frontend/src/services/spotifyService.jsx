@@ -98,9 +98,9 @@ export const postPause = async ({ token, deviceId }) => {
   return res;
 };
 
-export const addDeviceID = async ({ pin, deviceId }) => {
+export const addDeviceID = async ({ pin, deviceID }) => {
   const newParams = {
-    deviceId,
+    deviceID,
   };
 
   const reqBody = JSON.stringify(newParams);

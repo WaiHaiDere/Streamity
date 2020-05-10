@@ -60,7 +60,7 @@ const MediaViewPage = ({
 
       // Ready
       player.addListener("ready", async ({ device_id }) => {
-        await addDeviceID({ pin: details.pin, deviceId: device_id });
+        await addDeviceID({ pin: details.pin, deviceID: device_id });
         console.log("Ready with Device ID", device_id);
       });
 

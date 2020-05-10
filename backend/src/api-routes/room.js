@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try{
     const foundRoom = await Room.findOne({pin: req.params.id});
-    console.log(foundRoom);
+    // console.log(foundRoom);
     if(foundRoom !== null) {
       res.status(201).send(foundRoom);
     } else {
@@ -46,7 +46,6 @@ router.get("/:id", async (req, res) => {
 })
 
 router.put("/:id/auth", async (req, res) => {
-
   try{
     const foundRoom = await Room.findOne({pin: req.params.id});
     if(foundRoom !== null) {
@@ -62,6 +61,7 @@ router.put("/:id/auth", async (req, res) => {
 })
 
 router.put("/:id/device", async (req, res) => {
+  console.log(req.body);
 
   try{
     const foundRoom = await Room.findOne({pin: req.params.id});

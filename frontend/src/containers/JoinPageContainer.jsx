@@ -65,9 +65,7 @@ const JoinPageContainer = ({ children }) => {
         pin: details.pin,
         username: details.username,
       };
-      const res = await joinRoom({
-        sessionDetails,
-      });
+      const res = await joinRoom(sessionDetails);
 
       putGlobalState({ key: keys.SESSION, value: sessionDetails });
 
