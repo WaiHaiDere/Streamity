@@ -59,40 +59,28 @@ export const updateSpotifyToken = async ({ token, id }) => {
 };
 
 export const postPlay = async ({ token, deviceId }) => {
-  const newParams = {
-    authToken: token,
-    deviceId,
-  };
-
-  const reqBody = JSON.stringify(newParams);
-
   const res = await fetch(spotifyPlayerPlayRoute, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      token: token,
+      deviceid: deviceId,
     },
-    method: "PUT",
-    body: reqBody,
+    method: "POST",
   }).then((response) => response.json());
 
   return res;
 };
 
 export const postPause = async ({ token, deviceId }) => {
-  const newParams = {
-    authToken: token,
-    deviceId,
-  };
-
-  const reqBody = JSON.stringify(newParams);
-
   const res = await fetch(spotifyPlayerPauseRoute, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      token: token,
+      deviceid: deviceId,
     },
-    method: "PUT",
-    body: reqBody,
+    method: "POST",
   }).then((response) => response.json());
 
   return res;
