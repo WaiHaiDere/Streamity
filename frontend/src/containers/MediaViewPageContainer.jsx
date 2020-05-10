@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { getSpotifySearches, postPlay } from "../services/spotifyService";
+import {
+  getSpotifySearches,
+  postPlay,
+  postPause,
+} from "../services/spotifyService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 
@@ -30,6 +34,7 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
+  const [pin, setPin] = useState("123456");
 
   const handleClick = () => {
     console.log("handleChange");
@@ -49,6 +54,25 @@ const MediaViewPageContainer = ({ children }) => {
     const results = await postPause(token, deviceId);
     return results;
   };
+
+  const [chatMessages, setChatMessages] = useState([
+    {
+      user: "Mish",
+      message: "I love this song!",
+    },
+    {
+      user: "Tyger",
+      message: "Agreed",
+    },
+    {
+      user: "Josh",
+      message: "Major fan!",
+    },
+    {
+      user: "Ryan",
+      message: "Guys have you seen.",
+    },
+  ]);
 
   useEffect(() => {
     async function getInfo() {
@@ -79,7 +103,10 @@ const MediaViewPageContainer = ({ children }) => {
     listOfSearchResults,
     memberList,
     token,
+    pin, // michelle's addition
+    chatMessages,
   };
+
   return React.cloneElement(children, { ...newProps });
 };
 
