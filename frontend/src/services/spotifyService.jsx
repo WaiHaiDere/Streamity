@@ -1,4 +1,10 @@
-import { spotifyTokenRoute, updateTokenRoute } from "./apiRoutes";
+import {
+  spotifyTokenRoute,
+  spotifySearchRoute,
+  updateTokenRoute,
+  spotifyPlayerPlayRoute,
+  spotifyPlayerPauseRoute,
+} from "./apiRoutes";
 
 export const getSpotifyToken = async (authCode) => {
   const newParams = {
@@ -16,6 +22,19 @@ export const getSpotifyToken = async (authCode) => {
     body: reqBody,
   }).then((response) => response.json());
 
+  return res;
+};
+
+export const getSpotifySearches = async (searchTitle, authToken) => {
+  const res = await fetch(spotifySearchRoute, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      title: searchTitle,
+      token: authToken,
+    },
+  }).then((response) => response.json());
   return res;
 };
 
@@ -38,4 +57,32 @@ export const updateSpotifyToken = async ({ token, id }) => {
   return res;
 };
 
-export default getSpotifyToken;
+export const postPlay = async ({ token, deviceId }) => {
+  const res = await fetch(spotifyPlayerPlayRoute, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      token: token,
+      deviceid: deviceId,
+    },
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const postPause = async ({ token, deviceId }) => {
+  const res = await fetch(spotifyPlayerPauseRoute, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      token: token,
+      deviceid: deviceId,
+    },
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export default { getSpotifyToken, getSpotifySearches };

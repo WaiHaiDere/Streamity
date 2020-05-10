@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { getRoom } from "../services/mediaSelectionService";
 import { joinRoom } from "../services/joinService";
+import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
+import keys from "../hooks/GlobalState/keys";
 
 const JoinPageContainer = ({ children }) => {
   const [page, setPage] = useState(0);
@@ -16,6 +18,8 @@ const JoinPageContainer = ({ children }) => {
     pin: "",
     username: "",
   });
+
+  const { putGlobalState } = useGlobalState();
 
   const buttonDisable = (newDetails, name) => {
     const newDisable = { ...disable };
@@ -57,10 +61,14 @@ const JoinPageContainer = ({ children }) => {
       }
     }
     if (page === 1) {
-      const res = await joinRoom({
+      const sessionDetails = {
         pin: details.pin,
         username: details.username,
-      });
+      };
+      const res = await joinRoom(sessionDetails);
+
+      putGlobalState({ key: keys.SESSION, value: sessionDetails });
+
       if (!res.error) {
         setRedirect(true);
       }
