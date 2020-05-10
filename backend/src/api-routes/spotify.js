@@ -13,7 +13,8 @@ const CLIENT_ID = "84075fd82c074e5aac8e8f5b8c05d5fc";
 const CLIENT_SECRET = "e1d779aa26db4997af564836003e476b";
 const REDIRECT_URI = "http://localhost:3000/buffer";
 const AUTH_GRANT_TYPE = "authorization_code";
-const SCOPE = "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state"; 
+const SCOPE =
+  "streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state";
 
 router.get("/login", async (request, response) => {
   response.redirect(
@@ -48,7 +49,7 @@ router.post("/authorise", async (request, response) => {
 });
 
 router.get("/search", async (request, response) => {
-  console.log(request);
+  //console.log(request);
   response.header("Access-Control-Allow-Origin", "*");
   // https://api.spotify.com/v1/search?q=let it go&type=track&limit=10
   const res = await fetch(
@@ -70,45 +71,42 @@ router.get("/search", async (request, response) => {
 });
 
 router.post("/play", async (request, response) => {
-  console.log(request);
+  //console.log(request);
   response.header("Access-Control-Allow-Origin", "*");
-  const res = await fetch(
-    SPOTIFY_PLAYER_PLAY +
-      "?device_id=" +
-      request.headers.deviceId, //should be called deviceId
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + request.headers.token,
-      },
-    }
-  ).then((response) => response.json());
-  console.log(res);
-  response.send(res);
+  try {
+    const res = await fetch(
+      SPOTIFY_PLAYER_PLAY + "?device_id=" + request.headers.deviceid, //should be called deviceId
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + request.headers.token,
+        },
+      }
+    ).then((response) => response.json());
+    console.log(res);
+    response.send(res);
+  } catch (error) {}
 });
 
 router.post("/pause", async (request, response) => {
-  console.log(request);
-  response.header("Access-Control-Allow-Origin", "*");
-  const res = await fetch(
-    SPOTIFY_PLAYER_PAUSE +
-      "?device_id=" +
-      request.headers.deviceId, //should be called deviceId
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: "Bearer " + request.headers.token,
-      },
-    }
-  ).then((response) => response.json());
-  console.log(res);
-  response.send(res);
+  console.log(request.headers);
+  try {
+    const res = await fetch(
+      SPOTIFY_PLAYER_PAUSE + "?device_id=" + request.headers.deviceid, //should be called deviceId
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + request.headers.token,
+        },
+      }
+    ).then((response) => response.json());
+    console.log(res);
+    response.send(res);
+  } catch (error) {}
 });
-
-
 
 module.exports = router;

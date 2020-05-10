@@ -26,6 +26,7 @@ const MediaViewPageContainer = ({ children }) => {
       },
     ]
   );
+  const [isPlay, setPlayStatus] = useState(false);
   const history = useHistory();
   const [details, setDetails] = useState({
     username: "",
@@ -36,8 +37,22 @@ const MediaViewPageContainer = ({ children }) => {
   const [token, setToken] = useState("");
   const [pin, setPin] = useState("123456");
 
+  const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
+
+  const handleClickPlayPause = async () => {
+    if (!isPlay) {
+      console.log(isPlay);
+      setPlayStatus((isPlay) => !isPlay);
+      await handlePlay(deviceID);
+    } else {
+      console.log(isPlay);
+      setPlayStatus((isPlay) => !isPlay);
+      await handlePause(deviceID);
+    }
+  };
+
   const handleClick = () => {
-    console.log("handleChange");
+    console.log("glick");
   };
 
   const getSpotifySearchResults = async (title) => {
@@ -46,12 +61,12 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handlePlay = async (deviceId) => {
-    const results = await postPlay(token, deviceId);
+    const results = await postPlay({ token, deviceId });
     return results;
   };
 
   const handlePause = async (deviceId) => {
-    const results = await postPause(token, deviceId);
+    const results = await postPause({ token, deviceId });
     return results;
   };
 
@@ -86,6 +101,7 @@ const MediaViewPageContainer = ({ children }) => {
         }
         setMemberList(room.member_list);
         setToken(room.spotifyAuth);
+        console.log(room.spotifyAuth);
       } else {
         history.push("/join");
       }
@@ -99,12 +115,14 @@ const MediaViewPageContainer = ({ children }) => {
 
   const newProps = {
     details,
+    handleClickPlayPause,
     handleClick,
     listOfSearchResults,
     memberList,
     token,
     pin, // michelle's addition
     chatMessages,
+    isPlay,
   };
 
   return React.cloneElement(children, { ...newProps });

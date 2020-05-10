@@ -12,19 +12,22 @@ import RightDrawer from "../../components/RightDrawer/RightDrawer";
 import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
 import albumArt from "./tempAlbumArt.jpg";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import RepeatIcon from "@material-ui/icons/Repeat";
 
 const MediaViewPage = ({
-  handleClick,
+  handleClickPlayPause,
   listOfSearchResults,
+  handleClick,
   details,
   memberList,
   token,
   chatMessages,
   pin,
+  isPlay,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -108,8 +111,12 @@ const MediaViewPage = ({
                 <IconButton>
                   <SkipPreviousIcon />
                 </IconButton>
-                <IconButton>
-                  <PlayCircleFilledIcon />
+                <IconButton onClick={handleClickPlayPause}>
+                  {isPlay ? (
+                    <PauseCircleFilledIcon />
+                  ) : (
+                    <PlayCircleFilledIcon />
+                  )}
                 </IconButton>
                 <IconButton>
                   <SkipNextIcon />
@@ -145,6 +152,7 @@ MediaViewPage.defaultProps = {
   token: "",
   chatMessages: [],
   pin: "",
+  handleClickPlayPause: () => {},
 };
 
 MediaViewPage.propTypes = {
@@ -157,6 +165,8 @@ MediaViewPage.propTypes = {
   memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
   chatMessages: PropTypes.arrayOf(PropTypes.string),
+  handleClickPlayPause: PropTypes.func,
+  isPlay: PropTypes.bool,
 };
 
 export default MediaViewPage;
