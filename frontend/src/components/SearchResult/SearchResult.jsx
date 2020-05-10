@@ -6,16 +6,15 @@ import {
   ListItemText,
   Avatar,
 } from "@material-ui/core";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
 // import styles from "./searchresult.module.css";
 
 const SearchResult = ({ title, artist }) => {
   return (
-    <ListItem>
+    <ListItem> 
       <ListItemAvatar>
         <Avatar>
-          <AccountCircleIcon />
+          <MusicNoteIcon/>
         </Avatar>
       </ListItemAvatar>
       <ListItemText primary={title} />

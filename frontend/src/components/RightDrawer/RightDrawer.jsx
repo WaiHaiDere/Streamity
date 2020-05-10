@@ -1,63 +1,74 @@
-import React from 'react';
-import {
-    Drawer,
-    List,
-    Divider,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Typography,
-    TextField,
-    IconButton
-} from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import SendIcon from '@material-ui/icons/Send';
+import React from "react";
+import { Drawer, List, Typography, TextField } from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
 
-import PropTypes from 'prop-types';
-import styles from '../RightDrawer/rightdrawer.module.css';
+import PropTypes from "prop-types";
+import styles from "../RightDrawer/rightdrawer.module.css";
+import { Avatar } from "@material-ui/core";
+import ChatMessage from "../ChatMessage/ChatMessage";
+import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
 
-const RightDrawer = ({handlclick, pin}) => {
+const RightDrawer = ({ chatMessages, pin, details }) => {
   return (
     <div>
       <Drawer
         variant="permanent"
         classes={{
-          paper: styles.Drawer
+          paper: styles.Drawer,
         }}
         anchor="right"
       >
         <div className={styles.DrawerHeader}>
-           <Typography variant='h4'>
-               PIN #{pin}
-           </Typography>
+          <div className={styles.headerText}>
+            <Typography variant="overline">{details.username}</Typography>
+            <Typography variant="h5">PIN #{pin}</Typography>
+          </div>
+          <Avatar classes={{ root: styles.avatar }}>
+            {details.username.charAt(0)}
+          </Avatar>
         </div>
-        <div/>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+        <List classes={{ root: styles.chatMessageList }}>
+          {chatMessages.map((chatMessage) => {
+            return (
+              <div className={styles.ChatMessagesContainer}>
+                <ChatMessage
+                  user={chatMessage.user}
+                  message={chatMessage.message}
+                />
+              </div>
+            );
+          })}
         </List>
         <div className={styles.ChatBox}>
-          <TextField 
-          label="Type your message here" 
+          <FormControl>
+            <InputLabel
+              htmlFor="chat-message"
+              classes={{
+                root: styles.chatColour,
+              }}
+            >
+              Type your message
+            </InputLabel>
+            <Input
+              id="chat-message"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="send chat message"
+                    classes={{
+                      root: styles.chatColour,
+                    }}
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
             />
-            <IconButton>
-            <SendIcon/>
-            </IconButton>
+          </FormControl>
         </div>
       </Drawer>
     </div>
@@ -65,11 +76,13 @@ const RightDrawer = ({handlclick, pin}) => {
 };
 
 RightDrawer.defaultProps = {
-    handleClick: () => {}
+  chatMessages: {},
+  details: { username: "" },
 };
 
 RightDrawer.propTypes = {
-    handleClick: PropTypes.func,
+  chatMessages: PropTypes.objectOf(PropTypes.string),
+  details: PropTypes.objectOf(PropTypes.string),
 };
 
 export default RightDrawer;

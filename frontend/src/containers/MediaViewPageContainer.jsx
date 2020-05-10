@@ -22,7 +22,28 @@ const MediaViewPageContainer = ({ children }) => {
     console.log("handleChange");
   };
 
-  const newProps = { pin, handleClick, listOfSearchResults };
+  const [chatMessages, setChatMessages] = useState(
+    [
+      {
+        user: "Mish",
+        message: "I love this song!",
+      },
+      {
+        user: "Tyger",
+        message: "Agreed",
+      },
+      {
+        user: "Josh",
+        message: "Major fan!",
+      },
+      {
+        user: "Ryan",
+        message: "Guys have you seen.",
+      },
+    ]
+  );
+
+  const newProps = { pin, handleClick, listOfSearchResults, chatMessages };
 
   return React.cloneElement(children, { ...newProps });
 };
