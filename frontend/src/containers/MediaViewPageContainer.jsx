@@ -34,7 +34,6 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
-  const [pin, setPin] = useState("123456");
 
   const handleClick = () => {
     console.log("handleChange");
@@ -103,7 +102,6 @@ const MediaViewPageContainer = ({ children }) => {
     listOfSearchResults,
     memberList,
     token,
-    pin, // michelle's addition
     chatMessages,
   };
 

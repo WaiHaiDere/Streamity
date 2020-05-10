@@ -21,6 +21,10 @@ const roomSchema = new mongoose.Schema(
     member_list: {
       type: Array,
       default: []
+    },
+    device_list: {
+      type: Array,
+      default: []
     }
   }
 );

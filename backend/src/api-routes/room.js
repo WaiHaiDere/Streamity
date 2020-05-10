@@ -59,12 +59,26 @@ router.put("/:id/auth", async (req, res) => {
   } catch (err) {
     res.status(404).json({message: err.message});
   }
-
-
 })
+
+router.put("/:id/device", async (req, res) => {
+
+  try{
+    const foundRoom = await Room.findOne({pin: req.params.id});
+    if(foundRoom !== null) {
+      foundRoom.device_list.push(req.body.deviceID);
+      const saveReq = await foundRoom.save();
+      res.status(200).json(saveReq);
+    } else {
+      res.status(404).json({error: "Room not found. Please double check your PIN."});
+    }
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  }
+})
+
 router.put("/:id", async (req, res) => {
   try{
-    console.log
     const foundRoom = await Room.findOne({pin: req.params.id});
     if(foundRoom !== null) {
 
