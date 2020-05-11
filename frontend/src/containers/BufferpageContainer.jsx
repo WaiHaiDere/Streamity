@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import { getPersistentItem } from "../common/persistenceStore";
-import {
-  getSpotifyToken,
-  updateSpotifyToken,
-} from "../services/spotifyService";
+import { getSpotifyToken } from "../services/spotifyService";
 import keys from "../hooks/GlobalState/keys";
 
 const BufferpageContainer = ({ children }) => {
