@@ -27,6 +27,7 @@ const MediaViewPage = ({
   token,
   chatMessages,
   isPlay,
+  addDeviceID,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -61,7 +62,8 @@ const MediaViewPage = ({
       });
 
       // Ready
-      player.addListener("ready", ({ device_id }) => {
+      player.addListener("ready", async ({ device_id }) => {
+        await addDeviceID(device_id);
         console.log("Ready with Device ID", device_id);
       });
 
@@ -152,6 +154,7 @@ MediaViewPage.defaultProps = {
   chatMessages: [],
   handleClickPlayPause: () => {},
   isPlay: false,
+  addDeviceID: () => {},
 };
 
 MediaViewPage.propTypes = {
@@ -166,6 +169,7 @@ MediaViewPage.propTypes = {
   chatMessages: PropTypes.arrayOf(PropTypes.string),
   handleClickPlayPause: PropTypes.func,
   isPlay: PropTypes.bool,
+  addDeviceID: PropTypes.func,
 };
 
 export default MediaViewPage;
