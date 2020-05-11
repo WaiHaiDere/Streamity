@@ -5,8 +5,8 @@ const Room = require("../db/models/roomSchema");
 
 const router = express.Router();
 
+// Add new room
 router.post("/", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
   const max = 999999;
   const min = 100000;
   const pin = (Math.floor(Math.random() * (max - min + 1)) + min).toString();
@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
   }
 })
 
+// Get Room details
 router.get("/:id", async (req, res) => {
   try{
     const foundRoom = await Room.findOne({pin: req.params.id});
@@ -45,28 +46,20 @@ router.get("/:id", async (req, res) => {
   }
 })
 
-router.put("/:id/auth", async (req, res) => {
-  try{
-    const foundRoom = await Room.findOne({pin: req.params.id});
-    if(foundRoom !== null) {
-      foundRoom.spotifyAuth = req.body.authToken;
-      const saveReq = await foundRoom.save();
-      res.status(200).json(saveReq);
-    } else {
-      res.status(404).json({error: "Room not found. Please double check your PIN."});
-    }
-  } catch (err) {
-    res.status(404).json({message: err.message});
-  }
-})
-
+// Add new device
 router.put("/:id/device", async (req, res) => {
   console.log(req.body);
 
   try{
     const foundRoom = await Room.findOne({pin: req.params.id});
     if(foundRoom !== null) {
-      foundRoom.device_list.push(req.body.deviceID);
+
+      const device = {
+        authToken: req.body.authToken,
+        device_id: req.body.deviceID,
+      }
+      
+      foundRoom.devices.push(device);
       const saveReq = await foundRoom.save();
       res.status(200).json(saveReq);
     } else {
@@ -77,6 +70,7 @@ router.put("/:id/device", async (req, res) => {
   }
 })
 
+// add new user
 router.put("/:id", async (req, res) => {
   try{
     const foundRoom = await Room.findOne({pin: req.params.id});

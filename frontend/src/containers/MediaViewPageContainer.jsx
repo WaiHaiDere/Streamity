@@ -4,8 +4,8 @@ import {
   getSpotifySearches,
   postPlay,
   postPause,
-  addDeviceID as addDeviceIDRequest,
 } from "../services/spotifyService";
+import { addDevice as addDeviceIDRequest } from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
@@ -59,7 +59,11 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const addDeviceID = async (device) => {
-    await addDeviceIDRequest({ pin: details.pin, deviceID: device });
+    await addDeviceIDRequest({
+      pin: details.pin,
+      deviceID: device,
+      authToken: token,
+    });
     setDeviceID(device);
   };
 
@@ -98,14 +102,14 @@ const MediaViewPageContainer = ({ children }) => {
     async function getInfo() {
       if (existsInGlobalState(keys.SESSION)) {
         const detailsFromContext = getGlobalState(keys.SESSION);
-        setDetails(detailsFromContext);
-
+        const { username, pin } = { ...detailsFromContext };
+        setDetails({ username, pin });
+        setToken(detailsFromContext.authToken);
         const room = await getRoom(detailsFromContext.pin);
         if (room.error) {
           history.push("/join");
         }
         setMemberList(room.member_list);
-        setToken(room.spotifyAuth);
         console.log(room.spotifyAuth);
       } else {
         history.push("/join");

@@ -4,7 +4,6 @@ import {
   updateTokenRoute,
   spotifyPlayerPlayRoute,
   spotifyPlayerPauseRoute,
-  addDeviceIDRoute,
 } from "./apiRoutes";
 
 export const getSpotifyToken = async (authCode) => {
@@ -81,25 +80,6 @@ export const postPause = async ({ token, deviceId }) => {
       deviceid: deviceId,
     },
     method: "POST",
-  }).then((response) => response.json());
-
-  return res;
-};
-
-export const addDeviceID = async ({ pin, deviceID }) => {
-  const newParams = {
-    deviceID,
-  };
-
-  const reqBody = JSON.stringify(newParams);
-
-  const res = await fetch(addDeviceIDRoute(pin), {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    method: "PUT",
-    body: reqBody,
   }).then((response) => response.json());
 
   return res;
