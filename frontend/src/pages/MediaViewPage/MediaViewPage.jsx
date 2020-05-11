@@ -7,24 +7,26 @@ import PropTypes from "prop-types";
 import Script from "react-load-script";
 import { Typography, Divider, IconButton } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import RepeatIcon from "@material-ui/icons/Repeat";
-import styles from "./mediaviewpage.module.css";
-import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
-import RightDrawer from "../../components/RightDrawer/RightDrawer";
-import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
 import albumArt from "./tempAlbumArt.jpg";
+import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
+import RightDrawer from "../../components/RightDrawer/RightDrawer";
+import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
+import styles from "./mediaviewpage.module.css";
 
 const MediaViewPage = ({
-  handleClick,
+  handleClickPlayPause,
   listOfSearchResults,
+  handleClick,
   details,
   memberList,
   token,
   chatMessages,
-  addDeviceID,
+  isPlay,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -59,8 +61,7 @@ const MediaViewPage = ({
       });
 
       // Ready
-      player.addListener("ready", async ({ device_id }) => {
-        await addDeviceID(device_id);
+      player.addListener("ready", ({ device_id }) => {
         console.log("Ready with Device ID", device_id);
       });
 
@@ -109,8 +110,12 @@ const MediaViewPage = ({
                 <IconButton>
                   <SkipPreviousIcon />
                 </IconButton>
-                <IconButton>
-                  <PlayCircleFilledIcon />
+                <IconButton onClick={handleClickPlayPause}>
+                  {isPlay ? (
+                    <PauseCircleFilledIcon />
+                  ) : (
+                    <PlayCircleFilledIcon />
+                  )}
                 </IconButton>
                 <IconButton>
                   <SkipNextIcon />
@@ -141,28 +146,26 @@ const MediaViewPage = ({
 
 MediaViewPage.defaultProps = {
   handleClick: () => {},
-  addDeviceID: () => {},
   listOfSearchResults: [],
   memberList: [{}],
   token: "",
   chatMessages: [],
-  details: {
-    pin: "",
-    username: "",
-  },
+  handleClickPlayPause: () => {},
+  isPlay: false,
 };
 
 MediaViewPage.propTypes = {
   handleClick: PropTypes.func,
-  addDeviceID: PropTypes.func,
-  listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
+  listOfSearchResults: PropTypes.arrayOf(PropTypes.string),
   details: PropTypes.shape({
     pin: PropTypes.string,
     username: PropTypes.string,
-  }),
+  }).isRequired,
   memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
-  chatMessages: PropTypes.arrayOf(PropTypes.object),
+  chatMessages: PropTypes.arrayOf(PropTypes.string),
+  handleClickPlayPause: PropTypes.func,
+  isPlay: PropTypes.bool,
 };
 
 export default MediaViewPage;
