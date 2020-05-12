@@ -35,9 +35,9 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
-  const [pin, setPin] = useState("123456");
-
-  const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
+  const [deviceID, setDeviceID] = useState("");
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [userSearch, setUserSearch] = useState("");
 
   const handleClickPlayPause = async () => {
     if (!isPlay) {
@@ -51,9 +51,21 @@ const MediaViewPageContainer = ({ children }) => {
     }
   };
 
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setUserSearch(value);
+    console.log(userSearch);
+  }
+
   const handleClick = () => {
     console.log("glick");
   };
+
+  const handleClickSearch = async () => {
+    const results = await getSpotifySearches({searchTitle: userSearch, authToken: token});
+    console.log(results);
+    return results;
+  }
 
   const getSpotifySearchResults = async (title) => {
     const results = await getSpotifySearches(title, token);
@@ -68,6 +80,28 @@ const MediaViewPageContainer = ({ children }) => {
   const handlePause = async (deviceId) => {
     const results = await postPause({ token, deviceId });
     return results;
+  };
+
+  const addDeviceID = async (device) => {
+    await addDeviceIDRequest({
+      pin: details.pin,
+      deviceID: device,
+      authToken: token,
+    });
+    setDeviceID(device);
+    setScriptLoaded(true);
+  };
+
+  const handleClickPlayPause = async () => {
+    if (!isPlay) {
+      console.log(isPlay);
+      setPlayStatus(!isPlay);
+      await handlePlay(deviceID);
+    } else {
+      console.log(isPlay);
+      setPlayStatus(!isPlay);
+      await handlePause(deviceID);
+    }
   };
 
   const [chatMessages, setChatMessages] = useState([
@@ -106,7 +140,7 @@ const MediaViewPageContainer = ({ children }) => {
         history.push("/join");
       }
 
-      await getSpotifySearchResults("tadow");
+      //await getSpotifySearchResults("tadow");
       // setlistOfSearchResults(results);
     }
 
@@ -123,6 +157,10 @@ const MediaViewPageContainer = ({ children }) => {
     pin, // michelle's addition
     chatMessages,
     isPlay,
+    addDeviceID,
+    scriptLoaded,
+    handleChange,
+    handleClickSearch,
   };
 
   return React.cloneElement(children, { ...newProps });

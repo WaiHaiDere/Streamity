@@ -11,7 +11,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import styles from "./leftdrawer.module.css";
 
-const LeftDrawer = ({ listOfSearchResults }) => {
+const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) => {
   return (
     <div>
       <Drawer
@@ -31,6 +31,7 @@ const LeftDrawer = ({ listOfSearchResults }) => {
             </InputLabel>
             <Input
               id="search-input"
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -38,6 +39,7 @@ const LeftDrawer = ({ listOfSearchResults }) => {
                     classes={{
                       root: styles.searchColour,
                     }}
+                    onClick={handleClickSearch}
                   >
                     <SearchIcon />
                   </IconButton>
@@ -68,11 +70,15 @@ const LeftDrawer = ({ listOfSearchResults }) => {
 };
 
 LeftDrawer.defaultProps = {
-  listOfSearchResults: {},
+  listOfSearchResults: [],
+  handleChange: () => {},
+  handleClickSearch: () => {},
 };
 
-LeftDrawer.propTypes = {
-  listOfSearchResults: PropTypes.objectOf(PropTypes.string),
+LeftDrawer.propTypes = {  
+  listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
+  handleChange: PropTypes.func,
+  handleClickSearch: PropTypes.func,
 };
 
 export default LeftDrawer;

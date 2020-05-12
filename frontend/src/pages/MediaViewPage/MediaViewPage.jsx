@@ -28,6 +28,10 @@ const MediaViewPage = ({
   chatMessages,
   pin,
   isPlay,
+  addDeviceID,
+  scriptLoaded,
+  handleChange,
+  handleClickSearch,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -79,7 +83,7 @@ const MediaViewPage = ({
   console.log(memberList);
   return (
     <div>
-      {token ? (
+      {(token && !scriptLoaded) ? (
         <Script
           url="https://sdk.scdn.co/spotify-player.js"
           onLoad={handleScriptLoad()}
@@ -90,6 +94,8 @@ const MediaViewPage = ({
         <LeftDrawer
           handleClick={handleClick}
           listOfSearchResults={listOfSearchResults}
+          handleChange={handleChange}
+          handleClickSearch={handleClickSearch}
         />
         <main className={styles.centrePanel}>
           <Typography variant="h1" classes={{ root: styles.title }}>
@@ -153,6 +159,11 @@ MediaViewPage.defaultProps = {
   chatMessages: [],
   pin: "",
   handleClickPlayPause: () => {},
+  isPlay: false,
+  addDeviceID: () => {},
+  scriptLoaded: false,
+  handleChange: () => {},
+  handleClickSearch: () => {},
 };
 
 MediaViewPage.propTypes = {
@@ -167,6 +178,10 @@ MediaViewPage.propTypes = {
   chatMessages: PropTypes.arrayOf(PropTypes.string),
   handleClickPlayPause: PropTypes.func,
   isPlay: PropTypes.bool,
+  addDeviceID: PropTypes.func,
+  scriptLoaded: PropTypes.bool,
+  handleChange: PropTypes.func,
+  handleClickSearch: PropTypes.func,
 };
 
 export default MediaViewPage;

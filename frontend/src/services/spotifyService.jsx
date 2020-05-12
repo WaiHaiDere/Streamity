@@ -25,7 +25,7 @@ export const getSpotifyToken = async (authCode) => {
   return res;
 };
 
-export const getSpotifySearches = async (searchTitle, authToken) => {
+export const getSpotifySearches = async ({searchTitle, authToken}) => {
   const res = await fetch(spotifySearchRoute, {
     method: "GET",
     headers: {

@@ -49,7 +49,7 @@ router.post("/authorise", async (request, response) => {
 });
 
 router.get("/search", async (request, response) => {
-  //console.log(request);
+  console.log(request.headers.title);
   response.header("Access-Control-Allow-Origin", "*");
   // https://api.spotify.com/v1/search?q=let it go&type=track&limit=10
   const res = await fetch(
@@ -66,8 +66,17 @@ router.get("/search", async (request, response) => {
       },
     }
   ).then((response) => response.json());
-  console.log(res);
-  response.send(res);
+  //console.log(res);
+  const toReturn = res.tracks.items.map((item)=>{
+    return {
+      album: item.album,
+      artist: item.artists,
+      duration: item.duration_ms,
+      songName: item.name,
+      trackUri: item.uri,
+    }
+  })
+  response.send(toReturn);
 });
 
 router.post("/play", async (request, response) => {
