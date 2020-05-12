@@ -35,7 +35,6 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
-  const [deviceID, setDeviceID] = useState("");
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
 
@@ -48,13 +47,13 @@ const MediaViewPageContainer = ({ children }) => {
     return results;
   };
 
-  const handlePlay = async (deviceId) => {
-    const results = await postPlay({ token, deviceId });
+  const handlePlay = async () => {
+    const results = await postPlay(details.pin);
     return results;
   };
 
-  const handlePause = async (deviceId) => {
-    const results = await postPause({ token, deviceId });
+  const handlePause = async () => {
+    const results = await postPause(details.pin);
     return results;
   };
 
@@ -64,22 +63,21 @@ const MediaViewPageContainer = ({ children }) => {
       deviceID: device,
       authToken: token,
     });
-    setDeviceID(device);
   };
 
   const handleClickPlayPause = async () => {
     if (!isPlay) {
       console.log(isPlay);
       setPlayStatus(!isPlay);
-      await handlePlay(deviceID);
+      await handlePlay();
     } else {
       console.log(isPlay);
       setPlayStatus(!isPlay);
-      await handlePause(deviceID);
+      await handlePause();
     }
   };
 
-  const [chatMessages, setChatMessages] = useState([
+  const [chatMessages] = useState([
     {
       user: "Mish",
       message: "I love this song!",

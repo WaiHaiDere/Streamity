@@ -7,5 +7,5 @@ export const spotifyTokenRoute = `/api/spotify/authorise`;
 export const updateTokenRoute = (id) => `/api/room/${id}/auth`;
 export const addDeviceIDRoute = (id) => `/api/room/${id}/device`;
 export const spotifySearchRoute = `/api/spotify/search`;
-export const spotifyPlayerPlayRoute = `/api/spotify/play`;
-export const spotifyPlayerPauseRoute = `/api/spotify/pause`;
+export const spotifyPlayerPlayRoute = (id) => `/api/spotify/play/${id}`;
+export const spotifyPlayerPauseRoute = (id) => `/api/spotify/pause/${id}`;
