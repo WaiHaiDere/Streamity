@@ -57,13 +57,11 @@ export const updateSpotifyToken = async ({ token, id }) => {
   return res;
 };
 
-export const postPlay = async ({ token, deviceId }) => {
-  const res = await fetch(spotifyPlayerPlayRoute, {
+export const postPlay = async (pin) => {
+  const res = await fetch(spotifyPlayerPlayRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      token,
-      deviceid: deviceId,
     },
     method: "POST",
   }).then((response) => response.json());
@@ -71,13 +69,11 @@ export const postPlay = async ({ token, deviceId }) => {
   return res;
 };
 
-export const postPause = async ({ token, deviceId }) => {
-  const res = await fetch(spotifyPlayerPauseRoute, {
+export const postPause = async (pin) => {
+  const res = await fetch(spotifyPlayerPauseRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      token,
-      deviceid: deviceId,
     },
     method: "POST",
   }).then((response) => response.json());

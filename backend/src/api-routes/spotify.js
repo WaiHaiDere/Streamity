@@ -1,6 +1,8 @@
 const express = require("express");
 const queryString = require("querystring");
 const fetch = require("node-fetch");
+const Room = require("../db/models/roomSchema");
+
 
 const router = express.Router();
 
@@ -79,43 +81,68 @@ router.get("/search", async (request, response) => {
   response.send(toReturn);
 });
 
-router.post("/play", async (request, response) => {
-  //console.log(request);
-  response.header("Access-Control-Allow-Origin", "*");
-  try {
-    const res = await fetch(
-      SPOTIFY_PLAYER_PLAY + "?device_id=" + request.headers.deviceid, //should be called deviceId
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + request.headers.token,
-        },
-      }
-    ).then((response) => response.json());
-    console.log(res);
-    response.send(res);
-  } catch (error) {}
+router.post("/play/:id", async (request, response) => {
+  try{
+    const foundRoom = await Room.findOne({pin: request.params.id});
+    if(foundRoom !== null) {
+
+      const deviceList = foundRoom.devices;
+      deviceList.forEach(async (device) => {
+        try {
+            const res = await fetch(
+              SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + device.authToken,
+                },
+              }
+            ).then((response) => response.json());
+            console.log(res);
+            response.send(res);
+          } catch (error) {}
+      })
+
+    } else {
+      res.status(404).json({error: "Room not found. Please double check your PIN."});
+    }
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  } 
 });
 
-router.post("/pause", async (request, response) => {
-  console.log(request.headers);
-  try {
-    const res = await fetch(
-      SPOTIFY_PLAYER_PAUSE + "?device_id=" + request.headers.deviceid, //should be called deviceId
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + request.headers.token,
-        },
-      }
-    ).then((response) => response.json());
-    console.log(res);
-    response.send(res);
-  } catch (error) {}
+router.post("/pause/:id", async (request, response) => {
+  try{
+    const foundRoom = await Room.findOne({pin: request.params.id});
+    if(foundRoom !== null) {
+
+      const deviceList = foundRoom.devices;
+      deviceList.forEach(async (device) => {
+        try {
+            const res = await fetch(
+              SPOTIFY_PLAYER_PAUSE + "?device_id=" + device.device_id, //should be called deviceId
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + device.authToken,
+                },
+              }
+            ).then((response) => response.json());
+            console.log(res);
+            response.send(res);
+          } catch (error) {}
+      })
+
+    } else {
+      res.status(404).json({error: "Room not found. Please double check your PIN."});
+    }
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  } 
 });
 
 module.exports = router;

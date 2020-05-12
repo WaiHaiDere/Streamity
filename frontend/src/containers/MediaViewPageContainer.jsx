@@ -62,13 +62,13 @@ const MediaViewPageContainer = ({ children }) => {
     return results;
   };
 
-  const handlePlay = async (deviceId) => {
-    const results = await postPlay({ token, deviceId });
+  const handlePlay = async () => {
+    const results = await postPlay(details.pin);
     return results;
   };
 
-  const handlePause = async (deviceId) => {
-    const results = await postPause({ token, deviceId });
+  const handlePause = async () => {
+    const results = await postPause(details.pin);
     return results;
   };
 
