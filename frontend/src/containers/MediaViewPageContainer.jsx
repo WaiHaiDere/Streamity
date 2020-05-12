@@ -35,7 +35,6 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
-  const [deviceID, setDeviceID] = useState("");
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
 
@@ -64,7 +63,6 @@ const MediaViewPageContainer = ({ children }) => {
       deviceID: device,
       authToken: token,
     });
-    setDeviceID(device);
   };
 
   const handleClickPlayPause = async () => {
