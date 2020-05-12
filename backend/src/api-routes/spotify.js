@@ -78,7 +78,7 @@ router.post("/play/:id", async (request, response) => {
     if(foundRoom !== null) {
 
       const deviceList = foundRoom.devices;
-      deviceList.map(async (device) => {
+      deviceList.forEach(async (device) => {
         try {
             const res = await fetch(
               SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
@@ -110,7 +110,7 @@ router.post("/pause/:id", async (request, response) => {
     if(foundRoom !== null) {
 
       const deviceList = foundRoom.devices;
-      deviceList.map(async (device) => {
+      deviceList.forEach(async (device) => {
         try {
             const res = await fetch(
               SPOTIFY_PLAYER_PAUSE + "?device_id=" + device.device_id, //should be called deviceId
