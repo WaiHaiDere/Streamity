@@ -52,17 +52,17 @@ const PinPage = ({ handleClick, pin }) => {
               </CardActions>
             </Card>
           </Grid>
-            <Button
-              variant="contained"
-              onClick={handleClick}
-              classes={{
-                root: styles.nextButton,
-                label: styles.buttonLabel,
-              }}
-              href= {spotifyLoginRoute} 
-            >
-              JOIN THE PARTY
-            </Button>
+          <Button
+            variant="contained"
+            onClick={handleClick}
+            classes={{
+              root: styles.nextButton,
+              label: styles.buttonLabel,
+            }}
+            href={spotifyLoginRoute}
+          >
+            JOIN THE PARTY
+          </Button>
         </div>
       </Container>
     </div>

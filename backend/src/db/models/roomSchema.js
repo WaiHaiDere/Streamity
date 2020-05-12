@@ -14,14 +14,21 @@ const roomSchema = new mongoose.Schema(
         type: String,
       },
     },
-    spotifyAuth: {
-      type: String,
-      default: "",
-    },
     member_list: {
       type: Array,
       default: []
-    }
+    },
+    devices: [
+      {
+        authToken: {
+          type: String,
+        },
+        device_id: {
+          type: String
+        },
+      }
+    ]    
+      
   }
 );
 

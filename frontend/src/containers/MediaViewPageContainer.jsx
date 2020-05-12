@@ -5,9 +5,9 @@ import {
   postPlay,
   postPause,
 } from "../services/spotifyService";
+import { addDevice as addDeviceIDRequest } from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
-
 import keys from "../hooks/GlobalState/keys";
 
 const MediaViewPageContainer = ({ children }) => {
@@ -39,17 +39,7 @@ const MediaViewPageContainer = ({ children }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
 
-  const handleClickPlayPause = async () => {
-    if (!isPlay) {
-      console.log(isPlay);
-      setPlayStatus((isPlay) => !isPlay);
-      await handlePlay(deviceID);
-    } else {
-      console.log(isPlay);
-      setPlayStatus((isPlay) => !isPlay);
-      await handlePause(deviceID);
-    }
-  };
+  // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -127,14 +117,14 @@ const MediaViewPageContainer = ({ children }) => {
     async function getInfo() {
       if (existsInGlobalState(keys.SESSION)) {
         const detailsFromContext = getGlobalState(keys.SESSION);
-        setDetails(detailsFromContext);
-
+        const { username, pin } = { ...detailsFromContext };
+        setDetails({ username, pin });
+        setToken(detailsFromContext.authToken);
         const room = await getRoom(detailsFromContext.pin);
         if (room.error) {
           history.push("/join");
         }
         setMemberList(room.member_list);
-        setToken(room.spotifyAuth);
         console.log(room.spotifyAuth);
       } else {
         history.push("/join");
@@ -154,7 +144,6 @@ const MediaViewPageContainer = ({ children }) => {
     listOfSearchResults,
     memberList,
     token,
-    pin, // michelle's addition
     chatMessages,
     isPlay,
     addDeviceID,

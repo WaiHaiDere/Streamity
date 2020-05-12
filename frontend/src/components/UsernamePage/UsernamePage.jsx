@@ -4,7 +4,13 @@ import { Container, Typography, TextField, Button } from "@material-ui/core";
 
 import styles from "../../pages/JoinPage/JoinPage.module.css";
 
-const UsernamePage = ({ handleChange, handleClick, details, disable }) => {
+const UsernamePage = ({
+  handleChange,
+  handleClick,
+  details,
+  disable,
+  loginPath,
+}) => {
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
@@ -45,6 +51,7 @@ const UsernamePage = ({ handleChange, handleClick, details, disable }) => {
               label: styles.buttonLabel,
               disabled: styles.disabled,
             }}
+            href={loginPath || null}
           >
             JOIN THE PARTY
           </Button>
@@ -59,6 +66,7 @@ UsernamePage.defaultProps = {
   handleClick: () => {},
   details: { username: "" },
   disable: { username: true },
+  loginPath: "",
 };
 
 UsernamePage.propTypes = {
@@ -68,6 +76,7 @@ UsernamePage.propTypes = {
   disable: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
   ),
+  loginPath: PropTypes.string,
 };
 
 export default UsernamePage;

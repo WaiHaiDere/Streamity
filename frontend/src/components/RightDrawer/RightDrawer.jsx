@@ -1,16 +1,16 @@
 import React from "react";
-import { Drawer, List, Typography, TextField } from "@material-ui/core";
+import { Drawer, List, Typography, Avatar } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 
 import PropTypes from "prop-types";
-import styles from "../RightDrawer/rightdrawer.module.css";
-import { Avatar } from "@material-ui/core";
-import ChatMessage from "../ChatMessage/ChatMessage";
+
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
+import styles from "./rightdrawer.module.css";
+import ChatMessage from "../ChatMessage/ChatMessage";
 
 const RightDrawer = ({ chatMessages, pin, details }) => {
   return (
@@ -34,7 +34,10 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
         <List classes={{ root: styles.chatMessageList }}>
           {chatMessages.map((chatMessage) => {
             return (
-              <div className={styles.ChatMessagesContainer}>
+              <div
+                className={styles.ChatMessagesContainer}
+                key={`${chatMessage.user}-${chatMessage.message}`}
+              >
                 <ChatMessage
                   user={chatMessage.user}
                   message={chatMessage.message}
@@ -76,13 +79,15 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
 };
 
 RightDrawer.defaultProps = {
-  chatMessages: {},
+  chatMessages: [],
   details: { username: "" },
+  pin: "",
 };
 
 RightDrawer.propTypes = {
-  chatMessages: PropTypes.objectOf(PropTypes.string),
+  chatMessages: PropTypes.arrayOf(PropTypes.object),
   details: PropTypes.objectOf(PropTypes.string),
+  pin: PropTypes.string,
 };
 
 export default RightDrawer;
