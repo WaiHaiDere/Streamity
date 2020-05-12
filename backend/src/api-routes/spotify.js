@@ -1,6 +1,8 @@
 const express = require("express");
 const queryString = require("querystring");
 const fetch = require("node-fetch");
+const Room = require("../db/models/roomSchema");
+
 
 const router = express.Router();
 
@@ -76,16 +78,16 @@ router.post("/play/:id", async (request, response) => {
     if(foundRoom !== null) {
 
       const deviceList = foundRoom.devices;
-      deviceList.map(async (authToken, device_id) => {
+      deviceList.map(async (device) => {
         try {
             const res = await fetch(
-              SPOTIFY_PLAYER_PLAY + "?device_id=" + device_id, //should be called deviceId
+              SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
               {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                   Accept: "application/json",
-                  Authorization: "Bearer " + authToken,
+                  Authorization: "Bearer " + device.authToken,
                 },
               }
             ).then((response) => response.json());
@@ -108,16 +110,16 @@ router.post("/pause/:id", async (request, response) => {
     if(foundRoom !== null) {
 
       const deviceList = foundRoom.devices;
-      deviceList.map(async (authToken, device_id) => {
+      deviceList.map(async (device) => {
         try {
             const res = await fetch(
-              SPOTIFY_PLAYER_PAUSE + "?device_id=" + device_id, //should be called deviceId
+              SPOTIFY_PLAYER_PAUSE + "?device_id=" + device.device_id, //should be called deviceId
               {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                   Accept: "application/json",
-                  Authorization: "Bearer " + authToken,
+                  Authorization: "Bearer " + device.authToken,
                 },
               }
             ).then((response) => response.json());
