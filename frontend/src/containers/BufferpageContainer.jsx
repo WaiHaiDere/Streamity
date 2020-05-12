@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import { getPersistentItem } from "../common/persistenceStore";
-import {
-  getSpotifyToken,
-  updateSpotifyToken,
-} from "../services/spotifyService";
+import { getSpotifyToken } from "../services/spotifyService";
 import keys from "../hooks/GlobalState/keys";
 
 const BufferpageContainer = ({ children }) => {
@@ -16,7 +13,6 @@ const BufferpageContainer = ({ children }) => {
 
   const getAuthenticationToken = async (code) => {
     const resp = await getSpotifyToken(code);
-    // console.log(resp);
     return resp.access_token;
   };
 
@@ -38,14 +34,11 @@ const BufferpageContainer = ({ children }) => {
 
       if (getPersistentItem(keys.SESSION)) {
         const session = getPersistentItem(keys.SESSION);
-        await updateSpotifyToken({
-          token: spotifyToken,
-          id: session.pin,
-        });
 
         const saveSession = {
           pin: session.pin,
           username: session.username,
+          authToken: spotifyToken,
         };
 
         putGlobalState({

@@ -6,17 +6,17 @@ import PropTypes from "prop-types";
 // import styles from "./mediaviewpage.module.css";
 import Script from "react-load-script";
 import { Typography, Divider, IconButton } from "@material-ui/core";
-import styles from "./mediaviewpage.module.css";
-import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
-import RightDrawer from "../../components/RightDrawer/RightDrawer";
-import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
-import albumArt from "./tempAlbumArt.jpg";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import RepeatIcon from "@material-ui/icons/Repeat";
+import albumArt from "./tempAlbumArt.jpg";
+import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
+import RightDrawer from "../../components/RightDrawer/RightDrawer";
+import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
+import styles from "./mediaviewpage.module.css";
 
 const MediaViewPage = ({
   handleClickPlayPause,
@@ -26,8 +26,8 @@ const MediaViewPage = ({
   memberList,
   token,
   chatMessages,
-  pin,
   isPlay,
+  addDeviceID,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -62,7 +62,8 @@ const MediaViewPage = ({
       });
 
       // Ready
-      player.addListener("ready", ({ device_id }) => {
+      player.addListener("ready", async ({ device_id }) => {
+        await addDeviceID(device_id);
         console.log("Ready with Device ID", device_id);
       });
 
@@ -101,7 +102,7 @@ const MediaViewPage = ({
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
             <div className={styles.albumArt}>
-              <img src={albumArt} style={{ height: 300 }} />
+              <img src={albumArt} style={{ height: 300 }} alt="album-art" />
               <Typography>Lover</Typography>
               <Typography>Taylor Swift</Typography>
               <div>
@@ -138,7 +139,7 @@ const MediaViewPage = ({
         <RightDrawer
           handleClick={handleClick}
           chatMessages={chatMessages}
-          pin={pin}
+          pin={details.pin}
         />
       </div>
     </div>
@@ -151,8 +152,9 @@ MediaViewPage.defaultProps = {
   memberList: [{}],
   token: "",
   chatMessages: [],
-  pin: "",
   handleClickPlayPause: () => {},
+  isPlay: false,
+  addDeviceID: () => {},
 };
 
 MediaViewPage.propTypes = {
@@ -167,6 +169,7 @@ MediaViewPage.propTypes = {
   chatMessages: PropTypes.arrayOf(PropTypes.string),
   handleClickPlayPause: PropTypes.func,
   isPlay: PropTypes.bool,
+  addDeviceID: PropTypes.func,
 };
 
 export default MediaViewPage;

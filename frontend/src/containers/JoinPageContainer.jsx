@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
 import { getRoom } from "../services/mediaSelectionService";
 import { joinRoom } from "../services/joinService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
+import { setPersistentItem } from "../common/persistenceStore";
+import { spotifyLoginRoute } from "../services/apiRoutes";
 
 const JoinPageContainer = ({ children }) => {
   const [page, setPage] = useState(0);
-  const [redirect, setRedirect] = useState(false);
   const [disable, setDisable] = useState({ pin: true, username: true });
   const [details, setDetails] = useState({
     pin: "",
@@ -65,27 +65,26 @@ const JoinPageContainer = ({ children }) => {
         pin: details.pin,
         username: details.username,
       };
-      const res = await joinRoom(sessionDetails);
+      await joinRoom(sessionDetails);
 
       putGlobalState({ key: keys.SESSION, value: sessionDetails });
-
-      if (!res.error) {
-        setRedirect(true);
-      }
+      setPersistentItem(keys.SESSION, sessionDetails);
     }
     if (page < children.length - 1) {
       setPage(page + 1);
     }
   };
 
-  const newProps = { handleChange, handleClick, details, disable, error };
+  const newProps = {
+    handleChange,
+    handleClick,
+    details,
+    disable,
+    error,
+    loginPath: spotifyLoginRoute,
+  };
 
-  return (
-    <>
-      {redirect && <Redirect to="/media" />}
-      {React.cloneElement(children[page], { ...newProps })}
-    </>
-  );
+  return <>{React.cloneElement(children[page], { ...newProps })}</>;
 };
 
 JoinPageContainer.propTypes = {
