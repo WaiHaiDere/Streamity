@@ -50,21 +50,19 @@ const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) =>
         </div>
         <List>
           {listOfSearchResults.map((searchResult) => {
-            return (
-              <div
-                className={styles.SearchResultContainer}
-                key={`${searchResult.title}-key`}
-              >
+            return(
+                <>
                 <SearchResult
-                  title={searchResult.title}
-                  artist={searchResult.artist}
+                  key={searchResult.trackUri}
+                  title={searchResult.songName}
+                  artist={searchResult.artist[0].name}
                   classes={{ root: styles.SearchResult }}
                 />
                 <IconButton>
                   <AddIcon />
                 </IconButton>
-              </div>
-            );
+                </>
+            )
           })}
         </List>
       </Drawer>
@@ -73,7 +71,7 @@ const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) =>
 };
 
 LeftDrawer.defaultProps = {
-  listOfSearchResults: [],
+  listOfSearchResults: [{}],
   handleChange: () => {},
   handleClickSearch: () => {},
 };

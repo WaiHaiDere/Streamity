@@ -153,7 +153,7 @@ const MediaViewPage = ({
 
 MediaViewPage.defaultProps = {
   handleClick: () => {},
-  listOfSearchResults: [],
+  listOfSearchResults: [{}],
   memberList: [{}],
   token: "",
   chatMessages: [],
@@ -167,7 +167,7 @@ MediaViewPage.defaultProps = {
 
 MediaViewPage.propTypes = {
   handleClick: PropTypes.func,
-  listOfSearchResults: PropTypes.arrayOf(PropTypes.string),
+  listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
   details: PropTypes.shape({
     pin: PropTypes.string,
     username: PropTypes.string,

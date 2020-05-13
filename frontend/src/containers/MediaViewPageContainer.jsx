@@ -13,19 +13,7 @@ import keys from "../hooks/GlobalState/keys";
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
-  const [listOfSearchResults] = useState(
-    // hardcoding this for now
-    [
-      {
-        title: "Ryan",
-        artist: "artist1",
-      },
-      {
-        title: "YEET",
-        artist: "artist2",
-      },
-    ]
-  );
+  const [listOfSearchResults, setlistOfSearchResults] = useState([]);
   const [isPlay, setPlayStatus] = useState(false);
   const history = useHistory();
   const [details, setDetails] = useState({
@@ -54,6 +42,8 @@ const MediaViewPageContainer = ({ children }) => {
   const handleClickSearch = async () => {
     const results = await getSpotifySearches({searchTitle: userSearch, authToken: token});
     console.log(results);
+    setlistOfSearchResults(results);
+    console.log(listOfSearchResults);
     return results;
   }
 
@@ -129,9 +119,6 @@ const MediaViewPageContainer = ({ children }) => {
       } else {
         history.push("/join");
       }
-
-      //await getSpotifySearchResults("tadow");
-      // setlistOfSearchResults(results);
     }
 
     getInfo();
