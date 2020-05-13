@@ -76,15 +76,15 @@ const MediaViewPageContainer = ({ children }) => {
     if (!isPlay) {
       console.log(isPlay);
       setPlayStatus(!isPlay);
-      await handlePlay(deviceID);
+      await handlePlay();
     } else {
       console.log(isPlay);
       setPlayStatus(!isPlay);
-      await handlePause(deviceID);
+      await handlePause();
     }
   };
 
-  const [chatMessages, setChatMessages] = useState([
+  const [chatMessages] = useState([
     {
       user: "Mish",
       message: "I love this song!",
