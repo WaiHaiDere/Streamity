@@ -13,19 +13,7 @@ import keys from "../hooks/GlobalState/keys";
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
-  const [listOfSearchResults] = useState(
-    // hardcoding this for now
-    [
-      {
-        title: "Ryan",
-        artist: "artist1",
-      },
-      {
-        title: "YEET",
-        artist: "artist2",
-      },
-    ]
-  );
+  const [listOfSearchResults, setlistOfSearchResults] = useState([]);
   const [isPlay, setPlayStatus] = useState(false);
   const history = useHistory();
   const [details, setDetails] = useState({
@@ -35,12 +23,29 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
+  const [deviceID, setDeviceID] = useState("");
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [userSearch, setUserSearch] = useState("");
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setUserSearch(value);
+    console.log(userSearch);
+  }
 
   const handleClick = () => {
     console.log("glick");
   };
+
+  const handleClickSearch = async () => {
+    const results = await getSpotifySearches({searchTitle: userSearch, authToken: token});
+    console.log(results);
+    setlistOfSearchResults(results);
+    console.log(listOfSearchResults);
+    return results;
+  }
 
   const getSpotifySearchResults = async (title) => {
     const results = await getSpotifySearches(title, token);
@@ -63,6 +68,8 @@ const MediaViewPageContainer = ({ children }) => {
       deviceID: device,
       authToken: token,
     });
+    setDeviceID(device);
+    setScriptLoaded(true);
   };
 
   const handleClickPlayPause = async () => {
@@ -112,9 +119,6 @@ const MediaViewPageContainer = ({ children }) => {
       } else {
         history.push("/join");
       }
-
-      await getSpotifySearchResults("tadow");
-      // setlistOfSearchResults(results);
     }
 
     getInfo();
@@ -130,6 +134,9 @@ const MediaViewPageContainer = ({ children }) => {
     chatMessages,
     isPlay,
     addDeviceID,
+    scriptLoaded,
+    handleChange,
+    handleClickSearch,
   };
 
   return React.cloneElement(children, { ...newProps });

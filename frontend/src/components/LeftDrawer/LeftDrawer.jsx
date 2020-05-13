@@ -11,7 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import SearchResult from "../SearchResult/SearchResult";
 import styles from "./leftdrawer.module.css";
 
-const LeftDrawer = ({ listOfSearchResults }) => {
+const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) => {
   return (
     <div>
       <Drawer
@@ -31,6 +31,7 @@ const LeftDrawer = ({ listOfSearchResults }) => {
             </InputLabel>
             <Input
               id="search-input"
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -38,6 +39,7 @@ const LeftDrawer = ({ listOfSearchResults }) => {
                     classes={{
                       root: styles.searchColour,
                     }}
+                    onClick={handleClickSearch}
                   >
                     <SearchIcon />
                   </IconButton>
@@ -48,21 +50,19 @@ const LeftDrawer = ({ listOfSearchResults }) => {
         </div>
         <List>
           {listOfSearchResults.map((searchResult) => {
-            return (
-              <div
-                className={styles.SearchResultContainer}
-                key={`${searchResult.title}-key`}
-              >
+            return(
+                <>
                 <SearchResult
-                  title={searchResult.title}
-                  artist={searchResult.artist}
+                  key={searchResult.trackUri}
+                  title={searchResult.songName}
+                  artist={searchResult.artist[0].name}
                   classes={{ root: styles.SearchResult }}
                 />
                 <IconButton>
                   <AddIcon />
                 </IconButton>
-              </div>
-            );
+                </>
+            )
           })}
         </List>
       </Drawer>
@@ -71,11 +71,15 @@ const LeftDrawer = ({ listOfSearchResults }) => {
 };
 
 LeftDrawer.defaultProps = {
-  listOfSearchResults: [],
+  listOfSearchResults: [{}],
+  handleChange: () => {},
+  handleClickSearch: () => {},
 };
 
-LeftDrawer.propTypes = {
+LeftDrawer.propTypes = {  
   listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
+  handleChange: PropTypes.func,
+  handleClickSearch: PropTypes.func,
 };
 
 export default LeftDrawer;
