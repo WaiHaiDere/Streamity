@@ -34,14 +34,14 @@ const PinPage = ({ handleClick, pin }) => {
           >
             <Card classes={{ root: styles.pinCard }}>
               <CardContent>
-                <Typography variant="h2" classes={{ root: styles.title }}>
+                <Typography variant="h2" classes={{ root: styles.title }} id="pin">
                   PIN: {pin}
                 </Typography>
               </CardContent>
               <CardActions classes={{ root: styles.cardActions }}>
                 <Button
                   size="small"
-                  onClick={handleClick}
+                  onClick={handleCopy}
                   classes={{
                     root: styles.copyButtonAlign,
                     label: styles.copyButton,
@@ -67,6 +67,16 @@ const PinPage = ({ handleClick, pin }) => {
       </Container>
     </div>
   );
+};
+
+const handleCopy = async () => {
+  // Creates a temporary hidden text field to execute the command copy before removing it
+  var temp = document.createElement("input");
+  temp.setAttribute("value", document.getElementById("pin").innerHTML.substring(5)); // Remove the 'PIN: ' suffix
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand("copy");
+  document.body.removeChild(temp);
 };
 
 PinPage.defaultProps = {
