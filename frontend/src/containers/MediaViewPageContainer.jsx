@@ -15,6 +15,7 @@ const MediaViewPageContainer = ({ children }) => {
   // components as declared in frontpage.jsx
   const [listOfSearchResults, setlistOfSearchResults] = useState([]);
   const [isPlay, setPlayStatus] = useState(false);
+  const [isInitialPlay, setInitialPlay] = useState(true);
   const history = useHistory();
   const [details, setDetails] = useState({
     username: "",
@@ -28,24 +29,28 @@ const MediaViewPageContainer = ({ children }) => {
   const [userSearch, setUserSearch] = useState("");
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
+  const song_uri = ["spotify:track:51rPRW8NjxZoWPPjnRGzHw"];
 
   const handleChange = (event) => {
     const { value } = event.target;
     setUserSearch(value);
     console.log(userSearch);
-  }
+  };
 
   const handleClick = () => {
     console.log("glick");
   };
 
   const handleClickSearch = async () => {
-    const results = await getSpotifySearches({searchTitle: userSearch, authToken: token});
+    const results = await getSpotifySearches({
+      searchTitle: userSearch,
+      authToken: token,
+    });
     console.log(results);
     setlistOfSearchResults(results);
     console.log(listOfSearchResults);
     return results;
-  }
+  };
 
   const getSpotifySearchResults = async (title) => {
     const results = await getSpotifySearches(title, token);
@@ -53,7 +58,14 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handlePlay = async () => {
-    const results = await postPlay(details.pin);
+    let results;
+    if (isInitialPlay) {
+      setInitialPlay(false);
+      results = await postPlay(details.pin, song_uri);
+    } else {
+      results = await postPlay(details.pin, null);
+    }
+
     return results;
   };
 
