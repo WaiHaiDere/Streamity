@@ -25,7 +25,7 @@ export const getSpotifyToken = async (authCode) => {
   return res;
 };
 
-export const getSpotifySearches = async ({searchTitle, authToken}) => {
+export const getSpotifySearches = async ({ searchTitle, authToken }) => {
   const res = await fetch(spotifySearchRoute, {
     method: "GET",
     headers: {
@@ -57,12 +57,18 @@ export const updateSpotifyToken = async ({ token, id }) => {
   return res;
 };
 
-export const postPlay = async (pin) => {
+export const postPlay = async (pin, uri) => {
+  const newParams = {
+    uris: uri ? uri : null,
+  };
+
+  const resqBody = JSON.stringify(newParams);
   const res = await fetch(spotifyPlayerPlayRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
+    body: resqBody,
     method: "POST",
   }).then((response) => response.json());
 

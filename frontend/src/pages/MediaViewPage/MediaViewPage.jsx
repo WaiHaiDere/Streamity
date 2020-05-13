@@ -61,6 +61,7 @@ const MediaViewPage = ({
 
       // Playback status updates
       player.addListener("player_state_changed", (state) => {
+        console.log("the current staet is ");
         console.log(state);
       });
 
@@ -72,7 +73,7 @@ const MediaViewPage = ({
 
       // Not Ready
       player.addListener("not_ready", ({ device_id }) => {
-        console.log("Device ID has gone offline", device_id);
+        //console.log("Device ID has gone offline", device_id);
       });
 
       // Connect to the player!
@@ -83,7 +84,7 @@ const MediaViewPage = ({
   console.log(memberList);
   return (
     <div>
-      {(token && !scriptLoaded) ? (
+      {token && !scriptLoaded ? (
         <Script
           url="https://sdk.scdn.co/spotify-player.js"
           onLoad={handleScriptLoad()}
