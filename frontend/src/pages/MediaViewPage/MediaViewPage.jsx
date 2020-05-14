@@ -31,6 +31,8 @@ const MediaViewPage = ({
   scriptLoaded,
   handleChange,
   handleClickSearch,
+  handlePrev,
+  handleNext,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -115,7 +117,7 @@ const MediaViewPage = ({
                 <IconButton>
                   <ShuffleIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handlePrev}>
                   <SkipPreviousIcon />
                 </IconButton>
                 <IconButton onClick={handleClickPlayPause}>
@@ -125,7 +127,7 @@ const MediaViewPage = ({
                     <PlayCircleFilledIcon />
                   )}
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handleNext}>
                   <SkipNextIcon />
                 </IconButton>
                 <IconButton>
@@ -164,6 +166,8 @@ MediaViewPage.defaultProps = {
   scriptLoaded: false,
   handleChange: () => {},
   handleClickSearch: () => {},
+  handleNext: () => {},
+  handlePrev: () => {},
 };
 
 MediaViewPage.propTypes = {
@@ -182,6 +186,8 @@ MediaViewPage.propTypes = {
   scriptLoaded: PropTypes.bool,
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
+  handleNext: PropTypes.func,
+  handlePrev: PropTypes.func,
 };
 
 export default MediaViewPage;

@@ -10,6 +10,8 @@ const SPOTIFY_AUTH_TOKEN_END_POINT = "https://accounts.spotify.com/api/token";
 const SPOTIFY_TRACK_SEARCH_END_POINT = "https://api.spotify.com/v1/search";
 const SPOTIFY_PLAYER_PLAY = "https://api.spotify.com/v1/me/player/play";
 const SPOTIFY_PLAYER_PAUSE = "https://api.spotify.com/v1/me/player/pause";
+const SPOTIFY_PLAYER_NEXT = "https://api.spotify.com/v1/me/player/next";
+const SPOTIFY_PLAYER_PREV = "https://api.spotify.com/v1/me/player/previous"
 const CLIENT_ID = "84075fd82c074e5aac8e8f5b8c05d5fc";
 const CLIENT_SECRET = "e1d779aa26db4997af564836003e476b";
 const REDIRECT_URI = "http://localhost:3000/buffer";
@@ -160,6 +162,66 @@ router.post("/pause/:id", async (request, response) => {
       res
         .status(404)
         .json({ error: "Room not found. Please double check your PIN." });
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
+router.post("/next/:id", async (request, response) => {
+  try {
+    const foundRoom = await Room.findOne({ pin: request.params.id });
+    if (foundRoom !== null) {
+      const deviceList = foundRoom.devices;
+      deviceList.forEach(async (device) => {
+        try {
+          const res = await fetch(
+            SPOTIFY_PLAYER_NEXT + "?device_id=" + device.device_id, //should be called deviceId
+            {
+              method: "POST",
+              headers: {
+                Authorization: "Bearer " + device.authToken,
+              },
+            }
+          ).then((response) => response.json());
+          console.log(res);
+          response.send(res);
+        } catch (error) {}
+      });
+    } else {
+      res
+        .status(404)
+        .json({ error: "Room not found. Please double check your PIN." });
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
+router.post("/prev/:id", async (request, response) => {
+  try {
+    const foundRoom = await Room.findOne({ pin: request.params.id });
+    if (foundRoom !== null) {
+      const deviceList = foundRoom.devices;
+      deviceList.forEach(async (device) => {
+        try {
+          const res = await fetch(
+            SPOTIFY_PLAYER_PREV + "?device_id=" + device.device_id, //should be called deviceId
+            {
+              method: "POST",
+              headers: {
+                Authorization: "Bearer " + device.authToken,
+              },
+            }
+          ).then((response) => response.json());
+          console.log(res);
+          response.send(res);
+        } catch (error) {}
+      });
+    } else {
+      roes
+        .status(404)
+        .json({ error: "Rom not found. Please double check your PIN." });
     }
   } catch (err) {
     res.status(404).json({ message: err.message });

@@ -4,6 +4,8 @@ import {
   getSpotifySearches,
   postPlay,
   postPause,
+  postNext,
+  postPrev,
 } from "../services/spotifyService";
 import { addDevice as addDeviceIDRequest } from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
@@ -73,6 +75,16 @@ const MediaViewPageContainer = ({ children }) => {
     const results = await postPause(details.pin);
     return results;
   };
+
+  const handleNext = async () => {
+    const results = await postNext(details.pin);
+    return results;
+  }
+
+  const handlePrev = async () => {
+    const results = await postPrev(details.pin);
+    return results;
+  }
 
   const addDeviceID = async (device) => {
     await addDeviceIDRequest({
@@ -149,6 +161,8 @@ const MediaViewPageContainer = ({ children }) => {
     scriptLoaded,
     handleChange,
     handleClickSearch,
+    handleNext,
+    handlePrev,
   };
 
   return React.cloneElement(children, { ...newProps });

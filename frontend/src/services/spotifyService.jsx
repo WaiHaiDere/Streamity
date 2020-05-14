@@ -4,6 +4,8 @@ import {
   updateTokenRoute,
   spotifyPlayerPlayRoute,
   spotifyPlayerPauseRoute,
+  spotifyPlayerNextRoute,
+  spotifyPlayerPrevRoute
 } from "./apiRoutes";
 
 export const getSpotifyToken = async (authCode) => {
@@ -77,6 +79,30 @@ export const postPlay = async (pin, uri) => {
 
 export const postPause = async (pin) => {
   const res = await fetch(spotifyPlayerPauseRoute(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const postNext = async (pin) => {
+  const res = await fetch(spotifyPlayerNextRoute(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const postPrev = async (pin) => {
+  const res = await fetch(spotifyPlayerPrevRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
