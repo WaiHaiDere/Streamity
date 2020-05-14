@@ -31,7 +31,7 @@ const MediaViewPageContainer = ({ children }) => {
   const [userSearch, setUserSearch] = useState("");
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
-  const song_uri = ["spotify:track:51rPRW8NjxZoWPPjnRGzHw"];
+  const song_uri = ["spotify:track:51rPRW8NjxZoWPPjnRGzHw", "spotify:track:4NtUY5IGzHCaqfZemmAu56"];
 
   const handleChange = (event) => {
     const { value } = event.target;
