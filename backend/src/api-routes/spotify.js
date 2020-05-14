@@ -58,7 +58,7 @@ router.get("/search", async (request, response) => {
     SPOTIFY_TRACK_SEARCH_END_POINT +
       "?q=" +
       request.headers.title +
-      "&type=track&limit=10",
+      "&type=track",
     {
       method: "GET",
       headers: {
@@ -68,7 +68,7 @@ router.get("/search", async (request, response) => {
       },
     }
   ).then((response) => response.json());
-  //console.log(res);
+  // console.log(res);
   const toReturn = res.tracks.items.map((item)=>{
     return {
       album: item.album,

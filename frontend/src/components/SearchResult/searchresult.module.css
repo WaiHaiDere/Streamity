@@ -1,0 +1,20 @@
+.listItem {
+  align-items: flex-start;
+}
+
+.listItem {
+  padding-left: 16px;
+}
+
+.itemPrimaryText {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.itemSecondaryText {
+  font-size: 14px;
+}
+
+.searchResultIcon {
+  height: 50px;
+}

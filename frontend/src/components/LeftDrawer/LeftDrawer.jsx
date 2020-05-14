@@ -3,7 +3,6 @@ import { Drawer, List, IconButton } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import SearchIcon from "@material-ui/icons/Search";
-import AddIcon from "@material-ui/icons/Add";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -11,7 +10,11 @@ import FormControl from "@material-ui/core/FormControl";
 import SearchResult from "../SearchResult/SearchResult";
 import styles from "./leftdrawer.module.css";
 
-const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) => {
+const LeftDrawer = ({
+  listOfSearchResults,
+  handleChange,
+  handleClickSearch,
+}) => {
   return (
     <div>
       <Drawer
@@ -50,19 +53,17 @@ const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) =>
         </div>
         <List>
           {listOfSearchResults.map((searchResult) => {
-            return(
-                <>
+            return (
+              <>
                 <SearchResult
                   key={searchResult.trackUri}
                   title={searchResult.songName}
                   artist={searchResult.artist[0].name}
+                  albumArt={searchResult.album.images[0].url}
                   classes={{ root: styles.SearchResult }}
                 />
-                <IconButton>
-                  <AddIcon />
-                </IconButton>
-                </>
-            )
+              </>
+            );
           })}
         </List>
       </Drawer>
@@ -76,7 +77,7 @@ LeftDrawer.defaultProps = {
   handleClickSearch: () => {},
 };
 
-LeftDrawer.propTypes = {  
+LeftDrawer.propTypes = {
   listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
