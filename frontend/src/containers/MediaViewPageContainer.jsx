@@ -27,6 +27,20 @@ const MediaViewPageContainer = ({ children }) => {
   const [token, setToken] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
+  const [playlist, setPlaylist] = useState([
+    {
+      songName: "",
+      duration: 0,
+      artist: [
+        {
+          name: "",
+        },
+      ],
+      album: {
+        name: "",
+      },
+    },
+  ]);
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
   // eslint-disable-next-line camelcase
@@ -38,8 +52,9 @@ const MediaViewPageContainer = ({ children }) => {
     console.log(userSearch);
   };
 
-  const addToPlaylist = async (songURI) => {
-    const res = await addToPlaylistRequest({ pin: details.pin, songURI });
+  const addToPlaylist = async (song) => {
+    const res = await addToPlaylistRequest({ pin: details.pin, song });
+    setPlaylist(res.playlist.song_list);
     console.log(res);
   };
 
@@ -125,6 +140,7 @@ const MediaViewPageContainer = ({ children }) => {
           history.push("/join");
         }
         setMemberList(room.member_list);
+        setPlaylist(room.playlist.song_list);
         console.log(room.spotifyAuth);
       } else {
         history.push("/join");
@@ -148,6 +164,7 @@ const MediaViewPageContainer = ({ children }) => {
     handleChange,
     handleClickSearch,
     addToPlaylist,
+    playlist,
   };
 
   return React.cloneElement(children, { ...newProps });

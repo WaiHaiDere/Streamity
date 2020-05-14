@@ -64,8 +64,9 @@ const LeftDrawer = ({
                   classes={{ root: styles.SearchResult }}
                 />
                 <IconButton
+                  key={`${searchResult.trackUri}-add`}
                   onClick={() => {
-                    addToPlaylist(searchResult.trackUri);
+                    addToPlaylist(searchResult);
                   }}
                 >
                   <AddIcon />

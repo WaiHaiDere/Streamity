@@ -32,6 +32,7 @@ const MediaViewPage = ({
   handleChange,
   handleClickSearch,
   addToPlaylist,
+  playlist,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -140,7 +141,7 @@ const MediaViewPage = ({
               Next Up
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
-            <PlaylistTable />
+            <PlaylistTable playlist={playlist} />
           </div>
         </main>
         <RightDrawer
@@ -166,6 +167,7 @@ MediaViewPage.defaultProps = {
   handleChange: () => {},
   handleClickSearch: () => {},
   addToPlaylist: () => {},
+  playlist: [],
 };
 
 MediaViewPage.propTypes = {
@@ -185,6 +187,7 @@ MediaViewPage.propTypes = {
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
   addToPlaylist: PropTypes.func,
+  playlist: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default MediaViewPage;

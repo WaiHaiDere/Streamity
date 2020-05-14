@@ -88,9 +88,9 @@ export const postPause = async (pin) => {
   return res;
 };
 
-export const addToPlaylist = async ({ pin, songURI }) => {
+export const addToPlaylist = async ({ pin, song }) => {
   const newParams = {
-    songURI,
+    song,
   };
 
   const resqBody = JSON.stringify(newParams);

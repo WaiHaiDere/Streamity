@@ -45,7 +45,7 @@ router.post("/authorise", async (request, response) => {
       client_secret: CLIENT_SECRET,
     }),
   }).then((response) => response.json());
-  console.log(res);
+  // console.log(res);
   response.send(res);
 });
 
@@ -170,8 +170,8 @@ router.put("/playlist/:id", async (request, response) => {
   try {
     const foundRoom = await Room.findOne({ pin: request.params.id });
     if (foundRoom !== null) {
-      console.log(request.body.songURI);
-      foundRoom.playlist.song_list.push(request.body.songURI);
+      console.log(request.body.song);
+      foundRoom.playlist.song_list.push(request.body.song);
       const saveReq = await foundRoom.save();
       response.status(200).json(saveReq);
     } else {
