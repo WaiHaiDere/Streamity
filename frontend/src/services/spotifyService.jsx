@@ -4,6 +4,7 @@ import {
   updateTokenRoute,
   spotifyPlayerPlayRoute,
   spotifyPlayerPauseRoute,
+  addToPlaylistRoute,
 } from "./apiRoutes";
 
 export const getSpotifyToken = async (authCode) => {
@@ -59,7 +60,7 @@ export const updateSpotifyToken = async ({ token, id }) => {
 
 export const postPlay = async (pin, uri) => {
   const newParams = {
-    uris: uri ? uri : null,
+    uris: uri || null,
   };
 
   const resqBody = JSON.stringify(newParams);
@@ -82,6 +83,24 @@ export const postPause = async (pin) => {
       Accept: "application/json",
     },
     method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const addToPlaylist = async ({ pin, songURI }) => {
+  const newParams = {
+    songURI,
+  };
+
+  const resqBody = JSON.stringify(newParams);
+  const res = await fetch(addToPlaylistRoute(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: resqBody,
+    method: "PUT",
   }).then((response) => response.json());
 
   return res;

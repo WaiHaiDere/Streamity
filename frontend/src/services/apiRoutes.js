@@ -9,3 +9,4 @@ export const addDeviceIDRoute = (id) => `/api/room/${id}/device`;
 export const spotifySearchRoute = `/api/spotify/search`;
 export const spotifyPlayerPlayRoute = (id) => `/api/spotify/play/${id}`;
 export const spotifyPlayerPauseRoute = (id) => `/api/spotify/pause/${id}`;
+export const addToPlaylistRoute = (id) => `/api/spotify/playlist/${id}`;

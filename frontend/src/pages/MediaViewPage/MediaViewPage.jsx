@@ -23,7 +23,7 @@ const MediaViewPage = ({
   listOfSearchResults,
   handleClick,
   details,
-  memberList,
+  // memberList,
   token,
   chatMessages,
   isPlay,
@@ -31,6 +31,7 @@ const MediaViewPage = ({
   scriptLoaded,
   handleChange,
   handleClickSearch,
+  addToPlaylist,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -73,7 +74,7 @@ const MediaViewPage = ({
 
       // Not Ready
       player.addListener("not_ready", ({ device_id }) => {
-        //console.log("Device ID has gone offline", device_id);
+        console.log("Device ID has gone offline", device_id);
       });
 
       // Connect to the player!
@@ -81,7 +82,6 @@ const MediaViewPage = ({
     };
   };
 
-  console.log(memberList);
   return (
     <div>
       {token && !scriptLoaded ? (
@@ -97,6 +97,7 @@ const MediaViewPage = ({
           listOfSearchResults={listOfSearchResults}
           handleChange={handleChange}
           handleClickSearch={handleClickSearch}
+          addToPlaylist={addToPlaylist}
         />
         <main className={styles.centrePanel}>
           <Typography variant="h1" classes={{ root: styles.title }}>
@@ -155,7 +156,7 @@ const MediaViewPage = ({
 MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [{}],
-  memberList: [{}],
+  // memberList: [{}],
   token: "",
   chatMessages: [],
   handleClickPlayPause: () => {},
@@ -164,6 +165,7 @@ MediaViewPage.defaultProps = {
   scriptLoaded: false,
   handleChange: () => {},
   handleClickSearch: () => {},
+  addToPlaylist: () => {},
 };
 
 MediaViewPage.propTypes = {
@@ -173,7 +175,7 @@ MediaViewPage.propTypes = {
     pin: PropTypes.string,
     username: PropTypes.string,
   }).isRequired,
-  memberList: PropTypes.arrayOf(PropTypes.object),
+  // memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
   chatMessages: PropTypes.arrayOf(PropTypes.string),
   handleClickPlayPause: PropTypes.func,
@@ -182,6 +184,7 @@ MediaViewPage.propTypes = {
   scriptLoaded: PropTypes.bool,
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
+  addToPlaylist: PropTypes.func,
 };
 
 export default MediaViewPage;

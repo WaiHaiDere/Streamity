@@ -4,6 +4,7 @@ import {
   getSpotifySearches,
   postPlay,
   postPause,
+  addToPlaylist as addToPlaylistRequest,
 } from "../services/spotifyService";
 import { addDevice as addDeviceIDRequest } from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
@@ -24,11 +25,11 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
-  const [deviceID, setDeviceID] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
+  // eslint-disable-next-line camelcase
   const song_uri = ["spotify:track:51rPRW8NjxZoWPPjnRGzHw"];
 
   const handleChange = (event) => {
@@ -37,23 +38,21 @@ const MediaViewPageContainer = ({ children }) => {
     console.log(userSearch);
   };
 
-  const handleClick = () => {
-    console.log("glick");
+  const addToPlaylist = async (songURI) => {
+    const res = await addToPlaylistRequest({ pin: details.pin, songURI });
+    console.log(res);
   };
+
+  const handleClick = () => {};
 
   const handleClickSearch = async () => {
     const results = await getSpotifySearches({
       searchTitle: userSearch,
       authToken: token,
     });
-    console.log(results);
+    // console.log(results);
     setlistOfSearchResults(results);
-    console.log(listOfSearchResults);
-    return results;
-  };
-
-  const getSpotifySearchResults = async (title) => {
-    const results = await getSpotifySearches(title, token);
+    // console.log(listOfSearchResults);
     return results;
   };
 
@@ -80,7 +79,6 @@ const MediaViewPageContainer = ({ children }) => {
       deviceID: device,
       authToken: token,
     });
-    setDeviceID(device);
     setScriptLoaded(true);
   };
 
@@ -149,6 +147,7 @@ const MediaViewPageContainer = ({ children }) => {
     scriptLoaded,
     handleChange,
     handleClickSearch,
+    addToPlaylist,
   };
 
   return React.cloneElement(children, { ...newProps });

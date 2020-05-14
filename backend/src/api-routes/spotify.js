@@ -170,16 +170,17 @@ router.put("/playlist/:id", async (request, response) => {
   try {
     const foundRoom = await Room.findOne({ pin: request.params.id });
     if (foundRoom !== null) {
-      foundRoom.playlist.push(request.body.songName);
+      console.log(request.body.songURI);
+      foundRoom.playlist.song_list.push(request.body.songURI);
       const saveReq = await foundRoom.save();
-      res.status(200).json(saveReq);
+      response.status(200).json(saveReq);
     } else {
-      res
+      response
         .status(404)
         .json({ error: "Room not found. Please double check your PIN." });
     }
   } catch (err) {
-    res.status(404).json({ message: err.message });
+    response.status(404).json({ message: err.message });
   }
 });
 
@@ -187,19 +188,37 @@ router.get("/playlist/:id", async (request, response) => {
   try {
     const foundRoom = await Room.findOne({ pin: request.params.id });
     if (foundRoom !== null) {
+
       const playlist = {
-        playlist: foundRoom.playlist,
+        playlist: foundRoom.playlist.song_list,
       }
-      res.status(200).json(playlist);
+
+      response.status(200).json(playlist);
     } else {
-      res
+      response
         .status(404)
         .json({ error: "Room not found. Please double check your PIN." });
     }
   } catch (err) {
-    res.status(404).json({ message: err.message });
+    response.status(404).json({ message: err.message });
   }
 });
 
+router.put("/skip/:id", async (request, response) => {
+  try {
+    const foundRoom = await Room.findOne({ pin: request.params.id });
+    if (foundRoom !== null) {
+      foundRoom.playlist.current_index += 1;
+      const saveReq = await foundRoom.save();
+      response.status(200).json(saveReq);
+    } else {
+      response
+        .status(404)
+        .json({ error: "Room not found. Please double check your PIN." });
+    }
+  } catch (err) {
+    response.status(404).json({ message: err.message });
+  }
+});
 
 module.exports = router;
