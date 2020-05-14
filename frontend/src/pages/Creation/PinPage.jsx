@@ -74,16 +74,7 @@ const PinPage = ({ handleClick, pin }) => {
 };
 
 const handleCopy = async () => {
-  // Creates a temporary hidden text field to execute the command copy before removing it
-  var temp = document.createElement("input");
-  temp.setAttribute(
-    "value",
-    document.getElementById("pin").innerHTML.substring(5)
-  ); // Remove the 'PIN: ' suffix
-  document.body.appendChild(temp);
-  temp.select();
-  document.execCommand("copy");
-  document.body.removeChild(temp);
+  navigator.clipboard.writeText(document.getElementById("pin").innerHTML.substring(5));
 };
 
 PinPage.defaultProps = {
