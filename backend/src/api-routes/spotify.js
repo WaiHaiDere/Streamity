@@ -166,4 +166,40 @@ router.post("/pause/:id", async (request, response) => {
   }
 });
 
+router.put("/playlist/:id", async (request, response) => {
+  try {
+    const foundRoom = await Room.findOne({ pin: request.params.id });
+    if (foundRoom !== null) {
+      foundRoom.playlist.push(request.body.songName);
+      const saveReq = await foundRoom.save();
+      res.status(200).json(saveReq);
+    } else {
+      res
+        .status(404)
+        .json({ error: "Room not found. Please double check your PIN." });
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
+router.get("/playlist/:id", async (request, response) => {
+  try {
+    const foundRoom = await Room.findOne({ pin: request.params.id });
+    if (foundRoom !== null) {
+      const playlist = {
+        playlist: foundRoom.playlist,
+      }
+      res.status(200).json(playlist);
+    } else {
+      res
+        .status(404)
+        .json({ error: "Room not found. Please double check your PIN." });
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+});
+
+
 module.exports = router;
