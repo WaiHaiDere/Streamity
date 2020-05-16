@@ -35,7 +35,7 @@ const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) =>
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="send chat message"
+                    aria-label="send search"
                     classes={{
                       root: styles.searchColour,
                     }}
