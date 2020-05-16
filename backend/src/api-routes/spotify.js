@@ -193,6 +193,8 @@ router.post("/playlist/:id", async (request, response) => {
               },
             }
           )
+
+          console.log(addToQueueReq);
         } catch (err){}
       })
     
