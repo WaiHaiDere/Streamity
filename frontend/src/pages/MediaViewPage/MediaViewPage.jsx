@@ -165,6 +165,10 @@ MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [{}],
   // memberList: [{}],
+  details: {
+    pin: "",
+    username: "",
+  },
   token: "",
   chatMessages: [],
   handleClickPlayPause: () => {},
@@ -187,10 +191,10 @@ MediaViewPage.propTypes = {
   details: PropTypes.shape({
     pin: PropTypes.string,
     username: PropTypes.string,
-  }).isRequired,
+  }),
   // memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
-  chatMessages: PropTypes.arrayOf(PropTypes.string),
+  chatMessages: PropTypes.arrayOf(PropTypes.object),
   handleClickPlayPause: PropTypes.func,
   isPlay: PropTypes.bool,
   addDeviceID: PropTypes.func,

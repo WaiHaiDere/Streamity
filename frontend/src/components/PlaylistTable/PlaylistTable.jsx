@@ -95,7 +95,9 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
                       <TableCell align="center">{song.songName}</TableCell>
                       <TableCell align="center">
                         {song.artist.map((artist) => (
-                          <p className={styles.artistName}>{artist.name}</p>
+                          <p className={styles.artistName} key={artist.name}>
+                            {artist.name}
+                          </p>
                         ))}
                       </TableCell>
                       <TableCell align="center">{song.album.name}</TableCell>
