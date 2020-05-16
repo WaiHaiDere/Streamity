@@ -5,6 +5,8 @@ import {
   spotifyPlayerPlayRoute,
   spotifyPlayerPauseRoute,
   addToPlaylistRoute,
+  playlistNextRoute,
+  playlistPrevRoute,
 } from "./apiRoutes";
 
 export const getSpotifyToken = async (authCode) => {
@@ -107,7 +109,8 @@ export const addToPlaylist = async ({ pin, song }) => {
 };
 
 export const playlistNext = async ({ pin }) => {
-  const res = await fetch(playlistNext(pin), {
+  console.log("the pin is " + pin);
+  const res = await fetch(playlistNextRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
@@ -119,7 +122,7 @@ export const playlistNext = async ({ pin }) => {
 };
 
 export const playlistPrev = async ({ pin }) => {
-  const res = await fetch(playlistNext(pin), {
+  const res = await fetch(playlistPrevRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

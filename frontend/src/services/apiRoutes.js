@@ -10,5 +10,5 @@ export const spotifySearchRoute = `/api/spotify/search`;
 export const spotifyPlayerPlayRoute = (id) => `/api/spotify/play/${id}`;
 export const spotifyPlayerPauseRoute = (id) => `/api/spotify/pause/${id}`;
 export const addToPlaylistRoute = (id) => `/api/spotify/playlist/${id}`;
-export const playlistNext = (id) => `/api/spotify/next/${id}`;
-export const playlistPrev = (id) => `/api/spotify/prev/${id}`;
+export const playlistNextRoute = (id) => `/api/spotify/next/${id}`;
+export const playlistPrevRoute = (id) => `/api/spotify/prev/${id}`;
