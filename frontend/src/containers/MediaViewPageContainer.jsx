@@ -5,6 +5,8 @@ import {
   postPlay,
   postPause,
   addToPlaylist as addToPlaylistRequest,
+  playlistNext,
+  playlistPrev,
 } from "../services/spotifyService";
 import { addDevice as addDeviceIDRequest } from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
@@ -27,6 +29,8 @@ const MediaViewPageContainer = ({ children }) => {
   const [token, setToken] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
+  const [playerState, setPlayerState] = useState({});
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
   const [playlist, setPlaylist] = useState([
     {
       songName: "",
@@ -88,6 +92,16 @@ const MediaViewPageContainer = ({ children }) => {
     return results;
   };
 
+  const handleNext = async () => {
+    const response = await playlistNext(details.pin);
+    setCurrentlyPlaying(response.playlist.current_index);
+  };
+
+  const handlePrev = async () => {
+    const response = await playlistPrev(details.pin);
+    setCurrentlyPlaying(response.playlist.current_index);
+  };
+
   const addDeviceID = async (device) => {
     await addDeviceIDRequest({
       pin: details.pin,
@@ -108,6 +122,10 @@ const MediaViewPageContainer = ({ children }) => {
       await handlePause();
     }
   };
+
+  useEffect(() => {
+    setPlayStatus(!playerState.paused);
+  }, [playerState]);
 
   const [chatMessages] = useState([
     {
@@ -165,6 +183,10 @@ const MediaViewPageContainer = ({ children }) => {
     handleClickSearch,
     addToPlaylist,
     playlist,
+    setPlayerState,
+    handleNext,
+    handlePrev,
+    currentlyPlaying,
   };
 
   return React.cloneElement(children, { ...newProps });

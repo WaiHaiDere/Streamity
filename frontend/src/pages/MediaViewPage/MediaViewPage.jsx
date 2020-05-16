@@ -33,6 +33,10 @@ const MediaViewPage = ({
   handleClickSearch,
   addToPlaylist,
   playlist,
+  setPlayerState,
+  handleNext,
+  handlePrev,
+  currentlyPlaying,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -63,8 +67,8 @@ const MediaViewPage = ({
 
       // Playback status updates
       player.addListener("player_state_changed", (state) => {
-        console.log("the current staet is ");
         console.log(state);
+        setPlayerState(state);
       });
 
       // Ready
@@ -117,7 +121,7 @@ const MediaViewPage = ({
                 <IconButton>
                   <ShuffleIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handlePrev}>
                   <SkipPreviousIcon />
                 </IconButton>
                 <IconButton onClick={handleClickPlayPause}>
@@ -127,7 +131,7 @@ const MediaViewPage = ({
                     <PlayCircleFilledIcon />
                   )}
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handleNext}>
                   <SkipNextIcon />
                 </IconButton>
                 <IconButton>
@@ -141,7 +145,10 @@ const MediaViewPage = ({
               Next Up
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
-            <PlaylistTable playlist={playlist} />
+            <PlaylistTable
+              playlist={playlist}
+              currentlyPlaying={currentlyPlaying}
+            />
           </div>
         </main>
         <RightDrawer
@@ -168,6 +175,10 @@ MediaViewPage.defaultProps = {
   handleClickSearch: () => {},
   addToPlaylist: () => {},
   playlist: [],
+  setPlayerState: () => {},
+  handleNext: () => {},
+  handlePrev: () => {},
+  currentlyPlaying: 0,
 };
 
 MediaViewPage.propTypes = {
@@ -188,6 +199,10 @@ MediaViewPage.propTypes = {
   handleClickSearch: PropTypes.func,
   addToPlaylist: PropTypes.func,
   playlist: PropTypes.arrayOf(PropTypes.object),
+  setPlayerState: PropTypes.func,
+  handleNext: PropTypes.func,
+  handlePrev: PropTypes.func,
+  currentlyPlaying: PropTypes.number,
 };
 
 export default MediaViewPage;

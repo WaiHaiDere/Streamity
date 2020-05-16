@@ -100,7 +100,31 @@ export const addToPlaylist = async ({ pin, song }) => {
       Accept: "application/json",
     },
     body: resqBody,
-    method: "PUT",
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const playlistNext = async ({ pin }) => {
+  const res = await fetch(playlistNext(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const playlistPrev = async ({ pin }) => {
+  const res = await fetch(playlistNext(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "POST",
   }).then((response) => response.json());
 
   return res;

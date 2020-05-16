@@ -10,3 +10,7 @@
 .artistName {
   margin: 0;
 }
+
+.currentlyPlaying {
+  font-weight: bold;
+}
