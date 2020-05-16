@@ -24,13 +24,15 @@ const MediaViewPage = ({
   handleClick,
   details,
   memberList,
+  chatMessageList,
   token,
-  chatMessages,
   isPlay,
   addDeviceID,
   scriptLoaded,
   handleChange,
   handleClickSearch,
+  handleChatChange,
+  handleClickSend,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -83,7 +85,7 @@ const MediaViewPage = ({
   console.log(memberList);
   return (
     <div>
-      {(token && !scriptLoaded) ? (
+      {token && !scriptLoaded ? (
         <Script
           url="https://sdk.scdn.co/spotify-player.js"
           onLoad={handleScriptLoad()}
@@ -142,8 +144,9 @@ const MediaViewPage = ({
           </div>
         </main>
         <RightDrawer
-          handleClick={handleClick}
-          chatMessages={chatMessages}
+          handleChatChange={handleChatChange}
+          handleClickSend={handleClickSend}
+          chatMessageList={chatMessageList}
           pin={details.pin}
         />
       </div>
@@ -155,14 +158,16 @@ MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [{}],
   memberList: [{}],
+  chatMessageList: [{}],
   token: "",
-  chatMessages: [],
   handleClickPlayPause: () => {},
   isPlay: false,
   addDeviceID: () => {},
   scriptLoaded: false,
   handleChange: () => {},
   handleClickSearch: () => {},
+  handleChatChange: () => {},
+  handleClickSend: () => {},
 };
 
 MediaViewPage.propTypes = {
@@ -174,13 +179,15 @@ MediaViewPage.propTypes = {
   }).isRequired,
   memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
-  chatMessages: PropTypes.arrayOf(PropTypes.string),
+  chatMessageList: PropTypes.arrayOf(PropTypes.object),
   handleClickPlayPause: PropTypes.func,
   isPlay: PropTypes.bool,
   addDeviceID: PropTypes.func,
   scriptLoaded: PropTypes.bool,
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
+  handleChatChange: PropTypes.func,
+  handleClickSend: PropTypes.func,
 };
 
 export default MediaViewPage;

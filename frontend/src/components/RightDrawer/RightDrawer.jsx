@@ -12,7 +12,13 @@ import FormControl from "@material-ui/core/FormControl";
 import styles from "./rightdrawer.module.css";
 import ChatMessage from "../ChatMessage/ChatMessage";
 
-const RightDrawer = ({ chatMessages, pin, details }) => {
+const RightDrawer = ({
+  chatMessageList,
+  pin,
+  details,
+  handleChatChange,
+  handleClickSend,
+}) => {
   return (
     <div>
       <Drawer
@@ -32,7 +38,7 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
           </Avatar>
         </div>
         <List classes={{ root: styles.chatMessageList }}>
-          {chatMessages.map((chatMessage) => {
+          {chatMessageList.map((chatMessage) => {
             return (
               <div
                 className={styles.ChatMessagesContainer}
@@ -58,6 +64,7 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
             </InputLabel>
             <Input
               id="chat-message"
+              onChange={handleChatChange}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -65,6 +72,7 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
                     classes={{
                       root: styles.chatColour,
                     }}
+                    onClick={handleClickSend}
                   >
                     <SendIcon />
                   </IconButton>
@@ -79,15 +87,19 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
 };
 
 RightDrawer.defaultProps = {
-  chatMessages: [],
+  chatMessageList: [{}],
   details: { username: "" },
   pin: "",
+  handleChatChange: () => {},
+  handleClickSend: () => {},
 };
 
 RightDrawer.propTypes = {
-  chatMessages: PropTypes.arrayOf(PropTypes.object),
+  chatMessageList: PropTypes.arrayOf(PropTypes.object),
   details: PropTypes.objectOf(PropTypes.string),
   pin: PropTypes.string,
+  handleChatChange: PropTypes.func,
+  handleClickSend: PropTypes.func,
 };
 
 export default RightDrawer;
