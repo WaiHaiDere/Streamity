@@ -53,13 +53,14 @@ const MediaViewPageContainer = ({ children }) => {
   const handleChange = (event) => {
     const { value } = event.target;
     setUserSearch(value);
-    console.log(userSearch);
+    // console.log(userSearch);
   };
 
   const addToPlaylist = async (song) => {
     const res = await addToPlaylistRequest({ pin: details.pin, song });
+    // console.log(res);
     setPlaylist(res.playlist.song_list);
-    console.log(res);
+    // console.log(res);
   };
 
   const handleClick = () => {};
@@ -159,7 +160,7 @@ const MediaViewPageContainer = ({ children }) => {
         }
         setMemberList(room.member_list);
         setPlaylist(room.playlist.song_list);
-        console.log(room.spotifyAuth);
+        // console.log(room.spotifyAuth);
       } else {
         history.push("/join");
       }

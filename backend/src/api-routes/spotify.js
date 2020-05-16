@@ -172,18 +172,19 @@ router.post("/pause/:id", async (request, response) => {
 router.post("/playlist/:id", async (request, response) => {
   try {
     const foundRoom = await Room.findOne({ pin: request.params.id });
-    const songURI = request.body.song;
     if (foundRoom !== null) {
-      console.log(request.body.song);
-      foundRoom.playlist.song_list.push(songURI);
+      // console.log(request.body.song);
+      foundRoom.playlist.song_list.push(request.body.song);
       const saveReq = await foundRoom.save();
+
+      const songURI = request.body.song.trackUri;
 
       const deviceList = foundRoom.devices;
       // const song = request.body.song.replace(":", "%3A")
       deviceList.forEach( async (device) => {
         try{
           const addToQueueReq = await fetch (
-            SPOTIFY_PLAYER_ADD_TO_QUEUE + "?uri=" + songURI + "?device_id=" + device.device_id,
+            SPOTIFY_PLAYER_ADD_TO_QUEUE + "?uri=" + songURI + "&device_id=" + device.device_id,
             {
               method: "POST",
               headers: {

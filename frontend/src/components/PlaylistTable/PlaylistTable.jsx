@@ -48,7 +48,7 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
 
     return `${min}:${sec}`;
   };
-  console.log(playlist);
+  // console.log(playlist);
   return (
     <Paper classes={{ root: styles.root }}>
       <TableContainer classes={{ root: styles.container }}>
@@ -92,13 +92,13 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
                             : null,
                       }}
                     >
-                      <TableCell align="">{song.songName}</TableCell>
-                      <TableCell align="">
+                      <TableCell align="center">{song.songName}</TableCell>
+                      <TableCell align="center">
                         {song.artist.map((artist) => (
                           <p className={styles.artistName}>{artist.name}</p>
                         ))}
                       </TableCell>
-                      <TableCell align="">{song.album.name}</TableCell>
+                      <TableCell align="center">{song.album.name}</TableCell>
                       <TableCell align="right">
                         {convertToMin(song.duration)}
                       </TableCell>
