@@ -93,12 +93,12 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handleNext = async () => {
-    const response = await playlistNext(details.pin);
+    const response = await playlistNext({ pin: details.pin });
     setCurrentlyPlaying(response.playlist.current_index);
   };
 
   const handlePrev = async () => {
-    const response = await playlistPrev(details.pin);
+    const response = await playlistPrev({ pin: details.pin });
     setCurrentlyPlaying(response.playlist.current_index);
   };
 
