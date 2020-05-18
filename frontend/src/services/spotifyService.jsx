@@ -4,6 +4,9 @@ import {
   updateTokenRoute,
   spotifyPlayerPlayRoute,
   spotifyPlayerPauseRoute,
+  addToPlaylistRoute,
+  playlistNextRoute,
+  playlistPrevRoute,
 } from "./apiRoutes";
 
 export const getSpotifyToken = async (authCode) => {
@@ -59,7 +62,7 @@ export const updateSpotifyToken = async ({ token, id }) => {
 
 export const postPlay = async (pin, uri) => {
   const newParams = {
-    uris: uri ? uri : null,
+    uris: uri || null,
   };
 
   const resqBody = JSON.stringify(newParams);
@@ -77,6 +80,49 @@ export const postPlay = async (pin, uri) => {
 
 export const postPause = async (pin) => {
   const res = await fetch(spotifyPlayerPauseRoute(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const addToPlaylist = async ({ pin, song }) => {
+  const newParams = {
+    song,
+  };
+
+  const resqBody = JSON.stringify(newParams);
+  const res = await fetch(addToPlaylistRoute(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: resqBody,
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const playlistNext = async ({ pin }) => {
+  console.log("the pin is " + pin);
+  const res = await fetch(playlistNextRoute(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "POST",
+  }).then((response) => response.json());
+
+  return res;
+};
+
+export const playlistPrev = async ({ pin }) => {
+  const res = await fetch(playlistPrevRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
