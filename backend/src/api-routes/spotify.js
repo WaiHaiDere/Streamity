@@ -318,44 +318,44 @@ router.post("/queue/:id", async (request, response) => {
           console.log(err);
         }
 
-        // if(!foundRoom.currentPlaying){
-        //   try{
-        //   const res = await fetch(
-        //     SPOTIFY_PLAYER_PAUSE + "?device_id=" + request.body.deviceID, //should be called deviceId
-        //     {
-        //       method: "PUT",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //         Accept: "application/json",
-        //         Authorization: "Bearer " + request.body.authToken,
-        //       },
-        //     }
-        //   ).then((response) => response.json());
-        //   console.log(res);
-        //   } catch(err){
-        //     console.log(err);
-        //   }
-        // }
+        if(!foundRoom.currentPlaying){
+          try{
+          const res = await fetch(
+            SPOTIFY_PLAYER_PAUSE + "?device_id=" + request.body.deviceID, //should be called deviceId
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + request.body.authToken,
+              },
+            }
+          ).then((response) => response.json());
+          console.log(res);
+          } catch(err){
+            console.log(err);
+          }
+        }
 
-        // songList.shift();
+        songList.shift();
 
-        // songList.forEach(async (song) => {
-        //   try{
-        //     const addToQueueReq = await fetch (
-        //       SPOTIFY_PLAYER_ADD_TO_QUEUE + "?uri=" + song.trackUri + "&device_id=" + request.body.deviceID,
-        //       {
-        //         method: "POST",
-        //         headers: {
-        //           "Content-Type": "application/json",
-        //           Accept: "application/json",
-        //           Authorization: "Bearer " + request.body.authToken,
-        //         },
-        //       }
-        //     )
+        songList.forEach(async (song) => {
+          try{
+            const addToQueueReq = await fetch (
+              SPOTIFY_PLAYER_ADD_TO_QUEUE + "?uri=" + song.trackUri + "&device_id=" + request.body.deviceID,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + request.body.authToken,
+                },
+              }
+            )
   
-        //     console.log(addToQueueReq);
-        //   } catch (err){}
-        // })
+            console.log(addToQueueReq);
+          } catch (err){}
+        })
 
         
       } else {
