@@ -58,14 +58,7 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handlePlay = async () => {
-    let results;
-    if (isInitialPlay) {
-      setInitialPlay(false);
-      results = await postPlay(details.pin, song_uri);
-    } else {
-      results = await postPlay(details.pin, null);
-    }
-
+    const results = await postPlay(details.pin, null);
     return results;
   };
 
