@@ -12,7 +12,6 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import RepeatIcon from "@material-ui/icons/Repeat";
-import albumArt from "./tempAlbumArt.jpg";
 import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
 import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
@@ -115,9 +114,17 @@ const MediaViewPage = ({
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
             <div className={styles.albumArt}>
-              <img src={playerState.track_window.current_track.album.images[0].url} style={{ height: 300 }} alt="Blank-text" />
-              <Typography>{playerState.track_window.current_track.name}</Typography>
-              <Typography>{playerState.track_window.current_track.artists[0].name}</Typography>
+              <img
+                src={playerState.track_window.current_track.album.images[0].url}
+                style={{ height: 300 }}
+                alt="Blank-text"
+              />
+              <Typography>
+                {playerState.track_window.current_track.name}
+              </Typography>
+              <Typography>
+                {playerState.track_window.current_track.artists[0].name}
+              </Typography>
               <div>
                 <IconButton>
                   <ShuffleIcon />
@@ -209,7 +216,9 @@ MediaViewPage.propTypes = {
   handleNext: PropTypes.func,
   handlePrev: PropTypes.func,
   currentlyPlaying: PropTypes.number,
-  playerState: PropTypes.objectOf(PropTypes.oneOf([PropTypes.object, PropTypes.string])),
+  playerState: PropTypes.objectOf(
+    PropTypes.oneOf([PropTypes.object, PropTypes.string])
+  ),
 };
 
 export default MediaViewPage;
