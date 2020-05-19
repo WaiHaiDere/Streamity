@@ -12,6 +12,7 @@ import { addDevice as addDeviceIDRequest } from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
+import questionMarkArt from "../icons/question_mark_PNG1.png"
 
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
@@ -29,7 +30,28 @@ const MediaViewPageContainer = ({ children }) => {
   const [token, setToken] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
-  const [playerState, setPlayerState] = useState({});
+  const [playerState, setPlayerState] = useState(
+    {
+      track_window: {
+        current_track: {
+          album: {
+            images: [
+              {
+                url: questionMarkArt
+              }
+            ],
+            name: "",
+          },
+          artists: [
+            {
+              name: "",
+            }
+          ],
+          name: ""
+        }
+      }
+    }
+  )
   const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
   const [playlist, setPlaylist] = useState([
     {
@@ -185,6 +207,7 @@ const MediaViewPageContainer = ({ children }) => {
     handleClickSearch,
     addToPlaylist,
     playlist,
+    playerState,
     setPlayerState,
     handleNext,
     handlePrev,
