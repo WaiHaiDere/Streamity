@@ -34,6 +34,7 @@ const MediaViewPage = ({
   addToPlaylist,
   playlist,
   setPlayerState,
+  playerState,
   handleNext,
   handlePrev,
   currentlyPlaying,
@@ -114,9 +115,9 @@ const MediaViewPage = ({
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
             <div className={styles.albumArt}>
-              <img src={albumArt} style={{ height: 300 }} alt="album-art" />
-              <Typography>Lover</Typography>
-              <Typography>Taylor Swift</Typography>
+              <img src={playerState.track_window.current_track.album.images[0].url} style={{ height: 300 }} alt="Blank-text" />
+              <Typography>{playerState.track_window.current_track.name}</Typography>
+              <Typography>{playerState.track_window.current_track.artists[0].name}</Typography>
               <div>
                 <IconButton>
                   <ShuffleIcon />
@@ -183,6 +184,7 @@ MediaViewPage.defaultProps = {
   handleNext: () => {},
   handlePrev: () => {},
   currentlyPlaying: 0,
+  playerState: {},
 };
 
 MediaViewPage.propTypes = {
@@ -207,6 +209,7 @@ MediaViewPage.propTypes = {
   handleNext: PropTypes.func,
   handlePrev: PropTypes.func,
   currentlyPlaying: PropTypes.number,
+  playerState: PropTypes.objectOf(PropTypes.oneOf([PropTypes.object, PropTypes.string])),
 };
 
 export default MediaViewPage;
