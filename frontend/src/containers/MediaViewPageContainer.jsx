@@ -76,7 +76,14 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handlePlay = async () => {
-    const results = await postPlay(details.pin, null);
+    let results;
+    if (isInitialPlay) {
+      setInitialPlay(false);
+      results = await postPlay(details.pin, [playlist[0].trackUri]);
+    } else {
+      results = await postPlay(details.pin, null);
+    }
+
     return results;
   };
 
