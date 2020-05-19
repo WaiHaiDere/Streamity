@@ -8,7 +8,10 @@ import {
   playlistNext,
   playlistPrev,
 } from "../services/spotifyService";
-import { addDevice as addDeviceIDRequest } from "../services/joinService";
+import {
+  addDevice as addDeviceIDRequest,
+  addToQueue as addToQueueRequest,
+} from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
@@ -29,7 +32,9 @@ const MediaViewPageContainer = ({ children }) => {
   const [token, setToken] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
-  const [playerState, setPlayerState] = useState({});
+  const [playerState, setPlayerState] = useState({
+    paused: true,
+  });
   const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
   const [playlist, setPlaylist] = useState([
     {
@@ -105,6 +110,11 @@ const MediaViewPageContainer = ({ children }) => {
 
   const addDeviceID = async (device) => {
     await addDeviceIDRequest({
+      pin: details.pin,
+      deviceID: device,
+      authToken: token,
+    });
+    await addToQueueRequest({
       pin: details.pin,
       deviceID: device,
       authToken: token,
