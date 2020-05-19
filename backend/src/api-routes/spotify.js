@@ -318,23 +318,26 @@ router.post("/queue/:id", async (request, response) => {
           console.log(err);
         }
 
+
         if(!foundRoom.currentPlaying){
-          try{
-          const res = await fetch(
-            SPOTIFY_PLAYER_PAUSE + "?device_id=" + request.body.deviceID, //should be called deviceId
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: "Bearer " + request.body.authToken,
-              },
+          setTimeout( async () => {
+            try{
+            const res = await fetch(
+              SPOTIFY_PLAYER_PAUSE + "?device_id=" + request.body.deviceID, //should be called deviceId
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + request.body.authToken,
+                },
+              }
+            ).then((response) => response.json());
+            console.log(res);
+            } catch(err){
+              console.log(err);
             }
-          ).then((response) => response.json());
-          console.log(res);
-          } catch(err){
-            console.log(err);
-          }
+          }, 10);
         }
 
         songList.shift();
