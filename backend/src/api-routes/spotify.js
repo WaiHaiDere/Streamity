@@ -337,7 +337,7 @@ router.post("/queue/:id", async (request, response) => {
             } catch(err){
               console.log(err);
             }
-          }, 10);
+          }, 200);
         }
 
         songList.shift();
