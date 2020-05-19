@@ -8,18 +8,20 @@ import {
   playlistNext,
   playlistPrev,
 } from "../services/spotifyService";
-import { addDevice as addDeviceIDRequest } from "../services/joinService";
+import {
+  addDevice as addDeviceIDRequest,
+  addToQueue as addToQueueRequest,
+} from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
-import questionMarkArt from "../icons/question_mark_PNG1.png"
+import questionMarkArt from "../icons/question_mark_PNG1.png";
 
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
   const [listOfSearchResults, setlistOfSearchResults] = useState([]);
   const [isPlay, setPlayStatus] = useState(false);
-  const [isInitialPlay, setInitialPlay] = useState(true);
   const history = useHistory();
   const [details, setDetails] = useState({
     username: "",
@@ -30,28 +32,27 @@ const MediaViewPageContainer = ({ children }) => {
   const [token, setToken] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
-  const [playerState, setPlayerState] = useState(
-    {
-      track_window: {
-        current_track: {
-          album: {
-            images: [
-              {
-                url: questionMarkArt
-              }
-            ],
+  const [playerState, setPlayerState] = useState({
+    paused: true,
+    track_window: {
+      current_track: {
+        album: {
+          images: [
+            {
+              url: questionMarkArt,
+            },
+          ],
+          name: "",
+        },
+        artists: [
+          {
             name: "",
           },
-          artists: [
-            {
-              name: "",
-            }
-          ],
-          name: ""
-        }
-      }
-    }
-  )
+        ],
+        name: "",
+      },
+    },
+  });
   const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
   const [playlist, setPlaylist] = useState([
     {
@@ -128,6 +129,11 @@ const MediaViewPageContainer = ({ children }) => {
 
   const addDeviceID = async (device) => {
     await addDeviceIDRequest({
+      pin: details.pin,
+      deviceID: device,
+      authToken: token,
+    });
+    await addToQueueRequest({
       pin: details.pin,
       deviceID: device,
       authToken: token,

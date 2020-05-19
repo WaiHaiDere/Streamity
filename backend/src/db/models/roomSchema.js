@@ -28,6 +28,10 @@ const roomSchema = new mongoose.Schema(
         default: [],
       }
     },
+    currentlyPlaying: {
+      type: Boolean,
+      default: false,
+    },
     devices: [
       {
         authToken: {
