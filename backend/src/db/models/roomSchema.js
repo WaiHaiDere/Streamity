@@ -18,6 +18,16 @@ const roomSchema = new mongoose.Schema(
       type: Array,
       default: []
     },
+    playlist: {
+      current_index : {
+        type: Number,
+        default: 0,
+      },
+      song_list: {
+        type: Array,
+        default: [],
+      }
+    },
     devices: [
       {
         authToken: {

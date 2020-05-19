@@ -23,7 +23,7 @@ const MediaViewPage = ({
   listOfSearchResults,
   handleClick,
   details,
-  memberList,
+  // memberList,
   token,
   chatMessages,
   isPlay,
@@ -31,6 +31,12 @@ const MediaViewPage = ({
   scriptLoaded,
   handleChange,
   handleClickSearch,
+  addToPlaylist,
+  playlist,
+  setPlayerState,
+  handleNext,
+  handlePrev,
+  currentlyPlaying,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -61,8 +67,8 @@ const MediaViewPage = ({
 
       // Playback status updates
       player.addListener("player_state_changed", (state) => {
-        console.log("the current staet is ");
         console.log(state);
+        setPlayerState(state);
       });
 
       // Ready
@@ -73,7 +79,7 @@ const MediaViewPage = ({
 
       // Not Ready
       player.addListener("not_ready", ({ device_id }) => {
-        //console.log("Device ID has gone offline", device_id);
+        console.log("Device ID has gone offline", device_id);
       });
 
       // Connect to the player!
@@ -81,7 +87,6 @@ const MediaViewPage = ({
     };
   };
 
-  console.log(memberList);
   return (
     <div>
       {token && !scriptLoaded ? (
@@ -97,6 +102,7 @@ const MediaViewPage = ({
           listOfSearchResults={listOfSearchResults}
           handleChange={handleChange}
           handleClickSearch={handleClickSearch}
+          addToPlaylist={addToPlaylist}
         />
         <main className={styles.centrePanel}>
           <Typography variant="h1" classes={{ root: styles.title }}>
@@ -115,7 +121,7 @@ const MediaViewPage = ({
                 <IconButton>
                   <ShuffleIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handlePrev}>
                   <SkipPreviousIcon />
                 </IconButton>
                 <IconButton onClick={handleClickPlayPause}>
@@ -125,7 +131,7 @@ const MediaViewPage = ({
                     <PlayCircleFilledIcon />
                   )}
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handleNext}>
                   <SkipNextIcon />
                 </IconButton>
                 <IconButton>
@@ -139,7 +145,10 @@ const MediaViewPage = ({
               Next Up
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
-            <PlaylistTable />
+            <PlaylistTable
+              playlist={playlist}
+              currentlyPlaying={currentlyPlaying}
+            />
           </div>
         </main>
         <RightDrawer
@@ -155,7 +164,11 @@ const MediaViewPage = ({
 MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [{}],
-  memberList: [{}],
+  // memberList: [{}],
+  details: {
+    pin: "",
+    username: "",
+  },
   token: "",
   chatMessages: [],
   handleClickPlayPause: () => {},
@@ -164,6 +177,12 @@ MediaViewPage.defaultProps = {
   scriptLoaded: false,
   handleChange: () => {},
   handleClickSearch: () => {},
+  addToPlaylist: () => {},
+  playlist: [],
+  setPlayerState: () => {},
+  handleNext: () => {},
+  handlePrev: () => {},
+  currentlyPlaying: 0,
 };
 
 MediaViewPage.propTypes = {
@@ -172,16 +191,22 @@ MediaViewPage.propTypes = {
   details: PropTypes.shape({
     pin: PropTypes.string,
     username: PropTypes.string,
-  }).isRequired,
-  memberList: PropTypes.arrayOf(PropTypes.object),
+  }),
+  // memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
-  chatMessages: PropTypes.arrayOf(PropTypes.string),
+  chatMessages: PropTypes.arrayOf(PropTypes.object),
   handleClickPlayPause: PropTypes.func,
   isPlay: PropTypes.bool,
   addDeviceID: PropTypes.func,
   scriptLoaded: PropTypes.bool,
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
+  addToPlaylist: PropTypes.func,
+  playlist: PropTypes.arrayOf(PropTypes.object),
+  setPlayerState: PropTypes.func,
+  handleNext: PropTypes.func,
+  handlePrev: PropTypes.func,
+  currentlyPlaying: PropTypes.number,
 };
 
 export default MediaViewPage;
