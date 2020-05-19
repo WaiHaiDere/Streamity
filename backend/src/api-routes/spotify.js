@@ -90,41 +90,19 @@ router.post("/play/:id", async (request, response) => {
       const deviceList = foundRoom.devices;
       deviceList.forEach(async (device) => {
         try {
-          if (request.body.uris) {
-            const newParam = {
-              uris: request.body.uris,
-            };
-            console.log(newParam);
-            const reqBody = JSON.stringify(newParam);
-            const res = await fetch(
-              SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + device.authToken,
-                },
-                body: reqBody,
-              }
-            ).then((response) => response.json());
-            console.log(res);
-            response.send(res);
-          } else {
-            const res = await fetch(
-              SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + device.authToken,
-                },
-              }
-            ).then((response) => response.json());
-            console.log(res);
-            response.send(res);
-          }
+          const res = await fetch(
+            SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + device.authToken,
+              },
+            }
+          ).then((response) => response.json());
+          console.log(res);
+          response.send(res);
         } catch (error) {}
       });
     } else {

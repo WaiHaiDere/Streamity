@@ -48,7 +48,6 @@ const MediaViewPageContainer = ({ children }) => {
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
   // eslint-disable-next-line camelcase
-  const song_uri = ["spotify:track:51rPRW8NjxZoWPPjnRGzHw"];
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -77,14 +76,7 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handlePlay = async () => {
-    let results;
-    if (isInitialPlay) {
-      setInitialPlay(false);
-      results = await postPlay(details.pin, song_uri);
-    } else {
-      results = await postPlay(details.pin, null);
-    }
-
+    const results = await postPlay(details.pin, null);
     return results;
   };
 
