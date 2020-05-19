@@ -88,21 +88,45 @@ router.post("/play/:id", async (request, response) => {
     const foundRoom = await Room.findOne({ pin: request.params.id });
     if (foundRoom !== null) {
       const deviceList = foundRoom.devices;
+      foundRoom.currentPlaying = true;
+      const saveReq = await foundRoom.save();
       deviceList.forEach(async (device) => {
         try {
-          const res = await fetch(
-            SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: "Bearer " + device.authToken,
-              },
-            }
-          ).then((response) => response.json());
-          console.log(res);
-          response.send(res);
+          if (request.body.uris) {
+            const newParam = {
+              uris: request.body.uris,
+            };
+            console.log(newParam);
+            const reqBody = JSON.stringify(newParam);
+            const res = await fetch(
+              SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + device.authToken,
+                },
+                body: reqBody,
+              }
+            ).then((response) => response.json());
+            console.log(res);
+            response.send(res);
+          } else {
+            const res = await fetch(
+              SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + device.authToken,
+                },
+              }
+            ).then((response) => response.json());
+            console.log(res);
+            response.send(res);
+          }
         } catch (error) {}
       });
     } else {
@@ -119,6 +143,8 @@ router.post("/pause/:id", async (request, response) => {
   try {
     const foundRoom = await Room.findOne({ pin: request.params.id });
     if (foundRoom !== null) {
+      foundRoom.currentPlaying = false;
+      const saveReq = await foundRoom.save();
       const deviceList = foundRoom.devices;
       deviceList.forEach(async (device) => {
         try {
@@ -262,19 +288,15 @@ router.post("/queue/:id", async (request, response) => {
     const foundRoom = await Room.findOne({ pin: request.params.id });
     if (foundRoom !== null) {
       
-      const {song_list} = foundRoom.playlist;
+      const songList = foundRoom.playlist.song_list;
+      console.log(songList[0]);
 
-      if(song_list.length !== 0) {
+      if(songList.length !== 0) {
 
-        const songArray = [];
-        song_list.forEach(async (song)=>{
-          songArray.push(song.trackUri);
-        });
-
-        console.log(songArray);
-
+        const uris = [songList[0].trackUri];
+      
         const newParam = {
-          uris: songArray,
+          uris,
         }
 
         const reqBody = JSON.stringify(newParam);
@@ -295,6 +317,47 @@ router.post("/queue/:id", async (request, response) => {
         } catch (err){
           console.log(err);
         }
+
+        // if(!foundRoom.currentPlaying){
+        //   try{
+        //   const res = await fetch(
+        //     SPOTIFY_PLAYER_PAUSE + "?device_id=" + request.body.deviceID, //should be called deviceId
+        //     {
+        //       method: "PUT",
+        //       headers: {
+        //         "Content-Type": "application/json",
+        //         Accept: "application/json",
+        //         Authorization: "Bearer " + request.body.authToken,
+        //       },
+        //     }
+        //   ).then((response) => response.json());
+        //   console.log(res);
+        //   } catch(err){
+        //     console.log(err);
+        //   }
+        // }
+
+        // songList.shift();
+
+        // songList.forEach(async (song) => {
+        //   try{
+        //     const addToQueueReq = await fetch (
+        //       SPOTIFY_PLAYER_ADD_TO_QUEUE + "?uri=" + song.trackUri + "&device_id=" + request.body.deviceID,
+        //       {
+        //         method: "POST",
+        //         headers: {
+        //           "Content-Type": "application/json",
+        //           Accept: "application/json",
+        //           Authorization: "Bearer " + request.body.authToken,
+        //         },
+        //       }
+        //     )
+  
+        //     console.log(addToQueueReq);
+        //   } catch (err){}
+        // })
+
+        
       } else {
         console.log("no songlist");
       }
