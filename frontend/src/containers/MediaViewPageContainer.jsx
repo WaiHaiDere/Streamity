@@ -27,6 +27,8 @@ const MediaViewPageContainer = ({ children }) => {
     username: "",
     pin: "",
   });
+
+  const [isInitialPlay, setInitialPlay] = useState(true);
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
