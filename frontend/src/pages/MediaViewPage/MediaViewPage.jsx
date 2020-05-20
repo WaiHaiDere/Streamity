@@ -166,6 +166,7 @@ const MediaViewPage = ({
           handleClickSend={handleClickSend}
           chatMessageList={chatMessageList}
           pin={details.pin}
+          details={details}
         />
       </div>
     </div>
