@@ -108,10 +108,14 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handleClickSend = async () => {
-    socket.emit("chat message", {
-      user: details.username,
-      message: chatMessage,
-    });
+    socket.emit(
+      "chat message",
+      {
+        user: details.username,
+        message: chatMessage,
+      },
+      details.pin
+    );
 
     console.log("send message", chatMessage);
     let message = [{ user: details.username, message: chatMessage }];
@@ -201,6 +205,7 @@ const MediaViewPageContainer = ({ children }) => {
       const { username, pin } = { ...detailsFromContext };
       console.log("socket connected", socket.id); // true
       console.log(username + " has joined room " + pin);
+      socket.emit("join room", username, pin);
     });
 
     socket.on("disconnect", () => {
@@ -208,11 +213,29 @@ const MediaViewPageContainer = ({ children }) => {
       const { username, pin } = { ...detailsFromContext };
       console.log("socket disconnected", socket.id); // true
       console.log(username + " has left room " + pin);
+      socket.emit("leave room", pin);
     });
-    
+
+    socket.on("join room", (username, pin) => {
+      console.log(username + " has joined room " + pin);
+    });
+
+    socket.on("leave room", (username, pin) => {
+      console.log(username + " has left room " + pin);
+    });
+
     // Set up socket io client to subscribe to chat messages
     socket.on("chat message", (message) => {
       console.log("message received", message);
+      // let messageList = chatMessageList;
+      // messageList.concat(message);
+      // console.log(messageList);
+      // setChatMessageList(messageList);
+      // console.log("all messages" + chatMessageList);
+
+      // let message = [{ user: details.username, message: chatMessage }];
+      // setChatMessageList([...chatMessageList, ...message]);
+      // return chatMessageList;
     });
 
     getInfo();

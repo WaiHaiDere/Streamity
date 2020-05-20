@@ -22,12 +22,14 @@ http.listen(3001, () => {
 });
 
 io.on("connection", (socket) => {
-  socket.on("join room", (pin) => {
+  socket.on("join room", (user, pin) => {
     socket.join(pin);
+    socket.broadcast.to(pin).emit("join room", user, pin);
   });
 
   socket.on("leave room", (pin) => {
     socket.leave(pin);
+    socket.broadcast.to(pin).emit("leave room", user, pin);
   });
 
   socket.on("chat message", (msg, pin) => {
