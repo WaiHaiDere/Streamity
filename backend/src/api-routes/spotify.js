@@ -53,7 +53,7 @@ router.post("/authorise", async (request, response) => {
 });
 
 router.get("/search", async (request, response) => {
-  console.log(request.headers.title);
+  // console.log(request.headers.title);
   response.header("Access-Control-Allow-Origin", "*");
   // https://api.spotify.com/v1/search?q=let it go&type=track&limit=10
   const res = await fetch(
@@ -96,7 +96,7 @@ router.post("/play/:id", async (request, response) => {
             const newParam = {
               uris: request.body.uris,
             };
-            console.log(newParam);
+            // console.log(newParam);
             const reqBody = JSON.stringify(newParam);
             const res = await fetch(
               SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
@@ -110,7 +110,7 @@ router.post("/play/:id", async (request, response) => {
                 body: reqBody,
               }
             ).then((response) => response.json());
-            console.log(res);
+            // console.log(res);
             response.send(res);
           } else {
             const res = await fetch(
@@ -124,7 +124,7 @@ router.post("/play/:id", async (request, response) => {
                 },
               }
             ).then((response) => response.json());
-            console.log(res);
+            // console.log(res);
             response.send(res);
           }
         } catch (error) {}
@@ -159,7 +159,7 @@ router.post("/pause/:id", async (request, response) => {
               },
             }
           ).then((response) => response.json());
-          console.log(res);
+          // console.log(res);
           response.send(res);
         } catch (error) {}
       });
@@ -199,7 +199,7 @@ router.post("/playlist/:id", async (request, response) => {
             }
           )
 
-          console.log(addToQueueReq);
+          // console.log(addToQueueReq);
         } catch (err){}
       })
     
@@ -289,7 +289,7 @@ router.post("/queue/:id", async (request, response) => {
     if (foundRoom !== null) {
       
       const songList = foundRoom.playlist.song_list;
-      console.log(songList[0]);
+      // console.log(songList[0]);
 
       if(songList.length !== 0) {
 
@@ -313,9 +313,9 @@ router.post("/queue/:id", async (request, response) => {
               body: reqBody,
             }
           ).then((respon) => respon.json());
-          console.log(res);
+          // console.log(res);
         } catch (err){
-          console.log(err);
+          // console.log(err);
         }
 
 
@@ -333,9 +333,9 @@ router.post("/queue/:id", async (request, response) => {
                 },
               }
             ).then((response) => response.json());
-            console.log(res);
+            // console.log(res);
             } catch(err){
-              console.log(err);
+              // console.log(err);
             }
           }, 200);
         }
@@ -356,13 +356,13 @@ router.post("/queue/:id", async (request, response) => {
               }
             )
   
-            console.log(addToQueueReq);
+            // console.log(addToQueueReq);
           } catch (err){}
         })
 
         
       } else {
-        console.log("no songlist");
+        // console.log("no songlist");
       }
       response.status(200).send(foundRoom);
 
