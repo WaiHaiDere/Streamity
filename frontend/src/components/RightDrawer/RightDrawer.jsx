@@ -38,15 +38,16 @@ const RightDrawer = ({
           </Avatar>
         </div>
         <List classes={{ root: styles.chatMessageList }}>
-          {chatMessageList.map((chatMessage) => {
+          {chatMessageList.map((chatMessage, idx) => {
             return (
               <div
                 className={styles.ChatMessagesContainer}
-                key={`${chatMessage.user}-${chatMessage.message}`}
+                key={idx}
               >
                 <ChatMessage
                   user={chatMessage.user}
                   message={chatMessage.message}
+                  key={idx}
                 />
               </div>
             );
