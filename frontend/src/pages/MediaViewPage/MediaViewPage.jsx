@@ -12,7 +12,6 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import RepeatIcon from "@material-ui/icons/Repeat";
-import albumArt from "./tempAlbumArt.jpg";
 import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
 import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
@@ -23,8 +22,8 @@ const MediaViewPage = ({
   listOfSearchResults,
   handleClick,
   details,
-  memberList,
   chatMessageList,
+  // memberList,
   token,
   isPlay,
   addDeviceID,
@@ -33,6 +32,13 @@ const MediaViewPage = ({
   handleClickSearch,
   handleChatChange,
   handleClickSend,
+  addToPlaylist,
+  playlist,
+  setPlayerState,
+  playerState,
+  handleNext,
+  handlePrev,
+  currentlyPlaying,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -64,6 +70,7 @@ const MediaViewPage = ({
       // Playback status updates
       player.addListener("player_state_changed", (state) => {
         console.log(state);
+        setPlayerState(state);
       });
 
       // Ready
@@ -82,7 +89,6 @@ const MediaViewPage = ({
     };
   };
 
-  console.log(memberList);
   return (
     <div>
       {token && !scriptLoaded ? (
@@ -98,6 +104,7 @@ const MediaViewPage = ({
           listOfSearchResults={listOfSearchResults}
           handleChange={handleChange}
           handleClickSearch={handleClickSearch}
+          addToPlaylist={addToPlaylist}
         />
         <main className={styles.centrePanel}>
           <Typography variant="h1" classes={{ root: styles.title }}>
@@ -109,14 +116,22 @@ const MediaViewPage = ({
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
             <div className={styles.albumArt}>
-              <img src={albumArt} style={{ height: 300 }} alt="album-art" />
-              <Typography>Lover</Typography>
-              <Typography>Taylor Swift</Typography>
+              <img
+                src={playerState.track_window.current_track.album.images[0].url}
+                style={{ height: 300 }}
+                alt="Blank-text"
+              />
+              <Typography>
+                {playerState.track_window.current_track.name}
+              </Typography>
+              <Typography>
+                {playerState.track_window.current_track.artists[0].name}
+              </Typography>
               <div>
                 <IconButton>
                   <ShuffleIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handlePrev}>
                   <SkipPreviousIcon />
                 </IconButton>
                 <IconButton onClick={handleClickPlayPause}>
@@ -126,7 +141,7 @@ const MediaViewPage = ({
                     <PlayCircleFilledIcon />
                   )}
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handleNext}>
                   <SkipNextIcon />
                 </IconButton>
                 <IconButton>
@@ -140,7 +155,10 @@ const MediaViewPage = ({
               Next Up
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
-            <PlaylistTable />
+            <PlaylistTable
+              playlist={playlist}
+              currentlyPlaying={currentlyPlaying}
+            />
           </div>
         </main>
         <RightDrawer
@@ -157,8 +175,12 @@ const MediaViewPage = ({
 MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [{}],
-  memberList: [{}],
   chatMessageList: [{}],
+  // memberList: [{}],
+  details: {
+    pin: "",
+    username: "",
+  },
   token: "",
   handleClickPlayPause: () => {},
   isPlay: false,
@@ -168,6 +190,13 @@ MediaViewPage.defaultProps = {
   handleClickSearch: () => {},
   handleChatChange: () => {},
   handleClickSend: () => {},
+  addToPlaylist: () => {},
+  playlist: [],
+  setPlayerState: () => {},
+  handleNext: () => {},
+  handlePrev: () => {},
+  currentlyPlaying: 0,
+  playerState: {},
 };
 
 MediaViewPage.propTypes = {
@@ -176,8 +205,8 @@ MediaViewPage.propTypes = {
   details: PropTypes.shape({
     pin: PropTypes.string,
     username: PropTypes.string,
-  }).isRequired,
-  memberList: PropTypes.arrayOf(PropTypes.object),
+  }),
+  // memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
   chatMessageList: PropTypes.arrayOf(PropTypes.object),
   handleClickPlayPause: PropTypes.func,
@@ -188,6 +217,15 @@ MediaViewPage.propTypes = {
   handleClickSearch: PropTypes.func,
   handleChatChange: PropTypes.func,
   handleClickSend: PropTypes.func,
+  addToPlaylist: PropTypes.func,
+  playlist: PropTypes.arrayOf(PropTypes.object),
+  setPlayerState: PropTypes.func,
+  handleNext: PropTypes.func,
+  handlePrev: PropTypes.func,
+  currentlyPlaying: PropTypes.number,
+  playerState: PropTypes.objectOf(
+    PropTypes.oneOf([PropTypes.object, PropTypes.string])
+  ),
 };
 
 export default MediaViewPage;

@@ -34,14 +34,18 @@ const PinPage = ({ handleClick, pin }) => {
           >
             <Card classes={{ root: styles.pinCard }}>
               <CardContent>
-                <Typography variant="h2" classes={{ root: styles.title }}>
+                <Typography
+                  variant="h2"
+                  classes={{ root: styles.title }}
+                  id="pin"
+                >
                   PIN: {pin}
                 </Typography>
               </CardContent>
               <CardActions classes={{ root: styles.cardActions }}>
                 <Button
                   size="small"
-                  onClick={handleClick}
+                  onClick={handleCopy}
                   classes={{
                     root: styles.copyButtonAlign,
                     label: styles.copyButton,
@@ -67,6 +71,10 @@ const PinPage = ({ handleClick, pin }) => {
       </Container>
     </div>
   );
+};
+
+const handleCopy = async () => {
+  navigator.clipboard.writeText(document.getElementById("pin").innerHTML.substring(5));
 };
 
 PinPage.defaultProps = {

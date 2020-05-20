@@ -11,7 +11,12 @@ import FormControl from "@material-ui/core/FormControl";
 import SearchResult from "../SearchResult/SearchResult";
 import styles from "./leftdrawer.module.css";
 
-const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) => {
+const LeftDrawer = ({
+  listOfSearchResults,
+  handleChange,
+  handleClickSearch,
+  addToPlaylist,
+}) => {
   return (
     <div>
       <Drawer
@@ -50,19 +55,24 @@ const LeftDrawer = ({ listOfSearchResults, handleChange, handleClickSearch }) =>
         </div>
         <List>
           {listOfSearchResults.map((searchResult) => {
-            return(
-                <>
+            return (
+              <>
                 <SearchResult
                   key={searchResult.trackUri}
                   title={searchResult.songName}
                   artist={searchResult.artist[0].name}
                   classes={{ root: styles.SearchResult }}
                 />
-                <IconButton>
+                <IconButton
+                  key={`${searchResult.trackUri}-add`}
+                  onClick={() => {
+                    addToPlaylist(searchResult);
+                  }}
+                >
                   <AddIcon />
                 </IconButton>
-                </>
-            )
+              </>
+            );
           })}
         </List>
       </Drawer>
@@ -74,12 +84,14 @@ LeftDrawer.defaultProps = {
   listOfSearchResults: [{}],
   handleChange: () => {},
   handleClickSearch: () => {},
+  addToPlaylist: () => {},
 };
 
-LeftDrawer.propTypes = {  
+LeftDrawer.propTypes = {
   listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
+  addToPlaylist: PropTypes.func,
 };
 
 export default LeftDrawer;

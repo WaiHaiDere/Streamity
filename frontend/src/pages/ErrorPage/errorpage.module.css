@@ -1,0 +1,57 @@
+.backgroundContainer {
+  position: fixed;
+  top: 0;
+  width: 101%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../../background/Background-1.png);
+  left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
+}
+
+.centreContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.errorContainer {
+  margin-top: 15%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gap {
+  width: 30px;
+}
+
+.title {
+  color: white;
+  font-size: 96px;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  color: white;
+  height: 250px;
+  width: 250px;
+}
+
+.error {
+  margin-top: 29%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: white;
+  font-size: 36px;
+}
