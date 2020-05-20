@@ -17,9 +17,6 @@ const SearchResult = ({ title, artist, albumArt }) => {
         primary={title}
         secondary={artist}
       />
-      <IconButton>
-        <AddIcon />
-      </IconButton>
     </ListItem>
   );
 };

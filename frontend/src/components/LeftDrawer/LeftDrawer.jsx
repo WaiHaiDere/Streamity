@@ -9,6 +9,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import SearchResult from "../SearchResult/SearchResult";
 import styles from "./leftdrawer.module.css";
+import AddIcon from "@material-ui/icons/Add";
 
 const LeftDrawer = ({
   listOfSearchResults,
@@ -56,12 +57,12 @@ const LeftDrawer = ({
           {listOfSearchResults.map((searchResult) => {
             return (
               <>
+              <div className={styles.SearchResult}>
                 <SearchResult
                   key={searchResult.trackUri}
                   title={searchResult.songName}
                   artist={searchResult.artist[0].name}
                   albumArt={searchResult.album.images[0].url}
-                  classes={{ root: styles.SearchResult }}
                 />
                 <IconButton
                   key={`${searchResult.trackUri}-add`}
@@ -71,6 +72,7 @@ const LeftDrawer = ({
                 >
                   <AddIcon />
                 </IconButton>
+                </div>
               </>
             );
           })}
