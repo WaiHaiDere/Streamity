@@ -55,7 +55,7 @@ const MediaViewPageContainer = ({ children }) => {
       },
     },
   });
-  const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
+  //const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
   const [playlist, setPlaylist] = useState([
     {
       songName: "",
@@ -118,12 +118,13 @@ const MediaViewPageContainer = ({ children }) => {
 
   const handleNext = async () => {
     const response = await playlistNext({ pin: details.pin });
-    setCurrentlyPlaying(response.playlist.current_index);
+    //setCurrentlyPlaying(response.playlist.current_index);
+    setPlaylist(response.playlist);
   };
 
   const handlePrev = async () => {
     const response = await playlistPrev({ pin: details.pin });
-    setCurrentlyPlaying(response.playlist.current_index);
+    //setCurrentlyPlaying(response.playlist.current_index);
   };
 
   const addDeviceID = async (device) => {
@@ -155,10 +156,17 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   useEffect(() => {
-    setPlayStatus(!playerState.paused);
-    if (!playerState.paused) {
-      setIsFirstSong(false);
+    async function setPlayerState() {
+      setPlayStatus(!playerState.paused);
+      if (!playerState.paused) {
+        setIsFirstSong(false);
+      }
+      const room = await getRoom(details.pin);
+      setPlaylist(room.playlist.song_list);
+      console.log(playlist);
     }
+
+    setPlayerState();
   }, [playerState]);
 
   const [chatMessages] = useState([
@@ -221,7 +229,7 @@ const MediaViewPageContainer = ({ children }) => {
     setPlayerState,
     handleNext,
     handlePrev,
-    currentlyPlaying,
+    //currentlyPlaying,
   };
 
   return React.cloneElement(children, { ...newProps });
