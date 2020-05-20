@@ -122,7 +122,7 @@ const MediaViewPageContainer = ({ children }) => {
   const getSpotifySearchResults = async (title) => {
     const results = await getSpotifySearches(title, token);
     // console.log(results);
-    setlistOfSearchResults(results);
+    setListOfSearchResults(results);
     // console.log(listOfSearchResults);
     return results;
   };
