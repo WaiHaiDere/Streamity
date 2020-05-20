@@ -60,17 +60,12 @@ export const updateSpotifyToken = async ({ token, id }) => {
   return res;
 };
 
-export const postPlay = async (pin, uriList) => {
-  const newParams = {
-    uris: uriList ? uriList : null,
-  };
-  const resqBody = JSON.stringify(newParams);
+export const postPlay = async (pin) => {
   const res = await fetch(spotifyPlayerPlayRoute(pin), {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: resqBody,
     method: "POST",
   }).then((response) => response.json());
   return res;
@@ -88,9 +83,10 @@ export const postPause = async (pin) => {
   return res;
 };
 
-export const addToPlaylist = async ({ pin, song }) => {
+export const addToPlaylist = async ({ pin, song, isFirstSong }) => {
   const newParams = {
     song,
+    isFirstSong,
   };
 
   const resqBody = JSON.stringify(newParams);

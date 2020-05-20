@@ -28,7 +28,7 @@ const MediaViewPageContainer = ({ children }) => {
     pin: "",
   });
 
-  const [isInitialPlay, setInitialPlay] = useState(true);
+  const [isFirstSong, setIsFirstSong] = useState(true);
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
@@ -81,7 +81,12 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const addToPlaylist = async (song) => {
-    const res = await addToPlaylistRequest({ pin: details.pin, song });
+    const res = await addToPlaylistRequest({
+      pin: details.pin,
+      song,
+      isFirstSong,
+    });
+    setIsFirstSong(false);
     // console.log(res);
     setPlaylist(res.playlist.song_list);
     // console.log(res);
@@ -101,13 +106,7 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handlePlay = async () => {
-    let results;
-    if (isInitialPlay) {
-      setInitialPlay(false);
-      results = await postPlay(details.pin, [playlist[0].trackUri]);
-    } else {
-      results = await postPlay(details.pin, null);
-    }
+    const results = await postPlay(details.pin);
 
     return results;
   };
@@ -157,7 +156,9 @@ const MediaViewPageContainer = ({ children }) => {
 
   useEffect(() => {
     setPlayStatus(!playerState.paused);
-    setInitialPlay(false);
+    if (!playerState.paused) {
+      setIsFirstSong(false);
+    }
   }, [playerState]);
 
   const [chatMessages] = useState([

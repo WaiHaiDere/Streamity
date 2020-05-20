@@ -183,29 +183,70 @@ router.post("/playlist/:id", async (request, response) => {
       const saveReq = await foundRoom.save();
 
       const songURI = request.body.song.trackUri;
+      console.log(request.body.isFirstSong);
 
       const deviceList = foundRoom.devices;
       // const song = request.body.song.replace(":", "%3A")
       deviceList.forEach(async (device) => {
-        try {
-          const addToQueueReq = await fetch(
-            SPOTIFY_PLAYER_ADD_TO_QUEUE +
-              "?uri=" +
-              songURI +
-              "&device_id=" +
-              device.device_id,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: "Bearer " + device.authToken,
-              },
-            }
-          );
+        if(request.body.isFirstSong){
+          try {
+            const newParam = {
+              uris: [songURI],
+            };
+            const reqBody = JSON.stringify(newParam);
+            const res = await fetch(
+              SPOTIFY_PLAYER_PLAY + "?device_id=" + device.device_id, //should be called deviceId
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + device.authToken,
+                },
+                body: reqBody,
+              }
+            ).then((respon) => respon.json());
+          } catch (err){
+            console.log(err);
+          }
+          await setTimeout( async () => {
+            try {
+              const res = await fetch(
+                SPOTIFY_PLAYER_PAUSE + "?device_id=" + device.device_id, //should be called deviceId
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + device.authToken,
+                  },
+                }
+              ).then((response) => response.json());
+              console.log(res);
+              response.send(res);
+            } catch (error) {}
+          }, 200)
 
-          console.log(addToQueueReq);
-        } catch (err) {}
+        } else {
+          try {
+            const addToQueueReq = await fetch(
+              SPOTIFY_PLAYER_ADD_TO_QUEUE +
+                "?uri=" +
+                songURI +
+                "&device_id=" +
+                device.device_id,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: "Bearer " + device.authToken,
+                },
+              }
+            );
+            console.log(addToQueueReq);
+          } catch (err) {}
+        }
       });
 
       response.status(200).json(saveReq);
@@ -250,36 +291,36 @@ router.post("/next/:id", async (request, response) => {
   }
 });
 
-router.post("/prev/:id", async (request, response) => {
-  try {
-    const foundRoom = await Room.findOne({ pin: request.params.id });
-    if (foundRoom !== null) {
-      foundRoom.playlist.current_index -= 1;
-      const saveReq = await foundRoom.save();
+// router.post("/prev/:id", async (request, response) => {
+//   try {
+//     const foundRoom = await Room.findOne({ pin: request.params.id });
+//     if (foundRoom !== null) {
+//       foundRoom.playlist.current_index -= 1;
+//       const saveReq = await foundRoom.save();
 
-      const deviceList = foundRoom.devices;
-      try {
-        deviceList.forEach(async (device) => {
-          await fetch(SPOTIFY_PLAYER_PREV + "?device_id=" + device.device_id, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: "Bearer " + device.authToken,
-            },
-          });
-        });
-      } catch (err) {}
-      response.status(200).json(saveReq);
-    } else {
-      response
-        .status(404)
-        .json({ error: "Room not found. Please double check your PIN." });
-    }
-  } catch (err) {
-    response.status(404).json({ message: err.message });
-  }
-});
+//       const deviceList = foundRoom.devices;
+//       try {
+//         deviceList.forEach(async (device) => {
+//           await fetch(SPOTIFY_PLAYER_PREV + "?device_id=" + device.device_id, {
+//             method: "POST",
+//             headers: {
+//               "Content-Type": "application/json",
+//               Accept: "application/json",
+//               Authorization: "Bearer " + device.authToken,
+//             },
+//           });
+//         });
+//       } catch (err) {}
+//       response.status(200).json(saveReq);
+//     } else {
+//       response
+//         .status(404)
+//         .json({ error: "Room not found. Please double check your PIN." });
+//     }
+//   } catch (err) {
+//     response.status(404).json({ message: err.message });
+//   }
+// });
 
 router.post("/queue/:id", async (request, response) => {
   try {
