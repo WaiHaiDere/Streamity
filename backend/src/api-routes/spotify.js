@@ -224,7 +224,9 @@ router.post("/playlist/:id", async (request, response) => {
               ).then((response) => response.json());
               console.log(res);
               response.send(res);
-            } catch (error) {}
+            } catch (error) {
+              console.log(error);
+            }
           }, 200)
 
         } else {
@@ -379,25 +381,28 @@ router.post("/queue/:id", async (request, response) => {
         songList.shift();
 
         songList.forEach(async (song) => {
-          try {
-            const addToQueueReq = await fetch(
-              SPOTIFY_PLAYER_ADD_TO_QUEUE +
-                "?uri=" +
-                song.trackUri +
-                "&device_id=" +
-                request.body.deviceID,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + request.body.authToken,
-                },
-              }
-            );
-
-            console.log(addToQueueReq);
-          } catch (err) {}
+          setTimeout(async () => {
+            try {
+              const addToQueueReq = await fetch(
+                SPOTIFY_PLAYER_ADD_TO_QUEUE +
+                  "?uri=" +
+                  song.trackUri +
+                  "&device_id=" +
+                  request.body.deviceID,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + request.body.authToken,
+                  },
+                }
+              );
+  
+              console.log(addToQueueReq);
+            } catch (err) {}
+          }, 150);
+          
         });
       } else {
         console.log("no songlist");
