@@ -4,11 +4,18 @@ import {
   getSpotifySearches,
   postPlay,
   postPause,
+  addToPlaylist as addToPlaylistRequest,
+  playlistNext,
+  playlistPrev,
 } from "../services/spotifyService";
-import { addDevice as addDeviceIDRequest } from "../services/joinService";
+import {
+  addDevice as addDeviceIDRequest,
+  addToQueue as addToQueueRequest,
+} from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
+import questionMarkArt from "../icons/question_mark_PNG1.png";
 
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
@@ -23,37 +30,76 @@ const MediaViewPageContainer = ({ children }) => {
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
-  const [deviceID, setDeviceID] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
+  const [playerState, setPlayerState] = useState({
+    paused: true,
+    track_window: {
+      current_track: {
+        album: {
+          images: [
+            {
+              url: questionMarkArt,
+            },
+          ],
+          name: "",
+        },
+        artists: [
+          {
+            name: "",
+          },
+        ],
+        name: "",
+      },
+    },
+  });
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
+  const [playlist, setPlaylist] = useState([
+    {
+      songName: "",
+      duration: 0,
+      artist: [
+        {
+          name: "",
+        },
+      ],
+      album: {
+        name: "",
+      },
+    },
+  ]);
 
   // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
+  // eslint-disable-next-line camelcase
 
   const handleChange = (event) => {
     const { value } = event.target;
     setUserSearch(value);
-    console.log(userSearch);
-  }
-
-  const handleClick = () => {
-    console.log("glick");
+    // console.log(userSearch);
   };
 
-  const handleClickSearch = async () => {
-    const results = await getSpotifySearches({searchTitle: userSearch, authToken: token});
-    console.log(results);
-    setlistOfSearchResults(results);
-    console.log(listOfSearchResults);
-    return results;
-  }
+  const addToPlaylist = async (song) => {
+    const res = await addToPlaylistRequest({ pin: details.pin, song });
+    // console.log(res);
+    setPlaylist(res.playlist.song_list);
+    // console.log(res);
+  };
 
-  const getSpotifySearchResults = async (title) => {
-    const results = await getSpotifySearches(title, token);
+  const handleClick = () => {};
+
+  const handleClickSearch = async () => {
+    const results = await getSpotifySearches({
+      searchTitle: userSearch,
+      authToken: token,
+    });
+    // console.log(results);
+    setlistOfSearchResults(results);
+    // console.log(listOfSearchResults);
     return results;
   };
 
   const handlePlay = async () => {
-    const results = await postPlay(details.pin);
+    const results = await postPlay(details.pin, null);
     return results;
   };
 
@@ -62,13 +108,27 @@ const MediaViewPageContainer = ({ children }) => {
     return results;
   };
 
+  const handleNext = async () => {
+    const response = await playlistNext({ pin: details.pin });
+    setCurrentlyPlaying(response.playlist.current_index);
+  };
+
+  const handlePrev = async () => {
+    const response = await playlistPrev({ pin: details.pin });
+    setCurrentlyPlaying(response.playlist.current_index);
+  };
+
   const addDeviceID = async (device) => {
     await addDeviceIDRequest({
       pin: details.pin,
       deviceID: device,
       authToken: token,
     });
-    setDeviceID(device);
+    await addToQueueRequest({
+      pin: details.pin,
+      deviceID: device,
+      authToken: token,
+    });
     setScriptLoaded(true);
   };
 
@@ -83,6 +143,10 @@ const MediaViewPageContainer = ({ children }) => {
       await handlePause();
     }
   };
+
+  useEffect(() => {
+    setPlayStatus(!playerState.paused);
+  }, [playerState]);
 
   const [chatMessages] = useState([
     {
@@ -115,7 +179,8 @@ const MediaViewPageContainer = ({ children }) => {
           history.push("/join");
         }
         setMemberList(room.member_list);
-        console.log(room.spotifyAuth);
+        setPlaylist(room.playlist.song_list);
+        // console.log(room.spotifyAuth);
       } else {
         history.push("/join");
       }
@@ -137,6 +202,13 @@ const MediaViewPageContainer = ({ children }) => {
     scriptLoaded,
     handleChange,
     handleClickSearch,
+    addToPlaylist,
+    playlist,
+    playerState,
+    setPlayerState,
+    handleNext,
+    handlePrev,
+    currentlyPlaying,
   };
 
   return React.cloneElement(children, { ...newProps });

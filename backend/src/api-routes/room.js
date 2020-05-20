@@ -48,7 +48,7 @@ router.get("/:id", async (req, res) => {
 
 // Add new device
 router.put("/:id/device", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   try{
     const foundRoom = await Room.findOne({pin: req.params.id});

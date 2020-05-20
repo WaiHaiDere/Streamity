@@ -14,6 +14,7 @@ const LeftDrawer = ({
   listOfSearchResults,
   handleChange,
   handleClickSearch,
+  addToPlaylist,
 }) => {
   return (
     <div>
@@ -62,6 +63,14 @@ const LeftDrawer = ({
                   albumArt={searchResult.album.images[0].url}
                   classes={{ root: styles.SearchResult }}
                 />
+                <IconButton
+                  key={`${searchResult.trackUri}-add`}
+                  onClick={() => {
+                    addToPlaylist(searchResult);
+                  }}
+                >
+                  <AddIcon />
+                </IconButton>
               </>
             );
           })}
@@ -75,12 +84,14 @@ LeftDrawer.defaultProps = {
   listOfSearchResults: [{}],
   handleChange: () => {},
   handleClickSearch: () => {},
+  addToPlaylist: () => {},
 };
 
 LeftDrawer.propTypes = {
   listOfSearchResults: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
+  addToPlaylist: PropTypes.func,
 };
 
 export default LeftDrawer;
