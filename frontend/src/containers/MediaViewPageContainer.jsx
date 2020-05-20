@@ -15,7 +15,7 @@ import {
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
-import socketIOClient from "socket.io-client/dist/socket.io";
+import io from "socket.io-client/dist/socket.io";
 import questionMarkArt from "../icons/question_mark_PNG1.png";
 
 const MediaViewPageContainer = ({ children }) => {
@@ -35,7 +35,7 @@ const MediaViewPageContainer = ({ children }) => {
   const [userSearch, setUserSearch] = useState("");
   const [chatMessage, setChatMessage] = useState("");
   const [chatMessageList, setChatMessageList] = useState([]);
-  const socket = socketIOClient("http://localhost:3001/");
+  const socket = io("http://localhost:3001/");
   const [playerState, setPlayerState] = useState({
     paused: true,
     track_window: {
@@ -196,6 +196,20 @@ const MediaViewPageContainer = ({ children }) => {
       }
     }
 
+    socket.on("connect", () => {
+      const detailsFromContext = getGlobalState(keys.SESSION);
+      const { username, pin } = { ...detailsFromContext };
+      console.log("socket connected", socket.id); // true
+      console.log(username + " has joined room " + pin);
+    });
+
+    socket.on("disconnect", () => {
+      const detailsFromContext = getGlobalState(keys.SESSION);
+      const { username, pin } = { ...detailsFromContext };
+      console.log("socket disconnected", socket.id); // true
+      console.log(username + " has left room " + pin);
+    });
+    
     // Set up socket io client to subscribe to chat messages
     socket.on("chat message", (message) => {
       console.log("message received", message);
