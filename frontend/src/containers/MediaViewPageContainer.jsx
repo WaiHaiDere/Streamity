@@ -102,13 +102,11 @@ const MediaViewPageContainer = ({ children }) => {
 
   const handlePlay = async () => {
     let results;
-    if (playlist.length !== 0) {
-      if (isInitialPlay) {
-        setInitialPlay(false);
-        results = await postPlay(details.pin, [playlist[0].trackUri]);
-      } else {
-        results = await postPlay(details.pin, null);
-      }
+    if (isInitialPlay) {
+      setInitialPlay(false);
+      results = await postPlay(details.pin, [playlist[0].trackUri]);
+    } else {
+      results = await postPlay(details.pin, null);
     }
 
     return results;
@@ -144,19 +142,22 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handleClickPlayPause = async () => {
-    if (!isPlay) {
-      console.log(isPlay);
-      setPlayStatus(!isPlay);
-      await handlePlay();
-    } else {
-      console.log(isPlay);
-      setPlayStatus(!isPlay);
-      await handlePause();
+    if (playlist.length !== 0) {
+      if (!isPlay) {
+        console.log(isPlay);
+        setPlayStatus(!isPlay);
+        await handlePlay();
+      } else {
+        console.log(isPlay);
+        setPlayStatus(!isPlay);
+        await handlePause();
+      }
     }
   };
 
   useEffect(() => {
     setPlayStatus(!playerState.paused);
+    setInitialPlay(false);
   }, [playerState]);
 
   const [chatMessages] = useState([
