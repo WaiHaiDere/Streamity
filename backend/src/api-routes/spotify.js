@@ -60,7 +60,7 @@ router.get("/search", async (request, response) => {
     SPOTIFY_TRACK_SEARCH_END_POINT +
       "?q=" +
       request.headers.title +
-      "&type=track&limit=10",
+      "&type=track",
     {
       method: "GET",
       headers: {
