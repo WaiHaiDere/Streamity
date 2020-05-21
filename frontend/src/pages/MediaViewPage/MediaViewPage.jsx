@@ -39,6 +39,7 @@ const MediaViewPage = ({
   handleNext,
   handlePrev,
   currentlyPlaying,
+  chatMessage,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -167,6 +168,7 @@ const MediaViewPage = ({
           chatMessageList={chatMessageList}
           pin={details.pin}
           details={details}
+          chatMessage={chatMessage}
         />
       </div>
     </div>
@@ -198,6 +200,7 @@ MediaViewPage.defaultProps = {
   handlePrev: () => {},
   currentlyPlaying: 0,
   playerState: {},
+  chatMessage: "",
 };
 
 MediaViewPage.propTypes = {
@@ -227,6 +230,7 @@ MediaViewPage.propTypes = {
   playerState: PropTypes.objectOf(
     PropTypes.oneOf([PropTypes.object, PropTypes.string])
   ),
+  chatMessage: PropTypes.string,
 };
 
 export default MediaViewPage;

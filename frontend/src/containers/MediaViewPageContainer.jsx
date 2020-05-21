@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import io from "socket.io-client/dist/socket.io";
 import {
   getSpotifySearches,
   postPlay,
@@ -15,7 +16,6 @@ import {
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
-import io from "socket.io-client/dist/socket.io";
 import questionMarkArt from "../icons/question_mark_PNG1.png";
 
 const MediaViewPageContainer = ({ children }) => {
@@ -116,11 +116,13 @@ const MediaViewPageContainer = ({ children }) => {
       },
       details.pin
     );
+    setChatMessage("");
 
-    console.log("send message", chatMessage);
-    let message = [{ user: details.username, message: chatMessage }];
-    setChatMessageList([...chatMessageList, ...message]);
-    return chatMessageList;
+    // console.log("send message", chatMessage);
+    // const message = { user: details.username, message: chatMessage };
+    // const newChatList = JSON.parse(JSON.stringify(chatMessageList));
+    // newChatList.push(message);
+    // setChatMessageList(newChatList);
   };
 
   const getSpotifySearchResults = async (title) => {
@@ -183,6 +185,7 @@ const MediaViewPageContainer = ({ children }) => {
 
   useEffect(() => {
     async function getInfo() {
+      console.log("here2");
       if (existsInGlobalState(keys.SESSION)) {
         const detailsFromContext = getGlobalState(keys.SESSION);
         const { username, pin } = { ...detailsFromContext };
@@ -194,6 +197,7 @@ const MediaViewPageContainer = ({ children }) => {
         }
         setMemberList(room.member_list);
         setPlaylist(room.playlist.song_list);
+        setChatMessageList(room.chat);
         // console.log(room.spotifyAuth);
       } else {
         history.push("/join");
@@ -204,7 +208,7 @@ const MediaViewPageContainer = ({ children }) => {
       const detailsFromContext = getGlobalState(keys.SESSION);
       const { username, pin } = { ...detailsFromContext };
       console.log("socket connected", socket.id); // true
-      console.log(username + " has joined room " + pin);
+      console.log(`${username} has joined room ${pin}`);
       socket.emit("join room", username, pin);
     });
 
@@ -212,30 +216,21 @@ const MediaViewPageContainer = ({ children }) => {
       const detailsFromContext = getGlobalState(keys.SESSION);
       const { username, pin } = { ...detailsFromContext };
       console.log("socket disconnected", socket.id); // true
-      console.log(username + " has left room " + pin);
+      console.log(`${username} has left room ${pin}`);
       socket.emit("leave room", pin);
     });
 
     socket.on("join room", (username, pin) => {
-      console.log(username + " has joined room " + pin);
+      console.log(`${username} has joined room ${pin}`);
     });
 
     socket.on("leave room", (username, pin) => {
-      console.log(username + " has left room " + pin);
+      console.log(`${username} has left room ${pin}`);
     });
 
     // Set up socket io client to subscribe to chat messages
-    socket.on("chat message", (message) => {
-      console.log("message received", message);
-      // let messageList = chatMessageList;
-      // messageList.concat(message);
-      // console.log(messageList);
-      // setChatMessageList(messageList);
-      // console.log("all messages" + chatMessageList);
-
-      // let message = [{ user: details.username, message: chatMessage }];
-      // setChatMessageList([...chatMessageList, ...message]);
-      // return chatMessageList;
+    socket.on("chat message", (response) => {
+      setChatMessageList(response.chatList);
     });
 
     getInfo();
@@ -263,6 +258,7 @@ const MediaViewPageContainer = ({ children }) => {
     handleNext,
     handlePrev,
     currentlyPlaying,
+    chatMessage,
   };
 
   return React.cloneElement(children, { ...newProps });

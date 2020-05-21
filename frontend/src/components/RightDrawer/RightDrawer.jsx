@@ -18,6 +18,7 @@ const RightDrawer = ({
   details,
   handleChatChange,
   handleClickSend,
+  chatMessage,
 }) => {
   return (
     <div>
@@ -38,20 +39,15 @@ const RightDrawer = ({
           </Avatar>
         </div>
         <List classes={{ root: styles.chatMessageList }}>
-          {chatMessageList.map((chatMessage, idx) => {
-            return (
-              <div
-                className={styles.ChatMessagesContainer}
+          {chatMessageList.map((chatMessage, idx) => (
+            <div className={styles.ChatMessagesContainer} key={idx}>
+              <ChatMessage
+                user={chatMessage.user}
+                message={chatMessage.message}
                 key={idx}
-              >
-                <ChatMessage
-                  user={chatMessage.user}
-                  message={chatMessage.message}
-                  key={idx}
-                />
-              </div>
-            );
-          })}
+              />
+            </div>
+          ))}
         </List>
         <div className={styles.ChatBox}>
           <FormControl>
@@ -64,6 +60,7 @@ const RightDrawer = ({
               Type your message
             </InputLabel>
             <Input
+              value={chatMessage}
               id="chat-message"
               onChange={handleChatChange}
               endAdornment={
@@ -93,6 +90,7 @@ RightDrawer.defaultProps = {
   pin: "",
   handleChatChange: () => {},
   handleClickSend: () => {},
+  chatMessage: "",
 };
 
 RightDrawer.propTypes = {
@@ -101,6 +99,7 @@ RightDrawer.propTypes = {
   pin: PropTypes.string,
   handleChatChange: PropTypes.func,
   handleClickSend: PropTypes.func,
+  chatMessage: PropTypes.string,
 };
 
 export default RightDrawer;

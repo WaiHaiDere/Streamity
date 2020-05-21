@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const app = express();
 const db = require("./src/db");
 
+const Room = require("./src/db/models/roomSchema");
+
+
 // Import the library:
 const cors = require("cors");
 
@@ -17,29 +20,6 @@ const io = require("socket.io")(http);
 //   res.sendFile(__dirname + '/index.html');
 // });
 
-http.listen(3001, () => {
-  console.log("Listening on port 3001");
-});
-
-io.on("connection", (socket) => {
-  socket.on("join room", (user, pin) => {
-    socket.join(pin);
-    socket.broadcast.to(pin).emit("join room", user, pin);
-  });
-
-  socket.on("leave room", (pin) => {
-    socket.leave(pin);
-    socket.broadcast.to(pin).emit("leave room", user, pin);
-  });
-
-  socket.on("chat message", (msg, pin) => {
-    socket.broadcast.to(pin).emit("chat message", {
-      user: msg.user,
-      message: msg.message,
-    });
-  });
-});
-
 const pinRouter = require("./src/api-routes/room");
 const spotifyRouter = require("./src/api-routes/spotify");
 
@@ -52,5 +32,35 @@ db.connect().then(() => {
   });
 });
 
+
+http.listen(3001, () => {
+  console.log("Listening on port 3001");
+});
+
+io.on("connection", (socket) => {
+  socket.on("join room", (user, pin) => {
+    socket.join(pin);
+    socket.broadcast.to(pin).emit("join room", user, pin);
+  });
+
+  socket.on("leave room", (user, pin) => {
+    socket.leave(pin);
+    socket.broadcast.to(pin).emit("leave room", user, pin);
+  });
+
+  socket.on("chat message", async (msg, pin) => {
+    const foundRoom = await Room.findOne({pin});
+    const message = {
+      user: msg.user,
+      message: msg.message,
+    }
+    foundRoom.chat.push(message);
+    await foundRoom.save();
+    socket.broadcast.to(pin).emit("chat message", {
+      chatList: foundRoom.chat,
+    });
+  });
+});
 mongoose.connection.on("error", (error) => console.error(error));
 mongoose.connection.once("open", () => console.log("connected to database"));
+
