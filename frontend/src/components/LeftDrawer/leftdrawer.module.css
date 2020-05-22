@@ -18,7 +18,7 @@
 }
 
 .SearchResult {
-  width: 70%;
+  display: flex;
 }
 
 .searchColour {

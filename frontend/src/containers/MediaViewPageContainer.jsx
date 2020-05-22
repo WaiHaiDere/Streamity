@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import io from "socket.io-client/dist/socket.io";
 import {
   getSpotifySearches,
   postPlay,
@@ -20,7 +21,7 @@ import questionMarkArt from "../icons/question_mark_PNG1.png";
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
   // components as declared in frontpage.jsx
-  const [listOfSearchResults, setlistOfSearchResults] = useState([]);
+  const [listOfSearchResults, setListOfSearchResults] = useState([]);
   const [isPlay, setPlayStatus] = useState(false);
   const history = useHistory();
   const [details, setDetails] = useState({
@@ -34,6 +35,9 @@ const MediaViewPageContainer = ({ children }) => {
   const [token, setToken] = useState("");
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [userSearch, setUserSearch] = useState("");
+  const [chatMessage, setChatMessage] = useState("");
+  const [chatMessageList, setChatMessageList] = useState([]);
+  const socket = io("http://localhost:3001/");
   const [playerState, setPlayerState] = useState({
     paused: true,
     track_window: {
@@ -99,8 +103,33 @@ const MediaViewPageContainer = ({ children }) => {
       searchTitle: userSearch,
       authToken: token,
     });
+    console.log(results);
+    setListOfSearchResults(results);
+    console.log(listOfSearchResults);
+    return results;
+  };
+
+  const handleChatChange = (event) => {
+    const { value } = event.target;
+    setChatMessage(value);
+  };
+
+  const handleClickSend = async () => {
+    socket.emit(
+      "chat message",
+      {
+        user: details.username,
+        message: chatMessage,
+      },
+      details.pin
+    );
+    setChatMessage("");
+  };
+
+  const getSpotifySearchResults = async (title) => {
+    const results = await getSpotifySearches(title, token);
     // console.log(results);
-    setlistOfSearchResults(results);
+    setListOfSearchResults(results);
     // console.log(listOfSearchResults);
     return results;
   };
@@ -169,27 +198,9 @@ const MediaViewPageContainer = ({ children }) => {
     setPlayerState();
   }, [playerState]);
 
-  const [chatMessages] = useState([
-    {
-      user: "Mish",
-      message: "I love this song!",
-    },
-    {
-      user: "Tyger",
-      message: "Agreed",
-    },
-    {
-      user: "Josh",
-      message: "Major fan!",
-    },
-    {
-      user: "Ryan",
-      message: "Guys have you seen.",
-    },
-  ]);
-
   useEffect(() => {
     async function getInfo() {
+      console.log("here2");
       if (existsInGlobalState(keys.SESSION)) {
         const detailsFromContext = getGlobalState(keys.SESSION);
         const { username, pin } = { ...detailsFromContext };
@@ -201,11 +212,32 @@ const MediaViewPageContainer = ({ children }) => {
         }
         setMemberList(room.member_list);
         setPlaylist(room.playlist.song_list);
+        setChatMessageList(room.chat);
         // console.log(room.spotifyAuth);
       } else {
         history.push("/join");
       }
     }
+
+    socket.on("connect", () => {
+      const detailsFromContext = getGlobalState(keys.SESSION);
+      const { username, pin } = { ...detailsFromContext };
+      console.log("socket connected", socket.id); // true
+      console.log(`${username} has joined room ${pin}`);
+      socket.emit("join room", username, pin);
+    });
+
+    socket.on("disconnect", () => {
+      const detailsFromContext = getGlobalState(keys.SESSION);
+      const { username, pin } = { ...detailsFromContext };
+      console.log("socket disconnected", socket.id); // true
+      console.log(`${username} has left room ${pin}`);
+    });
+
+    // Set up socket io client to subscribe to chat messages
+    socket.on("chat message", (response) => {
+      setChatMessageList(response.chatList);
+    });
 
     getInfo();
   }, []);
@@ -216,20 +248,22 @@ const MediaViewPageContainer = ({ children }) => {
     handleClick,
     listOfSearchResults,
     memberList,
+    chatMessageList,
     token,
-    chatMessages,
     isPlay,
     addDeviceID,
     scriptLoaded,
     handleChange,
     handleClickSearch,
+    handleChatChange,
+    handleClickSend,
     addToPlaylist,
     playlist,
     playerState,
     setPlayerState,
     handleNext,
     handlePrev,
-    //currentlyPlaying,
+    chatMessage,
   };
 
   return React.cloneElement(children, { ...newProps });

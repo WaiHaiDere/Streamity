@@ -3,13 +3,13 @@ import { Drawer, List, IconButton } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import SearchIcon from "@material-ui/icons/Search";
-import AddIcon from "@material-ui/icons/Add";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import SearchResult from "../SearchResult/SearchResult";
 import styles from "./leftdrawer.module.css";
+import AddIcon from "@material-ui/icons/Add";
 
 const LeftDrawer = ({
   listOfSearchResults,
@@ -40,7 +40,7 @@ const LeftDrawer = ({
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="send chat message"
+                    aria-label="send search"
                     classes={{
                       root: styles.searchColour,
                     }}
@@ -57,11 +57,12 @@ const LeftDrawer = ({
           {listOfSearchResults.map((searchResult) => {
             return (
               <>
+              <div className={styles.SearchResult}>
                 <SearchResult
                   key={searchResult.trackUri}
                   title={searchResult.songName}
                   artist={searchResult.artist[0].name}
-                  classes={{ root: styles.SearchResult }}
+                  albumArt={searchResult.album.images[0].url}
                 />
                 <IconButton
                   key={`${searchResult.trackUri}-add`}
@@ -71,6 +72,7 @@ const LeftDrawer = ({
                 >
                   <AddIcon />
                 </IconButton>
+                </div>
               </>
             );
           })}

@@ -41,7 +41,17 @@ const roomSchema = new mongoose.Schema(
           type: String
         },
       }
-    ]    
+    ],
+    chat: [
+      {
+        user: {
+          type: String,
+        },
+        message: {
+          type: String,
+        }
+      }
+    ]
       
   }
 );

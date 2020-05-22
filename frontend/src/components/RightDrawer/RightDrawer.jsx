@@ -12,7 +12,14 @@ import FormControl from "@material-ui/core/FormControl";
 import styles from "./rightdrawer.module.css";
 import ChatMessage from "../ChatMessage/ChatMessage";
 
-const RightDrawer = ({ chatMessages, pin, details }) => {
+const RightDrawer = ({
+  chatMessageList,
+  pin,
+  details,
+  handleChatChange,
+  handleClickSend,
+  chatMessage,
+}) => {
   return (
     <div>
       <Drawer
@@ -27,25 +34,23 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
             <Typography variant="overline">{details.username}</Typography>
             <Typography variant="h5">PIN #{pin}</Typography>
           </div>
-          <Avatar classes={{ root: styles.avatar }}>
+          <Avatar style={{ backgroundColor: avatarColour(details.username) }} classes={{ root: styles.avatar }}>
             {details.username.charAt(0)}
           </Avatar>
         </div>
-        <List classes={{ root: styles.chatMessageList }}>
-          {chatMessages.map((chatMessage) => {
-            return (
-              <div
-                className={styles.ChatMessagesContainer}
-                key={`${chatMessage.user}-${chatMessage.message}`}
-              >
-                <ChatMessage
-                  user={chatMessage.user}
-                  message={chatMessage.message}
-                />
-              </div>
-            );
-          })}
+        <div className = {styles.chatMessageScroll}>
+        <List>
+          {chatMessageList.map((chatMessage, idx) => (
+            <div className={styles.ChatMessagesContainer} key={idx}>
+              <ChatMessage
+                user={chatMessage.user}
+                message={chatMessage.message}
+                key={idx}
+              />
+            </div>
+          ))}
         </List>
+        </div>
         <div className={styles.ChatBox}>
           <FormControl>
             <InputLabel
@@ -57,7 +62,9 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
               Type your message
             </InputLabel>
             <Input
+              value={chatMessage}
               id="chat-message"
+              onChange={handleChatChange}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -65,6 +72,7 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
                     classes={{
                       root: styles.chatColour,
                     }}
+                    onClick={handleClickSend}
                   >
                     <SendIcon />
                   </IconButton>
@@ -78,16 +86,35 @@ const RightDrawer = ({ chatMessages, pin, details }) => {
   );
 };
 
+function avatarColour(username) {
+  var hash = 0;
+  for (var i = 0; i < username.length; i++) {
+    hash = username.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = '#';
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
+
 RightDrawer.defaultProps = {
-  chatMessages: [],
+  chatMessageList: [{}],
   details: { username: "" },
   pin: "",
+  handleChatChange: () => {},
+  handleClickSend: () => {},
+  chatMessage: "",
 };
 
 RightDrawer.propTypes = {
-  chatMessages: PropTypes.arrayOf(PropTypes.object),
+  chatMessageList: PropTypes.arrayOf(PropTypes.object),
   details: PropTypes.objectOf(PropTypes.string),
   pin: PropTypes.string,
+  handleChatChange: PropTypes.func,
+  handleClickSend: PropTypes.func,
+  chatMessage: PropTypes.string,
 };
 
 export default RightDrawer;
