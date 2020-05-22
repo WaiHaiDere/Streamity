@@ -38,7 +38,7 @@ const columns = [
 //   createData("I Think He Knows", "Taylor Swift", "Lover", "2:53"),
 // ];
 
-const PlaylistTable = ({ playlist, currentlyPlaying }) => {
+const PlaylistTable = ({ playlist }) => {
   const convertToMin = (duration) => {
     const min = Math.floor(duration / 60000);
     let sec = Math.round((duration % 60000) / 1000);
@@ -78,7 +78,7 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
           </TableHead>
           <TableBody>
             {playlist.length > 0
-              ? playlist.map((song, i) => {
+              ? playlist.map((song) => {
                   return (
                     <TableRow
                       hover
@@ -86,10 +86,7 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
                       tabIndex={-1}
                       key={`${song.songName}-key`}
                       classes={{
-                        root:
-                          currentlyPlaying === i
-                            ? styles.currentlyPlaying
-                            : null,
+                        root: styles.currentlyPlaying,
                       }}
                     >
                       <TableCell align="left">{song.songName}</TableCell>
@@ -117,12 +114,10 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
 
 PlaylistTable.defaultProps = {
   playlist: [],
-  currentlyPlaying: 0,
 };
 
 PlaylistTable.propTypes = {
   playlist: PropTypes.arrayOf(PropTypes.object),
-  currentlyPlaying: PropTypes.number,
 };
 
 export default PlaylistTable;
