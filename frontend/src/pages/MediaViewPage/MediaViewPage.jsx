@@ -109,7 +109,7 @@ const MediaViewPage = ({
             Streamity
           </Typography>
           <div>
-            <Typography variant="h4" classes={{ root: styles.nowPlaying }}>
+            <Typography variant="h5" classes={{ root: styles.nowPlaying }}>
               Now Playing
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
@@ -149,14 +149,26 @@ const MediaViewPage = ({
             </div>
           </div>
           <div>
-            <Typography variant="h4" classes={{ root: styles.nowPlaying }}>
+            <Typography variant="h5" classes={{ root: styles.nowPlaying }}>
               Next Up
             </Typography>
             <Divider classes={{ root: styles.nowPlaying }} />
-            <PlaylistTable
-              playlist={playlist}
-              currentlyPlaying={currentlyPlaying}
-            />
+
+            {isEmpty(playlist) ? (
+              <div>
+                <Typography variant="h3" classes={{ root: styles.playlistPlaceholderPrimary }}>
+                  Start adding songs to listen!
+                </Typography>
+                <Typography variant="h5" classes={{ root: styles.playlistPlaceholderSecondary }}>
+                  Search for a song and select + to add to your playlist
+                </Typography>
+              </div>
+            ) : (
+              <PlaylistTable
+                playlist={playlist}
+                currentlyPlaying={currentlyPlaying}
+              />
+            )}
           </div>
         </main>
         <RightDrawer
@@ -168,6 +180,13 @@ const MediaViewPage = ({
     </div>
   );
 };
+
+function isEmpty(playlist) {
+  if (playlist === undefined || playlist.length == 0) {
+    return true;
+  }
+  return false;
+}
 
 MediaViewPage.defaultProps = {
   handleClick: () => {},
