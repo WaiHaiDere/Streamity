@@ -97,7 +97,6 @@ router.get("/chat/:id", async (req, res) => {
     if(foundRoom !== null) {
 
       const { chat } = foundRoom;
-      console.log(chat);
       const response = {
         chat: chat,
       }
