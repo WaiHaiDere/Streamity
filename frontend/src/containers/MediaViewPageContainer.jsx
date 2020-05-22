@@ -117,12 +117,6 @@ const MediaViewPageContainer = ({ children }) => {
       details.pin
     );
     setChatMessage("");
-
-    // console.log("send message", chatMessage);
-    // const message = { user: details.username, message: chatMessage };
-    // const newChatList = JSON.parse(JSON.stringify(chatMessageList));
-    // newChatList.push(message);
-    // setChatMessageList(newChatList);
   };
 
   const getSpotifySearchResults = async (title) => {
