@@ -38,7 +38,8 @@ const RightDrawer = ({
             {details.username.charAt(0)}
           </Avatar>
         </div>
-        <List classes={{ root: styles.chatMessageList }}>
+        <div className = {styles.chatMessageScroll}>
+        <List>
           {chatMessageList.map((chatMessage, idx) => (
             <div className={styles.ChatMessagesContainer} key={idx}>
               <ChatMessage
@@ -49,6 +50,7 @@ const RightDrawer = ({
             </div>
           ))}
         </List>
+        </div>
         <div className={styles.ChatBox}>
           <FormControl>
             <InputLabel

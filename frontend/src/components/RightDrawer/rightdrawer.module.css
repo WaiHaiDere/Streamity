@@ -50,6 +50,10 @@
   font-weight: normal;
 }
 
-.chatMessageList {
-  overflow-y: auto;
+.chatMessageScroll {
+  overflow:auto;
+  display:flex;
+  flex-direction:column-reverse;
+  max-height: calc(100% - 156px);
+  scroll-behavior: smooth;
 }
