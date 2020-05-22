@@ -92,15 +92,15 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
                             : null,
                       }}
                     >
-                      <TableCell align="center">{song.songName}</TableCell>
-                      <TableCell align="center">
+                      <TableCell align="left">{song.songName}</TableCell>
+                      <TableCell align="left">
                         {song.artist.map((artist) => (
                           <p className={styles.artistName} key={artist.name}>
                             {artist.name}
                           </p>
                         ))}
                       </TableCell>
-                      <TableCell align="center">{song.album.name}</TableCell>
+                      <TableCell align="left">{song.album.name}</TableCell>
                       <TableCell align="right">
                         {convertToMin(song.duration)}
                       </TableCell>
