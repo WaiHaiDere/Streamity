@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-bitwise */
 import React from "react";
 import PropTypes from "prop-types";
 import {
@@ -9,6 +11,18 @@ import {
 import styles from "./chatmessage.module.css";
 
 const ChatMessage = ({ user, message }) => {
+  const avatarColour = (username) => {
+    let hash = 0;
+    for (let i = 0; i < username.length; i++) {
+      hash = username.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let colour = "#";
+    for (let i = 0; i < 3; i++) {
+      const value = (hash >> (i * 8)) & 0xff;
+      colour += `00${value.toString(16)}`.substr(-2);
+    }
+    return colour;
+  };
   return (
     <ListItem classes={{ root: styles.alignItems }}>
       <ListItemAvatar>
@@ -20,19 +34,6 @@ const ChatMessage = ({ user, message }) => {
     </ListItem>
   );
 };
-
-function avatarColour(username) {
-  var hash = 0;
-  for (var i = 0; i < username.length; i++) {
-    hash = username.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  var colour = '#';
-  for (var i = 0; i < 3; i++) {
-    var value = (hash >> (i * 8)) & 0xFF;
-    colour += ('00' + value.toString(16)).substr(-2);
-  }
-  return colour;
-}
 
 ChatMessage.defaultProps = {
   user: "",

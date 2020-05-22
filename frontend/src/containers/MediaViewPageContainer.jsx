@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import io from "socket.io-client/dist/socket.io";
 import {
@@ -7,7 +7,6 @@ import {
   postPause,
   addToPlaylist as addToPlaylistRequest,
   playlistNext,
-  playlistPrev,
 } from "../services/spotifyService";
 import {
   addDevice as addDeviceIDRequest,
@@ -16,7 +15,6 @@ import {
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
-import questionMarkArt from "../icons/question_mark_PNG1.png";
 import albumArtPlaceholder from "../icons/GenericAlbumArt.png";
 
 const MediaViewPageContainer = ({ children }) => {
@@ -60,7 +58,6 @@ const MediaViewPageContainer = ({ children }) => {
       },
     },
   });
-  //const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
   const [playlist, setPlaylist] = useState([
     {
       songName: "",
@@ -104,9 +101,7 @@ const MediaViewPageContainer = ({ children }) => {
       searchTitle: userSearch,
       authToken: token,
     });
-    console.log(results);
     setListOfSearchResults(results);
-    console.log(listOfSearchResults);
     return results;
   };
 
@@ -127,14 +122,6 @@ const MediaViewPageContainer = ({ children }) => {
     setChatMessage("");
   };
 
-  const getSpotifySearchResults = async (title) => {
-    const results = await getSpotifySearches(title, token);
-    // console.log(results);
-    setListOfSearchResults(results);
-    // console.log(listOfSearchResults);
-    return results;
-  };
-
   const handlePlay = async () => {
     const results = await postPlay(details.pin);
 
@@ -148,13 +135,7 @@ const MediaViewPageContainer = ({ children }) => {
 
   const handleNext = async () => {
     const response = await playlistNext({ pin: details.pin });
-    //setCurrentlyPlaying(response.playlist.current_index);
     setPlaylist(response.playlist);
-  };
-
-  const handlePrev = async () => {
-    const response = await playlistPrev({ pin: details.pin });
-    //setCurrentlyPlaying(response.playlist.current_index);
   };
 
   const addDeviceID = async (device) => {
@@ -186,22 +167,21 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   useEffect(() => {
-    async function setPlayerState() {
+    async function setPlayer() {
       setPlayStatus(!playerState.paused);
       if (!playerState.paused) {
         setIsFirstSong(false);
       }
       const room = await getRoom(details.pin);
       setPlaylist(room.playlist.song_list);
-      console.log(playlist);
     }
 
-    setPlayerState();
+    setPlayer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerState]);
 
   useEffect(() => {
     async function getInfo() {
-      console.log("here2");
       if (existsInGlobalState(keys.SESSION)) {
         const detailsFromContext = getGlobalState(keys.SESSION);
         const { username, pin } = { ...detailsFromContext };
@@ -263,7 +243,6 @@ const MediaViewPageContainer = ({ children }) => {
     playerState,
     setPlayerState,
     handleNext,
-    handlePrev,
     chatMessage,
   };
 

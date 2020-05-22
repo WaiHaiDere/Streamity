@@ -5,7 +5,6 @@ const FrontpageContainer = ({ children }) => {
   // components as declared in frontpage.jsx
 
   const handleClick = async () => {
-    console.log("handleChange");
     // const response = await getCall();
     // console.log(response);
   };

@@ -1,3 +1,6 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-bitwise */
+/* eslint-disable no-plusplus */
 import React from "react";
 import { Drawer, List, Typography, Avatar } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
@@ -11,6 +14,19 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import styles from "./rightdrawer.module.css";
 import ChatMessage from "../ChatMessage/ChatMessage";
+
+function avatarColour(username) {
+  let hash = 0;
+  for (let i = 0; i < username.length; i++) {
+    hash = username.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let colour = "#";
+  for (let i = 0; i < 3; i++) {
+    const value = (hash >> (i * 8)) & 0xff;
+    colour += `00${value.toString(16)}`.substr(-2);
+  }
+  return colour;
+}
 
 const RightDrawer = ({
   chatMessageList,
@@ -34,22 +50,25 @@ const RightDrawer = ({
             <Typography variant="overline">{details.username}</Typography>
             <Typography variant="h5">PIN #{pin}</Typography>
           </div>
-          <Avatar style={{ backgroundColor: avatarColour(details.username) }} classes={{ root: styles.avatar }}>
+          <Avatar
+            style={{ backgroundColor: avatarColour(details.username) }}
+            classes={{ root: styles.avatar }}
+          >
             {details.username.charAt(0)}
           </Avatar>
         </div>
-        <div className = {styles.chatMessageScroll}>
-        <List>
-          {chatMessageList.map((chatMessage, idx) => (
-            <div className={styles.ChatMessagesContainer} key={idx}>
-              <ChatMessage
-                user={chatMessage.user}
-                message={chatMessage.message}
-                key={idx}
-              />
-            </div>
-          ))}
-        </List>
+        <div className={styles.chatMessageScroll}>
+          <List>
+            {chatMessageList.map((message, idx) => (
+              <div className={styles.ChatMessagesContainer} key={idx}>
+                <ChatMessage
+                  user={chatMessage.user}
+                  message={chatMessage.message}
+                  key={idx}
+                />
+              </div>
+            ))}
+          </List>
         </div>
         <div className={styles.ChatBox}>
           <FormControl>
@@ -85,19 +104,6 @@ const RightDrawer = ({
     </div>
   );
 };
-
-function avatarColour(username) {
-  var hash = 0;
-  for (var i = 0; i < username.length; i++) {
-    hash = username.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  var colour = '#';
-  for (var i = 0; i < 3; i++) {
-    var value = (hash >> (i * 8)) & 0xFF;
-    colour += ('00' + value.toString(16)).substr(-2);
-  }
-  return colour;
-}
 
 RightDrawer.defaultProps = {
   chatMessageList: [{}],
