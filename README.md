@@ -1,7 +1,8 @@
 # Streamity
 
-With governments around the world advising people to socially distance themselves to contain the spread of coronavirus, there is a need for innovative solutions that allow people to still socialise.
-Streamity is a web application that enables a group of users to listen to a playlist of songs at the same time, regardless of their location.
+Streamity is a web application that enables a group of users to listen to a playlist of songs at the same time, regardless of their location. It allows members to create a party and invite their friends to join in listening to music together. Streamity users can also join an existing party and immediately listen to the party's playlist.
+
+With governments around the world advising people to socially distance themselves to contain the spread of coronavirus, there is a need for innovative solutions that allow people to still socialise. We believe that Streamity will be the next big application that allows us to stay in touch with our loved ones.
 
 ## Features
 
@@ -17,6 +18,7 @@ To get the project running, follow these steps:
 
 ### Prerequisites
 
+- Spotify Premium Account
 - Visual Studio Code
 - NPM/NodeJS
 
