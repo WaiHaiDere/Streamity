@@ -11,11 +11,14 @@ import {
 import {
   addDevice as addDeviceIDRequest,
   addToQueue as addToQueueRequest,
+  getChat as getChatRequest,
 } from "../services/joinService";
 import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
 import albumArtPlaceholder from "../icons/GenericAlbumArt.png";
+
+let roomPin;
 
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
@@ -186,6 +189,7 @@ const MediaViewPageContainer = ({ children }) => {
         const detailsFromContext = getGlobalState(keys.SESSION);
         const { username, pin } = { ...detailsFromContext };
         setDetails({ username, pin });
+        roomPin = pin;
         setToken(detailsFromContext.authToken);
         const room = await getRoom(detailsFromContext.pin);
         if (room.error) {
@@ -221,6 +225,13 @@ const MediaViewPageContainer = ({ children }) => {
     });
 
     getInfo();
+
+    setInterval(async () => {
+      if (roomPin) {
+        const response = await getChatRequest({ pin: roomPin });
+        setChatMessageList(response.chat);
+      }
+    }, 400);
   }, []);
 
   const newProps = {
