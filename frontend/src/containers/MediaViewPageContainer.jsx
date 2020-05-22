@@ -28,6 +28,8 @@ const MediaViewPageContainer = ({ children }) => {
     username: "",
     pin: "",
   });
+
+  const [isFirstSong, setIsFirstSong] = useState(true);
   const [memberList, setMemberList] = useState([]);
   const { getGlobalState, existsInGlobalState } = useGlobalState();
   const [token, setToken] = useState("");
@@ -57,7 +59,7 @@ const MediaViewPageContainer = ({ children }) => {
       },
     },
   });
-  const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
+  //const [currentlyPlaying, setCurrentlyPlaying] = useState(0);
   const [playlist, setPlaylist] = useState([
     {
       songName: "",
@@ -83,7 +85,12 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const addToPlaylist = async (song) => {
-    const res = await addToPlaylistRequest({ pin: details.pin, song });
+    const res = await addToPlaylistRequest({
+      pin: details.pin,
+      song,
+      isFirstSong,
+    });
+    setIsFirstSong(false);
     // console.log(res);
     setPlaylist(res.playlist.song_list);
     // console.log(res);
@@ -128,7 +135,8 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handlePlay = async () => {
-    const results = await postPlay(details.pin, null);
+    const results = await postPlay(details.pin);
+
     return results;
   };
 
@@ -139,12 +147,13 @@ const MediaViewPageContainer = ({ children }) => {
 
   const handleNext = async () => {
     const response = await playlistNext({ pin: details.pin });
-    setCurrentlyPlaying(response.playlist.current_index);
+    //setCurrentlyPlaying(response.playlist.current_index);
+    setPlaylist(response.playlist);
   };
 
   const handlePrev = async () => {
     const response = await playlistPrev({ pin: details.pin });
-    setCurrentlyPlaying(response.playlist.current_index);
+    //setCurrentlyPlaying(response.playlist.current_index);
   };
 
   const addDeviceID = async (device) => {
@@ -162,19 +171,31 @@ const MediaViewPageContainer = ({ children }) => {
   };
 
   const handleClickPlayPause = async () => {
-    if (!isPlay) {
-      console.log(isPlay);
-      setPlayStatus(!isPlay);
-      await handlePlay();
-    } else {
-      console.log(isPlay);
-      setPlayStatus(!isPlay);
-      await handlePause();
+    if (playlist.length !== 0) {
+      if (!isPlay) {
+        console.log(isPlay);
+        setPlayStatus(!isPlay);
+        await handlePlay();
+      } else {
+        console.log(isPlay);
+        setPlayStatus(!isPlay);
+        await handlePause();
+      }
     }
   };
 
   useEffect(() => {
-    setPlayStatus(!playerState.paused);
+    async function setPlayerState() {
+      setPlayStatus(!playerState.paused);
+      if (!playerState.paused) {
+        setIsFirstSong(false);
+      }
+      const room = await getRoom(details.pin);
+      setPlaylist(room.playlist.song_list);
+      console.log(playlist);
+    }
+
+    setPlayerState();
   }, [playerState]);
 
   useEffect(() => {
@@ -242,7 +263,6 @@ const MediaViewPageContainer = ({ children }) => {
     setPlayerState,
     handleNext,
     handlePrev,
-    currentlyPlaying,
     chatMessage,
   };
 

@@ -68,7 +68,6 @@ export const postPlay = async (pin) => {
     },
     method: "POST",
   }).then((response) => response.json());
-
   return res;
 };
 
@@ -84,9 +83,10 @@ export const postPause = async (pin) => {
   return res;
 };
 
-export const addToPlaylist = async ({ pin, song }) => {
+export const addToPlaylist = async ({ pin, song, isFirstSong }) => {
   const newParams = {
     song,
+    isFirstSong,
   };
 
   const resqBody = JSON.stringify(newParams);
