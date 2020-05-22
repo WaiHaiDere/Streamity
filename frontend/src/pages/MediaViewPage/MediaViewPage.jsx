@@ -8,10 +8,7 @@ import Script from "react-load-script";
 import { Typography, Divider, IconButton } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
-import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
-import ShuffleIcon from "@material-ui/icons/Shuffle";
-import RepeatIcon from "@material-ui/icons/Repeat";
 import PlaylistTable from "../../components/PlaylistTable/PlaylistTable";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
 import LeftDrawer from "../../components/LeftDrawer/LeftDrawer";
@@ -37,10 +34,15 @@ const MediaViewPage = ({
   setPlayerState,
   playerState,
   handleNext,
-  handlePrev,
   currentlyPlaying,
   chatMessage,
 }) => {
+  const isEmpty = (list) => {
+    if (list === undefined || list.length === 0) {
+      return true;
+    }
+    return false;
+  };
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
   };
@@ -129,12 +131,6 @@ const MediaViewPage = ({
                 {playerState.track_window.current_track.artists[0].name}
               </Typography>
               <div>
-                <IconButton>
-                  <ShuffleIcon />
-                </IconButton>
-                <IconButton onClick={handlePrev}>
-                  <SkipPreviousIcon />
-                </IconButton>
                 <IconButton onClick={handleClickPlayPause}>
                   {isPlay ? (
                     <PauseCircleFilledIcon />
@@ -144,9 +140,6 @@ const MediaViewPage = ({
                 </IconButton>
                 <IconButton onClick={handleNext}>
                   <SkipNextIcon />
-                </IconButton>
-                <IconButton>
-                  <RepeatIcon />
                 </IconButton>
               </div>
             </div>
@@ -159,10 +152,16 @@ const MediaViewPage = ({
 
             {isEmpty(playlist) ? (
               <div>
-                <Typography variant="h3" classes={{ root: styles.playlistPlaceholderPrimary }}>
+                <Typography
+                  variant="h3"
+                  classes={{ root: styles.playlistPlaceholderPrimary }}
+                >
                   Start adding songs to listen!
                 </Typography>
-                <Typography variant="h5" classes={{ root: styles.playlistPlaceholderSecondary }}>
+                <Typography
+                  variant="h5"
+                  classes={{ root: styles.playlistPlaceholderSecondary }}
+                >
                   Search for a song and select + to add to your playlist
                 </Typography>
               </div>
@@ -187,13 +186,6 @@ const MediaViewPage = ({
   );
 };
 
-function isEmpty(playlist) {
-  if (playlist === undefined || playlist.length == 0) {
-    return true;
-  }
-  return false;
-}
-
 MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [{}],
@@ -216,7 +208,6 @@ MediaViewPage.defaultProps = {
   playlist: [],
   setPlayerState: () => {},
   handleNext: () => {},
-  handlePrev: () => {},
   currentlyPlaying: 0,
   playerState: {},
   chatMessage: "",
@@ -244,7 +235,6 @@ MediaViewPage.propTypes = {
   playlist: PropTypes.arrayOf(PropTypes.object),
   setPlayerState: PropTypes.func,
   handleNext: PropTypes.func,
-  handlePrev: PropTypes.func,
   currentlyPlaying: PropTypes.number,
   playerState: PropTypes.objectOf(
     PropTypes.oneOf([PropTypes.object, PropTypes.string])

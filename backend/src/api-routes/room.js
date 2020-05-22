@@ -91,4 +91,22 @@ router.put("/:id", async (req, res) => {
   }
 })
 
+router.get("/chat/:id", async (req, res) => {
+  try{
+    const foundRoom = await Room.findOne({pin: req.params.id});
+    if(foundRoom !== null) {
+
+      const { chat } = foundRoom;
+      const response = {
+        chat: chat,
+      }
+      res.status(200).json(response);
+    } else {
+      res.status(404).json({error: "Room not found. Please double check your PIN."});
+    }
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  }
+})
+
 module.exports = router;

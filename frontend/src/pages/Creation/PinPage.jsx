@@ -13,6 +13,12 @@ import { spotifyLoginRoute } from "../../services/apiRoutes";
 
 import styles from "./mediaselectionpage.module.css";
 
+const handleCopy = async () => {
+  navigator.clipboard.writeText(
+    document.getElementById("pin").innerHTML.substring(5)
+  );
+};
+
 const PinPage = ({ handleClick, pin }) => {
   return (
     <div className={styles.backgroundContainer}>
@@ -71,10 +77,6 @@ const PinPage = ({ handleClick, pin }) => {
       </Container>
     </div>
   );
-};
-
-const handleCopy = async () => {
-  navigator.clipboard.writeText(document.getElementById("pin").innerHTML.substring(5));
 };
 
 PinPage.defaultProps = {

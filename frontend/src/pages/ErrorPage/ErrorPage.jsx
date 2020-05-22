@@ -1,17 +1,17 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
-import PropTypes from "prop-types";
 import FadeIn from "react-fade-in";
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
 import styles from "./errorpage.module.css";
 
-const ErrorPage = ({}) => {
+const ErrorPage = () => {
   return (
     <div className={styles.backgroundContainer}>
       <FadeIn>
         <div className="styles.centreContainer">
           <div className={styles.errorContainer}>
             <SentimentVeryDissatisfiedIcon classes={{ root: styles.icon }} />
-            <div className={styles.gap}></div>
+            <div className={styles.gap} />
             <h1 className={styles.title}>Oops!</h1>
           </div>
         </div>
