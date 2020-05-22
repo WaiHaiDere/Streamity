@@ -213,10 +213,6 @@ const MediaViewPageContainer = ({ children }) => {
       console.log(`${username} has left room ${pin}`);
     });
 
-    socket.on("join room", (username, pin) => {
-      console.log(`${username} has joined room ${pin}`);
-    });
-
     // Set up socket io client to subscribe to chat messages
     socket.on("chat message", (response) => {
       setChatMessageList(response.chatList);
