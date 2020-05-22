@@ -17,6 +17,7 @@ import { getRoom } from "../services/mediaSelectionService";
 import { useGlobalState } from "../hooks/GlobalState/GlobalStateProvider";
 import keys from "../hooks/GlobalState/keys";
 import questionMarkArt from "../icons/question_mark_PNG1.png";
+import albumArtPlaceholder from "../icons/GenericAlbumArt.png";
 
 const MediaViewPageContainer = ({ children }) => {
   // Any variables or methods declared in newProps will be passed through to children
@@ -45,7 +46,7 @@ const MediaViewPageContainer = ({ children }) => {
         album: {
           images: [
             {
-              url: questionMarkArt,
+              url: albumArtPlaceholder,
             },
           ],
           name: "",
