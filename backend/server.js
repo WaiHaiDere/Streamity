@@ -38,14 +38,25 @@ http.listen(3001, () => {
 });
 
 io.on("connection", (socket) => {
-  socket.on("join room", (user, pin) => {
+  socket.on("join room", async (user, pin) => {
     socket.join(pin);
-    socket.broadcast.to(pin).emit("join room", user, pin);
+
+    const foundRoom = await Room.findOne({pin});
+    const message = {
+      user: user,
+      message: `${user} has joined room ${pin}`,
+    }
+    foundRoom.chat.push(message);
+    await foundRoom.save();
+
+    socket.broadcast.to(pin).emit("chat message", {
+      chatList: foundRoom.chat,
+    });
   });
 
-  socket.on("leave room", (user, pin) => {
-    socket.leave(pin);
+  socket.on("disconnect", async (user, pin) => {
     socket.broadcast.to(pin).emit("leave room", user, pin);
+    socket.leave(pin);
   });
 
   socket.on("chat message", async (msg, pin) => {
