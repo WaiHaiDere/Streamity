@@ -211,15 +211,10 @@ const MediaViewPageContainer = ({ children }) => {
       const { username, pin } = { ...detailsFromContext };
       console.log("socket disconnected", socket.id); // true
       console.log(`${username} has left room ${pin}`);
-      socket.emit("leave room", pin);
     });
 
     socket.on("join room", (username, pin) => {
       console.log(`${username} has joined room ${pin}`);
-    });
-
-    socket.on("leave room", (username, pin) => {
-      console.log(`${username} has left room ${pin}`);
     });
 
     // Set up socket io client to subscribe to chat messages

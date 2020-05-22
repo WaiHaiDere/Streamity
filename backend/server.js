@@ -52,11 +52,7 @@ io.on("connection", (socket) => {
     socket.broadcast.to(pin).emit("chat message", {
       chatList: foundRoom.chat,
     });
-  });
-
-  socket.on("disconnect", async (user, pin) => {
-    socket.broadcast.to(pin).emit("leave room", user, pin);
-    socket.leave(pin);
+    socket.broadcast.to(pin).emit("join room", user, pin);
   });
 
   socket.on("chat message", async (msg, pin) => {
