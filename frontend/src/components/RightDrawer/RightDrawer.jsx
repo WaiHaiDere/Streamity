@@ -62,8 +62,8 @@ const RightDrawer = ({
             {chatMessageList.map((message, idx) => (
               <div className={styles.ChatMessagesContainer} key={idx}>
                 <ChatMessage
-                  user={chatMessage.user}
-                  message={chatMessage.message}
+                  user={message.user}
+                  message={message.message}
                   key={idx}
                 />
               </div>

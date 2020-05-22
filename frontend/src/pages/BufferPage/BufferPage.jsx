@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
 import * as loadingData from "./loadinganimation.json";
