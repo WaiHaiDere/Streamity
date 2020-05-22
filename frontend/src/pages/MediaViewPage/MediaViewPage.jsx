@@ -22,14 +22,16 @@ const MediaViewPage = ({
   listOfSearchResults,
   handleClick,
   details,
+  chatMessageList,
   // memberList,
   token,
-  chatMessages,
   isPlay,
   addDeviceID,
   scriptLoaded,
   handleChange,
   handleClickSearch,
+  handleChatChange,
+  handleClickSend,
   addToPlaylist,
   playlist,
   setPlayerState,
@@ -37,6 +39,7 @@ const MediaViewPage = ({
   handleNext,
   handlePrev,
   currentlyPlaying,
+  chatMessage,
 }) => {
   const handleScriptError = () => {
     console.log("ERROR LOADING SCRIPT");
@@ -160,9 +163,12 @@ const MediaViewPage = ({
           </div>
         </main>
         <RightDrawer
-          handleClick={handleClick}
-          chatMessages={chatMessages}
+          handleChatChange={handleChatChange}
+          handleClickSend={handleClickSend}
+          chatMessageList={chatMessageList}
           pin={details.pin}
+          details={details}
+          chatMessage={chatMessage}
         />
       </div>
     </div>
@@ -172,19 +178,21 @@ const MediaViewPage = ({
 MediaViewPage.defaultProps = {
   handleClick: () => {},
   listOfSearchResults: [{}],
+  chatMessageList: [{}],
   // memberList: [{}],
   details: {
     pin: "",
     username: "",
   },
   token: "",
-  chatMessages: [],
   handleClickPlayPause: () => {},
   isPlay: false,
   addDeviceID: () => {},
   scriptLoaded: false,
   handleChange: () => {},
   handleClickSearch: () => {},
+  handleChatChange: () => {},
+  handleClickSend: () => {},
   addToPlaylist: () => {},
   playlist: [],
   setPlayerState: () => {},
@@ -192,6 +200,7 @@ MediaViewPage.defaultProps = {
   handlePrev: () => {},
   currentlyPlaying: 0,
   playerState: {},
+  chatMessage: "",
 };
 
 MediaViewPage.propTypes = {
@@ -203,13 +212,15 @@ MediaViewPage.propTypes = {
   }),
   // memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
-  chatMessages: PropTypes.arrayOf(PropTypes.object),
+  chatMessageList: PropTypes.arrayOf(PropTypes.object),
   handleClickPlayPause: PropTypes.func,
   isPlay: PropTypes.bool,
   addDeviceID: PropTypes.func,
   scriptLoaded: PropTypes.bool,
   handleChange: PropTypes.func,
   handleClickSearch: PropTypes.func,
+  handleChatChange: PropTypes.func,
+  handleClickSend: PropTypes.func,
   addToPlaylist: PropTypes.func,
   playlist: PropTypes.arrayOf(PropTypes.object),
   setPlayerState: PropTypes.func,
@@ -219,6 +230,7 @@ MediaViewPage.propTypes = {
   playerState: PropTypes.objectOf(
     PropTypes.oneOf([PropTypes.object, PropTypes.string])
   ),
+  chatMessage: PropTypes.string,
 };
 
 export default MediaViewPage;
