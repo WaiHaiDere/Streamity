@@ -36,6 +36,7 @@
   align-items: center;
   align-content: center;
   padding-left: 10px;
+  overflow-wrap: break-word;
 }
 
 .avatar {
@@ -51,7 +52,7 @@
 }
 
 .chatMessageScroll {
-  overflow:auto;
+  overflow-y:auto;
   display:flex;
   flex-direction:column-reverse;
   max-height: calc(100% - 156px);
