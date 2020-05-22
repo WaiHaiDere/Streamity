@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ListItem, ListItemText, IconButton } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { ListItem, ListItemText } from "@material-ui/core";
 import styles from "./searchresult.module.css";
 
 const SearchResult = ({ title, artist, albumArt }) => {
   return (
     <ListItem classes={{ root: styles.alignItems }}>
-      <img src={albumArt} className={styles.searchResultIcon}></img>
+      <img src={albumArt} className={styles.searchResultIcon} alt="album-art" />
       <ListItemText
         classes={{
           root: styles.listItem,

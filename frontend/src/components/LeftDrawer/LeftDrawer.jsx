@@ -7,9 +7,9 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
+import AddIcon from "@material-ui/icons/Add";
 import SearchResult from "../SearchResult/SearchResult";
 import styles from "./leftdrawer.module.css";
-import AddIcon from "@material-ui/icons/Add";
 
 const LeftDrawer = ({
   listOfSearchResults,
@@ -57,21 +57,21 @@ const LeftDrawer = ({
           {listOfSearchResults.map((searchResult) => {
             return (
               <>
-              <div className={styles.SearchResult}>
-                <SearchResult
-                  key={searchResult.trackUri}
-                  title={searchResult.songName}
-                  artist={searchResult.artist[0].name}
-                  albumArt={searchResult.album.images[0].url}
-                />
-                <IconButton
-                  key={`${searchResult.trackUri}-add`}
-                  onClick={() => {
-                    addToPlaylist(searchResult);
-                  }}
-                >
-                  <AddIcon />
-                </IconButton>
+                <div className={styles.SearchResult}>
+                  <SearchResult
+                    key={searchResult.trackUri}
+                    title={searchResult.songName}
+                    artist={searchResult.artist[0].name}
+                    albumArt={searchResult.album.images[0].url}
+                  />
+                  <IconButton
+                    key={`${searchResult.trackUri}-add`}
+                    onClick={() => {
+                      addToPlaylist(searchResult);
+                    }}
+                  >
+                    <AddIcon />
+                  </IconButton>
                 </div>
               </>
             );

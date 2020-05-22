@@ -209,25 +209,23 @@ router.post("/playlist/:id", async (request, response) => {
           } catch (err){
             console.log(err);
           }
-          await setTimeout( async () => {
-            try {
-              const res = await fetch(
-                SPOTIFY_PLAYER_PAUSE + "?device_id=" + device.device_id, //should be called deviceId
-                {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: "Bearer " + device.authToken,
-                  },
-                }
-              ).then((response) => response.json());
-              console.log(res);
-              response.send(res);
-            } catch (error) {
-              console.log(error);
-            }
-          }, 200)
+          // await setTimeout( async () => {
+          //   try {
+          //     const res = await fetch(
+          //       SPOTIFY_PLAYER_PAUSE + "?device_id=" + device.device_id, //should be called deviceId
+          //       {
+          //         method: "PUT",
+          //         headers: {
+          //           "Content-Type": "application/json",
+          //           Accept: "application/json",
+          //           Authorization: "Bearer " + device.authToken,
+          //         },
+          //       }
+          //     ).then((response) => response.json());
+          //   } catch (error) {
+          //     console.log(error);
+          //   }
+          // }, 200)
 
         } else {
           try {
@@ -374,7 +372,7 @@ router.post("/queue/:id", async (request, response) => {
             } catch (err) {
               console.log(err);
             }
-          }, 200);
+          }, 500);
         }
 
         songList.shift();

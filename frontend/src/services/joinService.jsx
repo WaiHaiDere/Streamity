@@ -1,4 +1,9 @@
-import { getRoomRoute, addDeviceIDRoute, addToQueueRoute } from "./apiRoutes";
+import {
+  getRoomRoute,
+  addDeviceIDRoute,
+  addToQueueRoute,
+  getChatRoute,
+} from "./apiRoutes";
 
 export const joinRoom = async ({ pin, username }) => {
   const newParams = {
@@ -59,4 +64,15 @@ export const addToQueue = async ({ pin, deviceID, authToken }) => {
   return res;
 };
 
+export const getChat = async ({ pin }) => {
+  const res = await fetch(getChatRoute(pin), {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    method: "GET",
+  }).then((response) => response.json());
+
+  return res;
+};
 export default joinRoom;

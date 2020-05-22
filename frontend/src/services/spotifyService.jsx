@@ -103,7 +103,6 @@ export const addToPlaylist = async ({ pin, song, isFirstSong }) => {
 };
 
 export const playlistNext = async ({ pin }) => {
-  console.log(`the pin is ${pin}`);
   const res = await fetch(playlistNextRoute(pin), {
     headers: {
       "Content-Type": "application/json",
