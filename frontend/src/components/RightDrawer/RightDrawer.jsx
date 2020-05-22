@@ -34,7 +34,7 @@ const RightDrawer = ({
             <Typography variant="overline">{details.username}</Typography>
             <Typography variant="h5">PIN #{pin}</Typography>
           </div>
-          <Avatar classes={{ root: styles.avatar }}>
+          <Avatar style={{ backgroundColor: avatarColour(details.username) }} classes={{ root: styles.avatar }}>
             {details.username.charAt(0)}
           </Avatar>
         </div>
@@ -85,6 +85,19 @@ const RightDrawer = ({
     </div>
   );
 };
+
+function avatarColour(username) {
+  var hash = 0;
+  for (var i = 0; i < username.length; i++) {
+    hash = username.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = '#';
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
 
 RightDrawer.defaultProps = {
   chatMessageList: [{}],
