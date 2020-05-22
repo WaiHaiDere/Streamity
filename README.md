@@ -33,6 +33,14 @@ To get the project running, follow these steps:
 7. Running `npm start` in step 3 should open up a new tab in your deafult browser.
 8. Enjoy Streamity!
 
-## How to use Streamity
-
-- Please refer to Streamity's wiki.
+### How to use Streamity
+1. If you are the host of the party, click `Create a party` else, `Join a party` <br >
+![Screenshot of Streamity landing page](https://github.com/joshiefu/Group-8-Magenta-Mosquito/blob/documentation/images/startup.png) <br >
+2. If you are joining a party, enter the room pin provided by your party host <br >
+![Screenshot of Streamity pin page](https://github.com/joshiefu/Group-8-Magenta-Mosquito/blob/documentation/images/pinpage.png) <br >
+3. Enter your name <br >
+![Screenshot of Streamity choose name page](https://github.com/joshiefu/Group-8-Magenta-Mosquito/blob/documentation/images/choosename.png) <br >
+4. Use the search bar on the left panel to search for songs and add them to the queue using the `+` button
+5. Added songs will populate the playlist in the centre, use the play/pause and next track buttons to control playback for everyone in the room
+6. Use the chat function on the right panel to share your thoughts on the current song! <br >
+![Screenshot of Streamity media page](https://github.com/joshiefu/Group-8-Magenta-Mosquito/blob/documentation/images/mediapage_0.png)
