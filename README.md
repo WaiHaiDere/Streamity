@@ -32,3 +32,7 @@ To get the project running, follow these steps:
 6. Run `npm start` to start the Express server.
 7. Running `npm start` in step 3 should open up a new tab in your deafult browser.
 8. Enjoy Streamity!
+
+## How to use Streamity
+
+- Please refer to Streamity's wiki.
