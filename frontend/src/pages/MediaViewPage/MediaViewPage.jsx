@@ -109,7 +109,7 @@ const MediaViewPage = ({
           handleClickSearch={handleClickSearch}
           addToPlaylist={addToPlaylist}
         />
-        <main className={styles.centrePanel}>
+        <div className={styles.centrePanel}>
           <Typography variant="h1" classes={{ root: styles.title }}>
             Streamity
           </Typography>
@@ -172,7 +172,7 @@ const MediaViewPage = ({
               />
             )}
           </div>
-        </main>
+        </div>
         <RightDrawer
           handleChatChange={handleChatChange}
           handleClickSend={handleClickSend}
