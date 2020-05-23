@@ -34,7 +34,7 @@
 }
 
 .buttonLabel {
-  font-size: 36px;
+  font-size: 34px;
   color: #ffffff;
 }
 .textField {
@@ -47,7 +47,7 @@
   width: 50%;
   margin: auto;
   background-color: #ffffff;
-  margin-top: 5em !important;
+  margin-top: 5%;
   padding-bottom: 1.5em;
   padding-top: 1em;
 }
