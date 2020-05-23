@@ -3,7 +3,7 @@ import React from "react";
 import { createMount } from "@material-ui/core/test-utils";
 import { render, screen } from "@testing-library/react";
 
-import RightDrawer from '../../../components/RightDrawer/RightDrawer'
+import RightDrawer from "../../../components/RightDrawer/RightDrawer";
 
 describe("Right Drawer test", () => {
   let mount;
@@ -18,25 +18,27 @@ describe("Right Drawer test", () => {
 
   it("Check for displaying chat messages", () => {
     const mockOnClick = jest.fn();
-    const mockChatMessages = [{
-      user: "Ryan",
-      message: "YEET"
-    }];
-    const mockDetails={
-        username: "Ryan"
+    const mockChatMessages = [
+      {
+        user: "Ryan",
+        message: "YEET",
+      },
+    ];
+    const mockDetails = {
+      username: "Ryan",
     };
     const mockChatMesage = "YEET";
 
-    const mockPin = "123456"
+    const mockPin = "123456";
 
     render(
       <RightDrawer
-      chatMessage={mockChatMesage}
-      chatMessageList={mockChatMessages}
-      pin={mockPin}
-      details={mockDetails}
-      handleChatChange={mockOnClick}
-      handleClickSend={mockOnClick}
+        chatMessage={mockChatMesage}
+        chatMessageList={mockChatMessages}
+        pin={mockPin}
+        details={mockDetails}
+        handleChatChange={mockOnClick}
+        handleClickSend={mockOnClick}
       />
     );
     expect(screen.queryByText("YEET")).toBeTruthy();
@@ -44,29 +46,31 @@ describe("Right Drawer test", () => {
 
   it("Check for displaying chat messages with new chat message", () => {
     const mockOnClick = jest.fn();
-    const mockChatMessages = [{
-      user: "Ryan",
-      message: "YEET"
-    },
-    {
-      user: "Tyger",
-      message: "Why are you the way you are?"
-    }];
-    const mockDetails={
-        username: "Ryan"
+    const mockChatMessages = [
+      {
+        user: "Ryan",
+        message: "YEET",
+      },
+      {
+        user: "Tyger",
+        message: "Why are you the way you are?",
+      },
+    ];
+    const mockDetails = {
+      username: "Ryan",
     };
     const mockChatMesage = "YEET";
 
-    const mockPin = "123456"
+    const mockPin = "123456";
 
     render(
       <RightDrawer
-      chatMessage={mockChatMesage}
-      chatMessageList={mockChatMessages}
-      pin={mockPin}
-      details={mockDetails}
-      handleChatChange={mockOnClick}
-      handleClickSend={mockOnClick}
+        chatMessage={mockChatMesage}
+        chatMessageList={mockChatMessages}
+        pin={mockPin}
+        details={mockDetails}
+        handleChatChange={mockOnClick}
+        handleClickSend={mockOnClick}
       />
     );
     expect(screen.queryByText("YEET")).toBeTruthy();

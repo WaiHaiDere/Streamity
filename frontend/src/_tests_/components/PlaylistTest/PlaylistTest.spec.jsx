@@ -3,7 +3,7 @@ import React from "react";
 import { createMount } from "@material-ui/core/test-utils";
 import { render, screen } from "@testing-library/react";
 
-import PlaylistTable from '../../../components/PlaylistTable/PlaylistTable'
+import PlaylistTable from "../../../components/PlaylistTable/PlaylistTable";
 
 describe("Playlist table test", () => {
   let mount;
@@ -17,52 +17,54 @@ describe("Playlist table test", () => {
   });
 
   it("test playlist added to playlist table", () => {
-    const mockDetails = [{
+    const mockDetails = [
+      {
         songName: "Rivers",
         duration: 0,
-        artist: [{
+        artist: [
+          {
             name: "SIX60",
-        },],
+          },
+        ],
         album: {
-        name: "SIX60",
+          name: "SIX60",
         },
-    }];
+      },
+    ];
 
-    render(
-      <PlaylistTable
-        playlist={mockDetails}
-      />
-    );
+    render(<PlaylistTable playlist={mockDetails} />);
     expect(screen.queryByText("Rivers")).toBeTruthy();
   });
 
   it("test more songs to playlist", () => {
-    const mockDetails = [{
+    const mockDetails = [
+      {
         songName: "Rivers",
         duration: 0,
-        artist: [{
+        artist: [
+          {
             name: "SIX60",
-        },],
+          },
+        ],
         album: {
-        name: "SIX60",
+          name: "SIX60",
         },
-    },
-    {
+      },
+      {
         songName: "Catching Feelings",
         duration: 0,
-        artist: [{
+        artist: [
+          {
             name: "SIX60",
-        },],
+          },
+        ],
         album: {
-        name: "Catching Feelings with SIX60",
+          name: "Catching Feelings with SIX60",
         },
-    }];
+      },
+    ];
 
-    render(
-      <PlaylistTable
-        playlist={mockDetails}
-      />
-    );
+    render(<PlaylistTable playlist={mockDetails} />);
     expect(screen.queryByText("Rivers")).toBeTruthy();
     expect(screen.queryByText("Catching Feelings")).toBeTruthy();
   });
