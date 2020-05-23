@@ -56,24 +56,25 @@ const LeftDrawer = ({
         <List>
           {listOfSearchResults.map((searchResult) => {
             return (
-              <>
-                <div className={styles.SearchResult}>
-                  <SearchResult
-                    key={searchResult.trackUri}
-                    title={searchResult.songName}
-                    artist={searchResult.artist[0].name}
-                    albumArt={searchResult.album.images[0].url}
-                  />
-                  <IconButton
-                    key={`${searchResult.trackUri}-add`}
-                    onClick={() => {
-                      addToPlaylist(searchResult);
-                    }}
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </div>
-              </>
+              <div
+                className={styles.SearchResult}
+                key={`${searchResult.trackUri}-div`}
+              >
+                <SearchResult
+                  key={searchResult.trackUri}
+                  title={searchResult.songName}
+                  artist={searchResult.artist[0].name}
+                  albumArt={searchResult.album.images[0].url}
+                />
+                <IconButton
+                  key={`${searchResult.trackUri}-add`}
+                  onClick={() => {
+                    addToPlaylist(searchResult);
+                  }}
+                >
+                  <AddIcon />
+                </IconButton>
+              </div>
             );
           })}
         </List>

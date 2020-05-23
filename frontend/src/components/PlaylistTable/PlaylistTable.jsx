@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -78,13 +79,13 @@ const PlaylistTable = ({ playlist }) => {
           </TableHead>
           <TableBody>
             {playlist.length > 0
-              ? playlist.map((song) => {
+              ? playlist.map((song, i) => {
                   return (
                     <TableRow
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={`${song.songName}-key`}
+                      key={`${song.songName}-${i}-key`}
                       classes={{
                         root: styles.currentlyPlaying,
                       }}
