@@ -15,8 +15,11 @@
 
 .pageContainer {
     max-width: 1200px !important;
-    width: 50% !important;
-    margin-top: 10%; 
+    width: 58% !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .nextButton {
