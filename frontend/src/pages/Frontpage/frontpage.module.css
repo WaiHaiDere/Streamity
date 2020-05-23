@@ -6,7 +6,7 @@
 
 .buttonBox {
     display: flex;
-    margin-top: 30px;
+    margin-top: 5%;
 }
 
 .textBox {
@@ -16,7 +16,10 @@
 .pageContainer {
     max-width: 1200px !important;
     width: 50% !important;
-    margin-top: 10%; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .backgroundContainer {

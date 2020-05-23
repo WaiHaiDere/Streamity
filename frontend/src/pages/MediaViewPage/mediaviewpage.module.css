@@ -8,6 +8,8 @@
   background-image: url(../../background/Background-1.png);
   left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
   display: flex;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .centrePanel {
@@ -15,6 +17,7 @@
   padding-top: 2%;
   padding-left: 290px;
   padding-right: 310px;
+  max-width: calc(100%-560px);
 }
 
 .title {

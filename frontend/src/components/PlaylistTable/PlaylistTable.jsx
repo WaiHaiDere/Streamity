@@ -21,7 +21,7 @@ const columns = [
   {
     id: "duration",
     label: "Duration",
-    minWidth: 170,
+    minWidth: 50,
     align: "right",
   },
 ];
