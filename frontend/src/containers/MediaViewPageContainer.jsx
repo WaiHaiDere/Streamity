@@ -76,13 +76,11 @@ const MediaViewPageContainer = ({ children }) => {
     },
   ]);
 
-  // const deviceID = "128f0602e8cb535ffb2528f63f9d55856f3116f4";
   // eslint-disable-next-line camelcase
 
   const handleChange = (event) => {
     const { value } = event.target;
     setUserSearch(value);
-    // console.log(userSearch);
   };
 
   const addToPlaylist = async (song) => {
@@ -92,9 +90,7 @@ const MediaViewPageContainer = ({ children }) => {
       isFirstSong,
     });
     setIsFirstSong(false);
-    // console.log(res);
     setPlaylist(res.playlist.song_list);
-    // console.log(res);
   };
 
   const handleClick = () => {};
@@ -158,11 +154,9 @@ const MediaViewPageContainer = ({ children }) => {
   const handleClickPlayPause = async () => {
     if (playlist.length !== 0) {
       if (!isPlay) {
-        console.log(isPlay);
         setPlayStatus(!isPlay);
         await handlePlay();
       } else {
-        console.log(isPlay);
         setPlayStatus(!isPlay);
         await handlePause();
       }

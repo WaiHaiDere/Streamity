@@ -13,10 +13,8 @@ import { spotifyLoginRoute } from "../../services/apiRoutes";
 
 import styles from "./mediaselectionpage.module.css";
 
-const handleCopy = async () => {
-  navigator.clipboard.writeText(
-    document.getElementById("pin").innerHTML.substring(5)
-  );
+const handleCopy = async (pin) => {
+  navigator.clipboard.writeText(pin);
 };
 
 const PinPage = ({ handleClick, pin }) => {
@@ -51,7 +49,7 @@ const PinPage = ({ handleClick, pin }) => {
               <CardActions classes={{ root: styles.cardActions }}>
                 <Button
                   size="small"
-                  onClick={handleCopy}
+                  onClick={handleCopy(pin)}
                   classes={{
                     root: styles.copyButtonAlign,
                     label: styles.copyButton,
