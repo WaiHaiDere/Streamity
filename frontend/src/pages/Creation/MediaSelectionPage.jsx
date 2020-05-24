@@ -1,36 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AddIcon from "@material-ui/icons/Add";
-import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import YouTubeIcon from "@material-ui/icons/YouTube";
 import { Container, Typography } from "@material-ui/core";
+import { ReactComponent as SpotifyIcon } from "../../icons/icons8-spotify.svg";
 
-import styles from "./frontpage.module.css";
+import styles from "./mediaselectionpage.module.css";
 import CardButton from "../../components/CardButton/CardButton";
 
-const Frontpage = ({ handleClick }) => {
+const MediaSelectionPage = ({ handleClick }) => {
   return (
     <div className={styles.backgroundContainer}>
       <Container maxWidth="sm" classes={{ root: styles.pageContainer }}>
         <div className={styles.textBox}>
-          <Typography variant="h1" classes={{ root: styles.title }}>
-            Streamity
-          </Typography>
-          <Typography variant="h4" classes={{ root: styles.slogan }}>
-            Create. Join. Stream.
+          <Typography variant="h2" classes={{ root: styles.title }}>
+            Choose a music player
           </Typography>
         </div>
         <div className={styles.buttonBox}>
           <CardButton
             handleClick={handleClick}
-            label="Create a party"
+            label="Spotify"
             linkTo="/create"
-            icon={<AddIcon classes={{ root: styles.icon }} />}
+            icon={<SpotifyIcon className={styles.icon} />}
           />
           <CardButton
+            disabled
             handleClick={handleClick}
-            label="Join a party"
-            linkTo="/join"
-            icon={<PeopleAltIcon classes={{ root: styles.icon }} />}
+            label="Youtube"
+            linkTo="/create"
+            icon={<YouTubeIcon classes={{ root: styles.icon }} />}
           />
         </div>
       </Container>
@@ -38,12 +36,12 @@ const Frontpage = ({ handleClick }) => {
   );
 };
 
-Frontpage.defaultProps = {
+MediaSelectionPage.defaultProps = {
   handleClick: () => {},
 };
 
-Frontpage.propTypes = {
+MediaSelectionPage.propTypes = {
   handleClick: PropTypes.func,
 };
 
-export default Frontpage;
+export default MediaSelectionPage;

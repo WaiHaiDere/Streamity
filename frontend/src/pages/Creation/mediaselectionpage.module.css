@@ -1,0 +1,81 @@
+.icon{
+    width: 150px !important;
+    height:150px !important;
+    color: #000000 !important;
+}
+
+.buttonBox {
+    display: flex;
+    margin-top: 30px;
+}
+
+.textBox {
+    text-align: center;
+}
+
+.pageContainer {
+    max-width: 1200px !important;
+    width: 58% !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nextButton {
+    background-color: #E379EE !important;
+    margin-top: 2em !important;
+    width: 50%;
+    border-radius: 0px !important;
+    /* height: 7em; */
+  }
+
+  .pinCard {
+    background-color: #E379EE !important;
+    margin-top: 2em !important;
+    width: 50%;
+    border-radius: 0px !important;
+    align-content: center;
+    justify-content: center;
+  }
+
+.cardLabel {
+    font-size: 36px;
+    color: #ffffff;
+}
+
+.cardActions {
+    justify-content: flex-end;
+}
+
+.copyButton {
+    color: white;
+}
+
+.copyButtonAlign {
+    align-content: flex-end;
+}
+
+.buttonLabel {
+    font-size: 36px;
+    color: #ffffff;
+}
+
+.backgroundContainer {
+    position: fixed;
+    top: 0;
+    width: 101%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../../background/Background-1.png);
+    left: -1px; /* This is to solve some weird isuse with the background image being 1px to the right. */
+}
+
+.title {
+    color: white;
+}
+
+.slogan {
+    color: #5F39FF;
+}
