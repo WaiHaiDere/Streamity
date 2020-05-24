@@ -16,3 +16,8 @@ To get the project running, follow these steps:
 2. Run `npm install` to download and install all dependencies.
 3. Run `npm start` to start the React development server. 
 4. Your browser should open (or you may have to open a link from the React command line tool). You should see the home page, and it should successfully connect to the backend. 
+
+### Things to Note
+1. Do not switch playback on different devices using the Spotify Application. 
+2. Control playback via the Streamity Application, do not switch to the Spotify Application.
+3. Ensure that you do not have music currently playing when opening up Streamity. 
