@@ -27,18 +27,6 @@ const columns = [
   },
 ];
 
-// const createData = (title, artist, album, length) => {
-//   return { title, artist, album, length };
-// };
-
-// const rows = [
-//   createData("I Forgot That You Existed", "Taylor Swift", "Lover", "2:51"),
-//   createData("Cruel Summer", "Taylor Swift", "Lover", "2:58"),
-//   createData("The Man", "Taylor Swift", "Lover", "3:10"),
-//   createData("The Archer", "Taylor Swift", "Lover", "3:31"),
-//   createData("I Think He Knows", "Taylor Swift", "Lover", "2:53"),
-// ];
-
 const PlaylistTable = ({ playlist }) => {
   const convertToMin = (duration) => {
     const min = Math.floor(duration / 60000);
@@ -49,7 +37,7 @@ const PlaylistTable = ({ playlist }) => {
 
     return `${min}:${sec}`;
   };
-  // console.log(playlist);
+
   return (
     <Paper classes={{ root: styles.root }}>
       <TableContainer classes={{ root: styles.container }}>
