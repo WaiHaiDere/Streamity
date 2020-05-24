@@ -6,7 +6,6 @@ const db = require("./src/db");
 
 const Room = require("./src/db/models/roomSchema");
 
-
 // Import the library:
 const cors = require("cors");
 
@@ -15,10 +14,6 @@ app.use(cors());
 
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
-
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/index.html');
-// });
 
 const pinRouter = require("./src/api-routes/room");
 const spotifyRouter = require("./src/api-routes/spotify");
