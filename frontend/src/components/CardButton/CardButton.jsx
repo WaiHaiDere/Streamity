@@ -10,14 +10,24 @@ import {
 
 import styles from "./cardButton.module.css";
 
-const CardButton = ({ handleClick, label, icon, linkTo }) => {
+const CardButton = ({ handleClick, label, icon, linkTo, disabled }) => {
+  let cardClass = styles.card;
+  let buttonClass = styles.buttonText;
+  if (disabled) {
+    cardClass += ` ${styles.disabled}`;
+    buttonClass += ` ${styles.disabled}`;
+  }
   return (
-    <Card classes={{ root: styles.card }}>
-      <CardActionArea classes={{ root: styles.card }} onClick={handleClick}>
+    <Card classes={{ root: cardClass }}>
+      <CardActionArea
+        classes={{ root: styles.card }}
+        onClick={handleClick}
+        disabled={disabled}
+      >
         <Link to={linkTo} style={{ textDecoration: "none", color: "none" }}>
           <CardContent classes={{ root: styles.cardContent }}>
             {icon}
-            <Typography gutterBottom classes={{ root: styles.buttonText }}>
+            <Typography gutterBottom classes={{ root: buttonClass }}>
               {label}
             </Typography>
           </CardContent>
@@ -32,6 +42,7 @@ CardButton.defaultProps = {
   label: "",
   icon: null,
   linkTo: "",
+  disabled: false,
 };
 
 CardButton.propTypes = {
@@ -39,6 +50,7 @@ CardButton.propTypes = {
   label: PropTypes.string,
   icon: PropTypes.element,
   linkTo: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default CardButton;
