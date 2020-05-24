@@ -24,6 +24,7 @@ const MediaSelectionPage = ({ handleClick }) => {
             icon={<SpotifyIcon className={styles.icon} />}
           />
           <CardButton
+            disabled
             handleClick={handleClick}
             label="Youtube"
             linkTo="/create"
