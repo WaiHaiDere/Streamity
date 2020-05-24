@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test left drawer snapshot left drawer renders correctly 1`] = `
+<div>
+  <div
+    className="MuiDrawer-root MuiDrawer-docked"
+  >
+    <div
+      className="MuiPaper-root MuiDrawer-paper Drawer MuiDrawer-paperAnchorRight MuiDrawer-paperAnchorDockedRight MuiPaper-elevation0"
+    >
+      <div
+        className="DrawerHeader"
+      >
+        <div
+          className="headerText"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-overline"
+          >
+            Ryan
+          </span>
+          <h5
+            className="MuiTypography-root MuiTypography-h5"
+          >
+            PIN #
+            123456
+          </h5>
+        </div>
+        <div
+          className="MuiAvatar-root avatar MuiAvatar-circle MuiAvatar-colorDefault"
+          style={
+            Object {
+              "backgroundColor": "#d41827",
+            }
+          }
+        >
+          R
+        </div>
+      </div>
+      <div
+        className="chatMessageScroll"
+      >
+        <ul
+          className="MuiList-root MuiList-padding"
+        >
+          <div
+            className="ChatMessagesContainer"
+          >
+            <li
+              className="MuiListItem-root alignItems MuiListItem-gutters"
+              disabled={false}
+            >
+              <div
+                className="MuiListItemAvatar-root"
+              >
+                <div
+                  className="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+                  style={
+                    Object {
+                      "backgroundColor": "#d41827",
+                    }
+                  }
+                >
+                  R
+                </div>
+              </div>
+              <div
+                className="MuiListItemText-root MuiListItemText-multiline"
+              >
+                <span
+                  className="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                >
+                  Ryan
+                </span>
+                <p
+                  className="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                >
+                  YEET
+                </p>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <div
+        className="ChatBox"
+      >
+        <div
+          className="MuiFormControl-root"
+        >
+          <label
+            className="MuiFormLabel-root MuiInputLabel-root chatColour MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+            data-shrink={true}
+            htmlFor="chat-message"
+          >
+            Type your message
+          </label>
+          <div
+            className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+            onClick={[Function]}
+          >
+            <input
+              aria-invalid={false}
+              className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+              disabled={false}
+              id="chat-message"
+              onAnimationStart={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="text"
+              value="YEET"
+            />
+            <div
+              className="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+            >
+              <button
+                aria-label="send chat message"
+                className="MuiButtonBase-root MuiIconButton-root chatColour"
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[MockFunction]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                <span
+                  className="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test playlist table snapshot left drawer renders correctly 1`] = `
+<div
+  className="MuiPaper-root root MuiPaper-elevation1 MuiPaper-rounded"
+>
+  <div
+    className="MuiTableContainer-root container"
+  >
+    <table
+      aria-label="sticky table"
+      className="MuiTable-root root MuiTable-stickyHeader stickyHeader"
+    >
+      <thead
+        className="MuiTableHead-root root"
+      >
+        <tr
+          className="MuiTableRow-root MuiTableRow-head"
+        >
+          <th
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader stickyHeader"
+            scope="col"
+            style={
+              Object {
+                "minWidth": 170,
+              }
+            }
+          >
+            Title
+          </th>
+          <th
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader stickyHeader"
+            scope="col"
+            style={
+              Object {
+                "minWidth": 170,
+              }
+            }
+          >
+            Artist
+          </th>
+          <th
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader stickyHeader"
+            scope="col"
+            style={
+              Object {
+                "minWidth": 170,
+              }
+            }
+          >
+            Album
+          </th>
+          <th
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-stickyHeader stickyHeader"
+            scope="col"
+            style={
+              Object {
+                "minWidth": 170,
+              }
+            }
+          >
+            Duration
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        className="MuiTableBody-root"
+      >
+        <tr
+          className="MuiTableRow-root currentlyPlaying MuiTableRow-hover"
+          role="checkbox"
+          tabIndex={-1}
+        >
+          <td
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
+          >
+            Rivers
+          </td>
+          <td
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
+          >
+            <p
+              className="artistName"
+            >
+              SIX60
+            </p>
+          </td>
+          <td
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
+          >
+            SIX60
+          </td>
+          <td
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight"
+          >
+            0:00
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

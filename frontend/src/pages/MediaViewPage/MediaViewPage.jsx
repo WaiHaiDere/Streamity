@@ -237,7 +237,7 @@ MediaViewPage.propTypes = {
   handleNext: PropTypes.func,
   currentlyPlaying: PropTypes.number,
   playerState: PropTypes.objectOf(
-    PropTypes.oneOf([PropTypes.object, PropTypes.string])
+    PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool])
   ),
   chatMessage: PropTypes.string,
 };

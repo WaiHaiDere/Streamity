@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -38,7 +39,7 @@ const columns = [
 //   createData("I Think He Knows", "Taylor Swift", "Lover", "2:53"),
 // ];
 
-const PlaylistTable = ({ playlist, currentlyPlaying }) => {
+const PlaylistTable = ({ playlist }) => {
   const convertToMin = (duration) => {
     const min = Math.floor(duration / 60000);
     let sec = Math.round((duration % 60000) / 1000);
@@ -84,12 +85,9 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={`${song.songName}-key`}
+                      key={`${song.songName}-${i}-key`}
                       classes={{
-                        root:
-                          currentlyPlaying === i
-                            ? styles.currentlyPlaying
-                            : null,
+                        root: styles.currentlyPlaying,
                       }}
                     >
                       <TableCell align="left">{song.songName}</TableCell>
@@ -117,12 +115,10 @@ const PlaylistTable = ({ playlist, currentlyPlaying }) => {
 
 PlaylistTable.defaultProps = {
   playlist: [],
-  currentlyPlaying: 0,
 };
 
 PlaylistTable.propTypes = {
   playlist: PropTypes.arrayOf(PropTypes.object),
-  currentlyPlaying: PropTypes.number,
 };
 
 export default PlaylistTable;
