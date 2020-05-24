@@ -1,9 +1,6 @@
 /* eslint-disable camelcase */
 import React from "react";
 import PropTypes from "prop-types";
-// import { Container, Typography } from "@material-ui/core";
-
-// import styles from "./mediaviewpage.module.css";
 import Script from "react-load-script";
 import { Typography, Divider, IconButton } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
@@ -20,7 +17,6 @@ const MediaViewPage = ({
   handleClick,
   details,
   chatMessageList,
-  // memberList,
   token,
   isPlay,
   addDeviceID,
@@ -220,7 +216,6 @@ MediaViewPage.propTypes = {
     pin: PropTypes.string,
     username: PropTypes.string,
   }),
-  // memberList: PropTypes.arrayOf(PropTypes.object),
   token: PropTypes.string,
   chatMessageList: PropTypes.arrayOf(PropTypes.object),
   handleClickPlayPause: PropTypes.func,
