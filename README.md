@@ -18,9 +18,15 @@ To get the project running, follow these steps:
 4. Your browser should open (or you may have to open a link from the React command line tool). You should see the home page, and it should successfully connect to the backend. 
 
 5. Open the backend folder in the command line tool. 
-6. Before running `npm i`, **please delete line 6 ("type: module") in the package.json file**
-7. Then run `npm i`
+6. Run `npm i`
 8. Run `npm start`
+```
+If you get "ReferenceError: required is not defined:
+- Delete backend/node_modules
+- Delete line 6 ("type: module") in backend/package.json
+- Run npm i
+- Run npm start
+```
 
 ### Things to Note
 1. Do not switch playback on different devices using the Spotify Application. 
