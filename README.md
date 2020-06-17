@@ -29,6 +29,7 @@ If you get "ReferenceError: required is not defined:
 ```
 
 ### Things to Note
-1. Do not switch playback on different devices using the Spotify Application. 
-2. Control playback via the Streamity Application, do not switch to the Spotify Application.
-3. Ensure that you do not have music currently playing when opening up Streamity. 
+1. You will need a Spotify Premium account to use Streamity
+2. Do not switch playback on different devices using the Spotify Application. 
+3. Control playback via the Streamity Application, do not switch to the Spotify Application.
+4. Ensure that you do not have music currently playing when opening up Streamity. 
